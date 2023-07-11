@@ -1,0 +1,21 @@
+{
+  "name": "krayon-sdk",
+  "version": "0.1.0",
+  "description": "SDK for Krayon backend API",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KrayonDigital/krayon-ts-sdk"
+  },
+  "keywords": [
+    "Krayon",
+    "SDK",
+    "API",
+    "TypeScript"
+  ],
+  "author": "Krayon Digital",
+  "license": "MIT",
+  "homepage": "https://krayondigital.com"
+}

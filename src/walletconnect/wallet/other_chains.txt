@@ -1,0 +1,4 @@
+Refer to utils/legacy-request-handler-util files, and use these as base for other wallets
+
+they need to be derived from KrayonRemoteWallet and their appropriate approve/reject methods need to be renamed to simple
+approveRequest and rejectRequest
