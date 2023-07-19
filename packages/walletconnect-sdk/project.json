@@ -1,0 +1,30 @@
+{
+  "name": "walletconnect-sdk",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/walletconnect-sdk/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/walletconnect-sdk",
+        "main": "packages/walletconnect-sdk/src/index.ts",
+        "tsConfig": "packages/walletconnect-sdk/tsconfig.lib.json",
+        "assets": ["packages/walletconnect-sdk/*.md"]
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs walletconnect-sdk {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/walletconnect-sdk/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
