@@ -1,21 +1,15 @@
 {
-  "name": "krayon-sdk",
-  "version": "0.1.0",
-  "description": "SDK for Krayon backend API",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KrayonDigital/krayon-ts-sdk"
-  },
-  "keywords": [
-    "Krayon",
-    "SDK",
-    "API",
-    "TypeScript"
-  ],
-  "author": "Krayon Digital",
+  "name": "@krayon-ts-sdk/source",
+  "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://krayondigital.com"
+  "scripts": {},
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nx/js": "16.5.3",
+    "@nx/workspace": "16.5.3",
+    "nx": "16.5.3",
+    "prettier": "^2.6.2",
+    "typescript": "~5.1.3"
+  }
 }
