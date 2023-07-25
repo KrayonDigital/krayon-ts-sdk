@@ -53,7 +53,7 @@ export const LegacyWalletConnectContext = createContext<{
 // This essentially acts as v1 context, or in other words, v1 client initializer
 // The reason it needs to be a frontend component in v1 is the URI - it needs to be
 // something user can enter,s o this component provides a field for this
-const LegacyWalletConnectContextProvider = (props: PropsWithChildren) => {
+export const LegacyWalletConnectContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
 
   const [legacySignClient, setLegacySignClient] = useState<LegacyWalletConnect | null>(null);
@@ -168,5 +168,3 @@ const LegacyWalletConnectContextProvider = (props: PropsWithChildren) => {
 
   return <LegacyWalletConnectContext.Provider value={ctxVal}>{children}</LegacyWalletConnectContext.Provider>;
 };
-
-export default LegacyWalletConnectContextProvider;

@@ -26,14 +26,20 @@ export class KrayonUtilSDK {
     return this.apiClient.get<DataWrap<{ gas_price: number }>>(`/utils/gas-price`, { params: { blockchain } });
   }
 
-  estimateTransactionFee(params: { amount: string; blockchain: string; from_address: string; symbol: string, token_id?: string }) {
+  estimateTransactionFee(params: {
+    amount: string;
+    blockchain: string;
+    from_address: string;
+    symbol: string;
+    token_id?: string;
+  }) {
     return this.apiClient.get<EstimateTransactionFeeResponse>(`/utils/estimate-tx-fee`, { params });
   }
 
   async fetchCoinPrice(params: FetchCoinPriceParams) {
-    const { symbol, blockchain } = params;
+    const { symbol } = params;
     const response = await this.apiClient.get<CoinPriceDto>('/utils/symbol-price', {
-      params: { blockchain, symbols: `${symbol}` },
+      params: { symbols: `${symbol}` },
     });
     return symbol in response.data.data ? response.data.data[symbol] : '';
   }

@@ -1,4 +1,4 @@
-import { Wallet } from '@krayon/core-sdk';
+import { DataWrap, Wallet } from '@krayon/core-sdk';
 import { Election } from '@krayon/core-sdk';
 import { Transaction } from '@krayon/core-sdk';
 import { TransactionRequest } from '@ethersproject/abstract-provider';

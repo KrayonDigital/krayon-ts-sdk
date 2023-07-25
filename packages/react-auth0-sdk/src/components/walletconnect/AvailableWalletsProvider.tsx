@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState, FC, useContext, createContext } from 'react';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
-import { EIP155RemoteWalet, ChainType, EIP155_CHAINS } from '@krayon/walletconnect-sdk';
+import { EIP155RemoteWalet, ChainType, EIP155_CHAINS, KrayonWalletConnectSDK } from '@krayon/walletconnect-sdk';
+import { useWalletConnect } from './useWalletConnect';
 // import {  } from '@krayon/walletconnect/data/ChainType';
 // import { EIP155_CHAINS } from '@krayon/walletconnect/data/EIP155Data';
 
@@ -24,22 +25,27 @@ export const AvailableWalletsContext = createContext<AvailableWalletsContextType
 
 export const allowedEIP155Blockchains = [...new Set(Object.values(EIP155_CHAINS).map((a) => a.blockchain as string))] as const;
 
-const AvailableWalletsProvider: FC<PropsWithChildren> = ({ children }) => {
+export const AvailableWalletsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [status, setStatus] = useState<AvailableWalletsContextType['status']>('not-loaded');
   const [availableWalletMap, setAvailableWalletMap] = useState<AvailableWalletMap>({'eip155': []});
 
   const Krayon = useKrayon();
   const sdkStatus = useKrayonSDKStatus();
+  const { sdk: krayonWalletConnectSdk } = useWalletConnect();
 
   useEffect(() => {
     const fetchData = async () => {
+      if(!krayonWalletConnectSdk) { // type guard - shouldn't happen since we only call this once this condition is met
+        console.warn('WalletConnect SDK not initialized');
+        return;
+      }
       try {
         const walletDtos = (await Krayon.wallet.listWallets()).data.data;
 
         const walletMap = {
           'eip155': walletDtos
                       .filter(w => allowedEIP155Blockchains.includes(w.blockchain))
-                      .map((walletDto) => new EIP155RemoteWalet(walletDto, {krayonWalletConnectSdk: Krayon.walletConnect})),
+                      .map((walletDto) => new EIP155RemoteWalet(walletDto, { krayonWalletConnectSdk })),
         }
         setAvailableWalletMap(walletMap);
         setStatus('ready');
@@ -48,11 +54,11 @@ const AvailableWalletsProvider: FC<PropsWithChildren> = ({ children }) => {
         setStatus('error');
       }
     };
-    if(status === 'not-loaded' && sdkStatus === 'ready') {
+    if(status === 'not-loaded' && sdkStatus === 'ready' && krayonWalletConnectSdk) {
       setStatus('loading');
       fetchData();
     }
-  }, [status, sdkStatus]);
+  }, [status, sdkStatus, krayonWalletConnectSdk]);
 
   const ctxVal = {
     status,
@@ -86,5 +92,3 @@ const AvailableWalletsProvider: FC<PropsWithChildren> = ({ children }) => {
     </AvailableWalletsContext.Provider>
   );
 };
-
-export default AvailableWalletsProvider;

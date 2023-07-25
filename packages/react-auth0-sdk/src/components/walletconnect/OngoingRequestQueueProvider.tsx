@@ -4,6 +4,7 @@ import { JsonRpcError, JsonRpcResult, formatJsonRpcError, formatJsonRpcResult } 
 import { Election, ElectionDecision, ElectionResult } from '@krayon/core-sdk';
 import { ApproveRequestResult } from '@krayon/walletconnect-sdk';
 import { useKrayon } from '../../use-sdk-hooks';
+import { useWalletConnect } from './useWalletConnect';
 
 type ApprovedRequestResult = {
   walletConnectRequestId: SignClientTypes.EventArguments['session_request']['id'];
@@ -35,7 +36,7 @@ export const OngoingRequestQueueContext = createContext<ElectionQueueInterface>(
  * Functional component that provides an Election Queue Context to its children
  * This context provides state and actions for handling and storing election results
  */
-const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
+export const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
   // We store the active and past elections in state
   const [activeElections, setActiveElections] = useState<Election[]>([]);
   const [pastElections, setPastElections] = useState<Election[]>([]);
@@ -43,7 +44,7 @@ const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }):
   // Use a ref to maintain a mutable variable holding the current elections
   const elections = useRef<Election[]>([]);
 
-  const { walletConnect: walletConnectSdk } = useKrayon();
+  const { sdk: walletConnectSdk } = useWalletConnect();
 
   // update the current elections, split them into active and past elections based on their decision status
   const updateElectionStates = (electionFromResult: Election) => {
@@ -67,6 +68,12 @@ const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }):
 
   // handle the start of an election approval process and manage its result
   const enqueueStartApprovalResult = (params: EnqueueResultParams) => {
+    // Type guard, this shouldn't happen in normal circumstances since we
+    // only call this once this condition is met
+    if(!walletConnectSdk) {
+      return;
+    }
+
     const { startResult, onAccept, onReject } = params;
 
     // As soon as we enqueue, we also add it to our record if it has an election
@@ -140,5 +147,3 @@ const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }):
 
   return <OngoingRequestQueueContext.Provider value={ctxValue}>{children}</OngoingRequestQueueContext.Provider>;
 };
-
-export default OngoingRequestQueueProvider;

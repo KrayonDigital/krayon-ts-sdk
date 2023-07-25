@@ -5,13 +5,15 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/core-sdk",
+        "outputPath": "dist/core-sdk",
         "main": "packages/core-sdk/src/index.ts",
         "tsConfig": "packages/core-sdk/tsconfig.lib.json",
-        "assets": ["packages/core-sdk/*.md"]
+        "assets": [],
+        "project": "packages/core-sdk/package.json",
+        "compiler": "tsc"
       }
     },
     "publish": {

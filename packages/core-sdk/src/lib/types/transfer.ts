@@ -1,5 +1,6 @@
-import { Coin } from './wallet';
+import { Coin } from './util';
 import { Election } from './election';
+import { PaginationRequest } from './common';
 
 export enum TransactionStatus {
   FAILURE = 'TRANSACTION_FAILURE',
@@ -93,3 +94,22 @@ export interface TransferDetail extends TransferBase {
   election?: Election | null;
   initiator: string;
 }
+
+
+export type UpdateNftTransferDto = Partial<Pick<Transfer, 'note' | 'tags'>>;
+
+export type TransferFilter = PaginationRequest & {
+  from_address?: string;
+  from_address_con?: string;
+  from_address_nexact?: string;
+  to_address?: string;
+  to_address_con?: string;
+  to_address_nexact?: string;
+  date_from?: string;
+  date_to?: string;
+  tags?: string;
+  wallet_id?: string;
+  status?: string;
+  direction?: string;
+};
+export type TransferTagsFilter = PaginationRequest;

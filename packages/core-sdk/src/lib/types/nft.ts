@@ -1,5 +1,5 @@
 import { Pageable } from './pagination';
-import { Coin } from './wallet';
+import { Coin } from './util';
 
 export interface Property {
   trait_type: string;

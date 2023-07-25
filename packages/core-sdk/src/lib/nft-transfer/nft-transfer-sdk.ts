@@ -2,26 +2,10 @@ import { KrayonAPICommonOptions, PaginationRequest } from '../types/common';
 import { CreateNftTransaction } from '../types/nft';
 import { Pageable } from '../types/pagination';
 import { Tag } from '../types/tag';
-import { TransferDetail, Transfer } from '../types/transfer';
+import { TransferDetail, Transfer, UpdateNftTransferDto, TransferFilter, TransferTagsFilter } from '../types/transfer';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
 
-export type UpdateNftTransferDto = Partial<Pick<Transfer, 'note' | 'tags'>>;
-export type TransferFilter = PaginationRequest & {
-  from_address?: string;
-  from_address_con?: string;
-  from_address_nexact?: string;
-  to_address?: string;
-  to_address_con?: string;
-  to_address_nexact?: string;
-  date_from?: string;
-  date_to?: string;
-  tags?: string;
-  wallet_id?: string;
-  status?: string;
-  direction?: string;
-};
-export type TransferTagsFilter = PaginationRequest;
 
 export class KrayonNftTransferSDK {
   readonly apiClient: KrayonAPIClient;

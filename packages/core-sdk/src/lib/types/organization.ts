@@ -14,6 +14,16 @@ export interface Organization {
   num_quorum: number;
 }
 
+export interface SubAccount {
+  id: string;
+  sub_account_name: string;
+  email: string;
+  sub_account_type: string;
+  usd_value: number;
+}
+
+export type SubAccountResponse = Pageable<SubAccount>;
+
 export interface CreateOrganization {
   name: string;
   display_name: string;

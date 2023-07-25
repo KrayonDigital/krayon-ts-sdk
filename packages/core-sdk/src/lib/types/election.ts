@@ -1,5 +1,6 @@
 import { Transfer } from './transfer';
 import { UserSpendingLimit } from './spending-limit';
+import { TimeInterval } from './util';
 
 export enum PropositionType {
   TRANSFER = 'TRANSFER',
@@ -61,8 +62,7 @@ export type Election = {
     [key in ElectionDecision]: number;
   };
   detail?: string;
-} & (
-  | {
+} & ({
       proposition_type: PropositionType.TRANSFER;
       proposition_data: {
         transfer_id: string;
@@ -110,10 +110,13 @@ export type Election = {
   | {
       proposition_type: PropositionType.USER_SPENDING_LIMIT_CHANGE;
       proposition_data: {
-        user: string;
-        contract: string;
-        allowance: unknown;
-        interval: UserSpendingLimit['interval'];
+        spending_limits?: {
+          contract: string;
+          currency: string;
+          interval: TimeInterval;
+          allowance: number;
+          old_allowance: number;
+        }[];
       };
     }
   | {

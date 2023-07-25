@@ -5,13 +5,14 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/walletconnect-sdk",
+        "outputPath": "dist/walletconnect-sdk",
         "main": "packages/walletconnect-sdk/src/index.ts",
         "tsConfig": "packages/walletconnect-sdk/tsconfig.lib.json",
-        "assets": ["packages/walletconnect-sdk/*.md"]
+        "project": "packages/walletconnect-sdk/package.json",
+        "assets": []
       }
     },
     "publish": {

@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "type": "commonjs",
   "private": true,
+  "devDependencies": {
+    "@walletconnect/legacy-types": "^2.0.0",
+    "@walletconnect/types": "^2.9.0"
+  },
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
     "@walletconnect/client": "^1.8.0",

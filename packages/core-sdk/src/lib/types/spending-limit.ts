@@ -1,4 +1,5 @@
-import { Coin, TimeInterval } from "./wallet";
+import { BlockchainTitle } from "./blockchain-types";
+import { Coin, TimeInterval } from "./util";
 
 export interface UserSpendingLimit {
     address: string;
@@ -7,7 +8,7 @@ export interface UserSpendingLimit {
     amount_pending: string;
     amount_reserved: number;
     amount_spent: string;
-    blockchain: 'ethereum' | 'goerli' | 'sepolia' | 'polygon' | 'mumbai' | string;
+    blockchain: BlockchainTitle;
     symbol: Coin;
     interval: TimeInterval;
     limit_reset_at: string;

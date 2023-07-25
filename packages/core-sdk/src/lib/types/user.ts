@@ -31,4 +31,5 @@ interface SocialInfo {
   picture: string;
   nickname: string;
   updated_at: string;
+  org_id?: string; // gets the current organization id from the social provider
 }

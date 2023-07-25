@@ -1,20 +1,45 @@
-import { Coin } from './wallet';
 import { DataWrap } from './common';
 
-export interface BlockchainListResponse {
-  data: {
-    native: Record<string, string>;
-    trading: string[];
-  };
+export type Coin = 'ETH' | 'WETH' | 'BTC' | 'XTZ' | string;
+export type TimeInterval = 'hour' | 'day' | 'week' | 'month' | 'onetime';
+
+export interface Link {
+  url: string;
+  name: string;
 }
 
-export interface EstimateTransactionFeeResponse {
-  data: {
-    estimated_fee: number;
-    symbol: string;
-    error: string;
-  };
+export interface Blockchain {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  blockchain: string;
+  name: string;
+  website: string;
+  description: string;
+  explorer: string;
+  research: string;
+  symbol: string;
+  type: string;
+  decimals: number;
+  logo_uri: string;
+  status: string;
+  links: Link[];
+  test_net: boolean;
+  swap: boolean;
 }
+
+export type BlockchainListResponse = DataWrap<{[key: string]: Blockchain}>;
+
+export interface EstimateTransactionFeeDTO {
+  estimated_fee: number;
+  estimated_fee_usd: number;
+  total_fee_usd: number;
+  symbol: string;
+  error: string;
+}
+
+
+export type EstimateTransactionFeeResponse = DataWrap<EstimateTransactionFeeDTO>;
 
 export type CoinPriceDto = { data: Record<string, number> };
 
@@ -26,9 +51,9 @@ export interface CoinTypesResponse {
   };
 }
 
-export type FetchCoinPriceParams = { symbol: Coin; blockchain: string };
+export type FetchCoinPriceParams = { symbol: Coin; };
 
-export type DecodeContractInteractionParams = { blockchain: string; address: string, tx_data: string }
+export type DecodeContractInteractionParams = { blockchain: string; address: string; tx_data: string };
 export type DecodedContractInteraction = {
   name: string;
   arguments: {

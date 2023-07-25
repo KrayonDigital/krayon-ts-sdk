@@ -50,10 +50,6 @@ export interface UpdateWallet {
   group?: null | string;
 }
 
-export type Coin = 'ETH' | 'WETH' | 'BTC' | 'XTZ' | string;
-export type TimeInterval = 'hour' | 'day' | 'week' | 'month' | 'onetime';
-
-
 export type WalletFilter = Partial<Wallet> & PaginationRequest;
 // TODO: we might want to update the asset filters on the backend to be stronger
 export type WalletAssetFilter = Partial<Asset> & PaginationRequest;

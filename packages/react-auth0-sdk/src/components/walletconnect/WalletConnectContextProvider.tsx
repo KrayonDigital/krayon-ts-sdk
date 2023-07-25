@@ -6,11 +6,13 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import SignClient from '@walletconnect/sign-client';
-import { useKrayonSDKStatus } from '../../use-sdk-hooks';
-import { SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon/walletconnect-sdk';
+import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
+import { KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon/walletconnect-sdk';
 import { CoreTypes, EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
+import { KrayonAPIClient } from '@krayon/core-sdk';
 
 type WalletConnectContextType = {
+  sdk: KrayonWalletConnectSDK | null, // this is essentially WalletConnect SDK, lacking a better name
   signClient: SignClient | null;
   proposal: SignClientTypes.EventArguments['session_proposal'] | null;
   sessionRequest: SessionRequestHandlerParam | null;
@@ -24,20 +26,22 @@ type WalletConnectContextType = {
 
 export const WalletConnectContext = createContext<WalletConnectContextType>({signClient: null} as WalletConnectContextType);
 
+
 // Props here are all the event handlers
 export type WalletConnectContextProviderProps = PropsWithChildren<Partial<Parameters<typeof assignSignClientModalEvents>[1]>> & {
   wcInitializationParams: CoreTypes.Options
 };
 
-
 export function WalletConnectContextProvider(props: WalletConnectContextProviderProps) {
   const { children, onSessionProposal, onSessionRequest, wcInitializationParams } = props;
   const [ client, setClient ] = useState<SignClient | null>(null);
   const krayonSdkStatus = useKrayonSDKStatus();
+  const Krayon = useKrayon();
   const [ proposalQueue, setProposalQueue ] = useState<SignClientTypes.EventArguments['session_proposal'][]>([]);
   const [ sessionRequestQueue, setSessionRequestQueue ] = useState<SessionRequestHandlerParam[]>([]);
 
   const [ pairings, setPairings ] = useState<PairingTypes.Struct[]>(client?.pairing?.values ?? []);
+  const [ walletConnectSdk, setWalletConnectSdk] = useState<KrayonWalletConnectSDK | null>(null);
 
   const refreshPairings = useCallback(() => {
     if(!client) {
@@ -103,6 +107,7 @@ export function WalletConnectContextProvider(props: WalletConnectContextProvider
 
   useEffect(() => {
     if (krayonSdkStatus === 'ready' && wcInitializationParams?.projectId) {
+      setWalletConnectSdk(new KrayonWalletConnectSDK({apiClient: Krayon.getApiClient(), electionSdk: Krayon.election}))
       SignClient.init(wcInitializationParams).then((signClient) => {
         setClient(signClient);
         assignSignClientModalEvents(signClient, {
@@ -124,6 +129,7 @@ export function WalletConnectContextProvider(props: WalletConnectContextProvider
   }, [krayonSdkStatus, wcInitializationParams]);
 
   const ctxVal = {
+    sdk: walletConnectSdk,
     signClient: client,
     proposal: proposalQueue?.[0] ?? null,
     sessionRequest: sessionRequestQueue?.[0] ?? null,

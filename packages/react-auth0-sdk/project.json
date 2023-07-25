@@ -17,7 +17,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/react-auth0-sdk"
+        "outputPath": "dist/react-auth0-sdk"
       },
       "configurations": {
         "development": {
@@ -30,7 +30,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/react-auth0-sdk"],
+      "outputs": ["coverage/react-auth0-sdk"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/react-auth0-sdk"

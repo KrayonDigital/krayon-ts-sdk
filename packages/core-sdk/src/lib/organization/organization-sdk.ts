@@ -6,17 +6,19 @@ import {
   OrganizationInvitationsType,
   OrganizationUsersFilter,
   SpendingLimitFilter,
+  SubAccountResponse,
 } from '../types/organization';
 import { DataWrap, KrayonAPICommonOptions, PaginationRequest } from '../types/common';
 import { Asset, AssetResponse } from '../types/asset';
 import { WhitelistContract } from '../types/whitelist';
-import { CreateOrganization, InviteUser, Organization, OrganizationsResponse } from '../types/organization';
+import { CreateOrganization, InviteUser, Organization, } from '../types/organization';
 import { Pageable } from '../types/pagination';
-import { UserResponse } from '../types/user';
+import { CreateUser, User, UserResponse } from '../types/user';
 import { UserSpendingLimit } from '../types/spending-limit';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
 import { Wallet } from '../types/wallet';
+import { GasStationDto } from '../types';
 
 export type OrganizationAssetFilter = Partial<Asset> & PaginationRequest;
 
@@ -137,6 +139,16 @@ export class KrayonOrganizationSDK {
     });
   }
 
+  getGasStations(extraParams?: KrayonAPICommonOptions) {
+    if (!this.organizationId) {
+      throw new Error('Organization id is required for this operation');
+    }
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<Pageable<GasStationDto>>(`/organizations/${this.organizationId}/gas-stations`, {
+      signal: abortSignal,
+    });
+  }
+
   updateQuorum(num_quorum: number, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post(
@@ -144,5 +156,30 @@ export class KrayonOrganizationSDK {
       { num_quorum },
       { signal: abortSignal }
     );
+  }
+
+  subAccountBusiness(orgObj: CreateOrganization, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    const subAccountObj = { ...orgObj, sub_account_type: 'business' };
+    return this.apiClient.post<DataWrap<Organization>>(
+      `/organizations/${this.organizationId}/sub-account`,
+      subAccountObj,
+      { signal: abortSignal }
+    );
+  }
+
+  subAccountIndividual(user: CreateUser, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    const subAccountObj = { ...user, sub_account_type: 'individual' };
+    return this.apiClient.post<DataWrap<User>>(`/organizations/${this.organizationId}/sub-account`, subAccountObj, {
+      signal: abortSignal,
+    });
+  }
+
+  listSubAccounts(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<SubAccountResponse>(`/organizations/${this.organizationId}/sub-accounts`, {
+      signal: abortSignal,
+    });
   }
 }

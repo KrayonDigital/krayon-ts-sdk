@@ -15,14 +15,7 @@ import { AuthPlugin, AuthPluginOptions } from './types/plugins/auth';
 import { KrayonTradeSDK } from './trade/trade-sdk';
 import { KrayonAPIClient } from './api-client';
 import { SDKReadyStatus } from './consts/enums';
-
-// TODO: fix type here
-let KrayonWalletConnectSDK: any;
-try {
-  KrayonWalletConnectSDK = require('./walletconnect/walletconnect-sdk').KrayonWalletConnectSDK;
-} catch (e) {
-  // do nothing
-}
+import { KrayonGasStationSDK } from './gas-station/gas-station-sdk';
 
 export interface KrayonSDKConfig {
   token: string;
@@ -47,7 +40,7 @@ export class KrayonSDK {
   util: KrayonUtilSDK;
   wallet: KrayonWalletSDK;
   whitelist: KrayonWhitelistnSDK;
-  walletConnect: any;
+  gasStation: KrayonGasStationSDK;
   walletGroup: KrayonWalletGroupSDK;
   // For now, don't use the KrayonAPIClient, but rather, the singleton one
   // Easy to swap it later on
@@ -86,6 +79,7 @@ export class KrayonSDK {
     this.util = new KrayonUtilSDK({ apiClient });
     this.user = new KrayonUserSDK({ apiClient });
     this.whitelist = new KrayonWhitelistnSDK({ apiClient });
+    this.gasStation = new KrayonGasStationSDK({ apiClient });
 
     // Lastly, initialize all the SDKs that are (currently) dependent on the organization ID
     // We should eventually refactor these deps away, and simply be able to initialize everything here
@@ -99,9 +93,6 @@ export class KrayonSDK {
     this.tag = new KrayonTagSDK({ apiClient });
     this.trade = new KrayonTradeSDK({ apiClient });
     this.wallet = new KrayonWalletSDK({ apiClient });
-    if(KrayonWalletConnectSDK) {
-      this.walletConnect = new KrayonWalletConnectSDK({ apiClient, electionSdk: this.election });
-    }
     this.walletGroup = new KrayonWalletGroupSDK({ apiClient });
 
     this.setReadyState(SDKReadyStatus.Anonymous);
@@ -162,9 +153,9 @@ export class KrayonSDK {
       // If we have an org, we need to reinitialize all the SDKs that depend on the org id
       // TODO: refactor this away once we break the dependency on the org id in the API
       //const apiClient = this.apiClient;
-      if (userData?.organization) {
-        const organizationId = userData.organization;
-        this.setOrganizationId(organizationId);
+      const org_id = userData.extra_data?.org_id;
+      if (org_id) {
+        this.setOrganizationId(org_id);
         this.setReadyState(SDKReadyStatus.Ready);
       } else {
         this.setReadyState(SDKReadyStatus.ReadyNotOnboarded);
@@ -198,5 +189,9 @@ export class KrayonSDK {
   protected setReadyState(newStatus: SDKReadyStatus) {
     this.status = newStatus;
     this.eventHandlers.readyStateChange.forEach((fn) => fn(this.status));
+  }
+
+  public getApiClient() {
+    return this.apiClient;
   }
 }
