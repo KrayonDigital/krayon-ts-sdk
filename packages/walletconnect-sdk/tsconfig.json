@@ -1,10 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@krayon/core-sdk": ["../core-sdk/src/index.ts"]
-      }
   },
   "files": [],
   "include": [],

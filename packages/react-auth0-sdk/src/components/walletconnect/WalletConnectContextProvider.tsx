@@ -9,7 +9,6 @@ import SignClient from '@walletconnect/sign-client';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
 import { KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon/walletconnect-sdk';
 import { CoreTypes, EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
-import { KrayonAPIClient } from '@krayon/core-sdk';
 
 type WalletConnectContextType = {
   sdk: KrayonWalletConnectSDK | null, // this is essentially WalletConnect SDK, lacking a better name

@@ -7,7 +7,6 @@ export * from './common';
 export * from './election';
 export * from './errors';
 export * from './gas-station';
-export * from './index';
 export * from './api-token';
 export * from './label';
 export * from './organization';

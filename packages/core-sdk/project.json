@@ -13,7 +13,8 @@
         "tsConfig": "packages/core-sdk/tsconfig.lib.json",
         "assets": [],
         "project": "packages/core-sdk/package.json",
-        "compiler": "tsc"
+        "compiler": "tsc",
+        "rollupConfig": "packages/core-sdk/rollup.config.js"
       }
     },
     "publish": {

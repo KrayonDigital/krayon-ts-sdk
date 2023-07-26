@@ -1,5 +1,4 @@
 import { Transfer } from './transfer';
-import { UserSpendingLimit } from './spending-limit';
 import { TimeInterval } from './util';
 
 export enum PropositionType {

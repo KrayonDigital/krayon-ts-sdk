@@ -21,11 +21,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@krayon-ts-sdk/react-auth0-sdk": [
-        "packages/react-auth0-sdk/src/index.ts"
-      ],
       "@krayon/core-sdk": ["packages/core-sdk/src/index.ts"],
-      "@krayon/walletconnect-sdk": ["packages/walletconnect-sdk/src/index.ts"]
+      "@krayon/walletconnect-sdk": ["packages/walletconnect-sdk/src/index.ts"],
+      "@krayon/react-auth0-sdk": ["packages/react-auth0-sdk/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
