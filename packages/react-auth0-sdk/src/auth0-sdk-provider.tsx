@@ -57,7 +57,7 @@ export const KrayonWithAuth0SDKProvider = (props: KrayonAuth0SDKProviderProps): 
   }, [isAuth0Authenticated, isAuth0Loading, getAccessTokenSilently, getIdTokenClaims]);
 
   const isSdkReady = sdkStatus === SDKReadyStatus.Ready || sdkStatus === SDKReadyStatus.ReadyNotOnboarded;
-console.log(krayonSdkInstance)
+
   return (
     <KrayonSdkClientContext.Provider value={krayonSdkInstance}>
       {(isAuth0Loading || (isAuth0Authenticated && !isSdkReady)) && loaderComponent}
