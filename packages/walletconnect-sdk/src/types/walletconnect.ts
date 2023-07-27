@@ -1,6 +1,6 @@
-import { DataWrap, Wallet } from '@krayon/core-sdk';
-import { Election } from '@krayon/core-sdk';
-import { Transaction } from '@krayon/core-sdk';
+import { DataWrap, Wallet } from '@krayon-digital/core-sdk';
+import { Election } from '@krayon-digital/core-sdk';
+import { Transaction } from '@krayon-digital/core-sdk';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
 import { TypedDataDomain, TypedDataField } from '@ethersproject/abstract-signer';
 import { SignClientTypes } from '@walletconnect/types';

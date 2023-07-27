@@ -1,12 +1,11 @@
 {
-  "name": "@krayon/core-sdk",
-  "version": "0.0.1",
+  "name": "@krayon-digital/core-sdk",
+  "version": "0.0.3",
   "type": "commonjs",
   "description": "SDK Core for Krayon backend API",
   "author": "Krayon Digital",
   "license": "MIT",
   "homepage": "https://krayondigital.com",
-  "private": true,
   "dependencies": {
     "axios": "^1.4.0"
   }

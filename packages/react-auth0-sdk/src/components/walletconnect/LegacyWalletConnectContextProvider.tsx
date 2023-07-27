@@ -8,7 +8,7 @@ import LegacyWalletConnect from '@walletconnect/client';
 import LegacySignClient from '@walletconnect/client/dist/umd/index.min.js';
 
 import { parseUri } from '@walletconnect/utils';
-import { LegacySessionRequestParam, LegacyWalletConnectEvent, LegacyWalletConnectMessage } from '@krayon/walletconnect-sdk';
+import { LegacySessionRequestParam, LegacyWalletConnectEvent, LegacyWalletConnectMessage } from '@krayon-digital/walletconnect-sdk';
 
 const unassignLegacyClientEvents = (client: LegacyWalletConnect | null) => {
   if (!client) {

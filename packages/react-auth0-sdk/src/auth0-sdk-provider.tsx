@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { KrayonSDK } from '@krayon/core-sdk';
-import { SDKReadyStatus } from '@krayon/core-sdk';
+import { KrayonSDK } from '@krayon-digital/core-sdk';
+import { SDKReadyStatus } from '@krayon-digital/core-sdk';
 import KrayonSdkClientContext from './sdkClientContext';
 
 type KrayonAuth0SDKProviderProps = PropsWithChildren<{

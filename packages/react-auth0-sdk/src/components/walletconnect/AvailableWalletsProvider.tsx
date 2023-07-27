@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useEffect, useState, FC, useContext, createContext } from 'react';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
-import { EIP155RemoteWalet, ChainType, EIP155_CHAINS, KrayonWalletConnectSDK } from '@krayon/walletconnect-sdk';
+import { EIP155RemoteWalet, ChainType, EIP155_CHAINS, KrayonWalletConnectSDK } from '@krayon-digital/walletconnect-sdk';
 import { useWalletConnect } from './useWalletConnect';
-// import {  } from '@krayon/walletconnect/data/ChainType';
-// import { EIP155_CHAINS } from '@krayon/walletconnect/data/EIP155Data';
+// import {  } from '@krayon-digital/walletconnect/data/ChainType';
+// import { EIP155_CHAINS } from '@krayon-digital/walletconnect/data/EIP155Data';
 
 type AvailableWalletMap = {
   'eip155': EIP155RemoteWalet[]

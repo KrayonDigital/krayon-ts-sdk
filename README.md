@@ -17,13 +17,13 @@ This extends the functionalities to support WalletConnect, and provides the plum
 This component gives React bindings for Core and WalletConnect SDKs, and assumes Auth0 is used for authentication.
 
 # How to work with the repo
-This repo is a SDK monorepo using the Nx build tool. The SDK packages are located within the SDK directory. If a new package is required, add it using one of the [Nx generators on the docs](https://nx.dev/plugin-features/use-code-generators). Individual packages within the SDK should be called like `@krayon/<something>-sdk`.
+This repo is a SDK monorepo using the Nx build tool. The SDK packages are located within the SDK directory. If a new package is required, add it using one of the [Nx generators on the docs](https://nx.dev/plugin-features/use-code-generators). Individual packages within the SDK should be called like `@krayon-digital/<something>-sdk`.
 
 Most of the packages should be installed (and specified as dependencies) on the top-level of the repo. Each package can use the packages that are installed on top-level, but if necessary, you can run a yarn install for a package individually (not recommended).
 
 Nx will note and recognize which packages and dependencies are used within the packages, and will adjust the output accordingly. 
 
-When importing a Krayon SDK package from within another package, you can simply import it as you usually would (for example, `import { KrayonSDK } from '@krayon/core-sdk'.` )
+When importing a Krayon SDK package from within another package, you can simply import it as you usually would (for example, `import { KrayonSDK } from '@krayon-digital/core-sdk'.` )
 
 
 Each package has a typical `package.json` and a `project.json` file (the latter being an Nx thing). 
@@ -44,7 +44,7 @@ Sometimes you want your package to come with a peer dependency such as React or 
 
 To accomplish this, you might need to adjust your rollup settings within the appropriate project. Failing to do this can lead to problems such as the SDK having its own instance of, say, Auth0 and not working as a consequence.
 
-If you're using `@nx/vite:build` (such as @krayon/react-auth0-sdk), this is achievable in `vite.config.js`, within build.rollupOptions.external (specify a list of packages such as ['react', 'react-dom']).
+If you're using `@nx/vite:build` (such as @krayon-digital/react-auth0-sdk), this is achievable in `vite.config.js`, within build.rollupOptions.external (specify a list of packages such as ['react', 'react-dom']).
 
 If using rollup directly (`@nx/rollup:rollup`, like core-sdk), you might need to add a `rollup.config.js` file, and point `project.json` to it. See example of core-sdk how to achieve this (even though core-sdk isn't using external deps).
 
@@ -75,11 +75,12 @@ and then, from your project where you want to use the Krayon SDK (using core pac
 
 
 ## Deployment
-TODO:
-`yarn nx run-many -t publish`
-
 Individual packages
-`yarn nx run core-sdk:publish`
+1. `npm login`
+2. Make sure appropriate version set in the package
+3. Build the package
+4. `cd dist/core-sdk`
+5. `npm publish`
 
 # How to co-develop frontend
 
@@ -90,10 +91,10 @@ cd packages/core-sdk
 yarn link
 ```
 
-It'll automatically be linked under its package name (for example, @krayon/core-sdk).
+It'll automatically be linked under its package name (for example, @krayon-digital/core-sdk).
 
 ## Step 2 - package linking (destination)
-Having done, go to your target repo which consumes the said package, and run `yarn link @krayon/core-sdk` (replace core-sdk with a different package if required).
+Having done, go to your target repo which consumes the said package, and run `yarn link @krayon-digital/core-sdk` (replace core-sdk with a different package if required).
 
 ## Step 3 - set up tsconfig and build resolution on destination project
 The above will now symlink the proper package from this repo to your node_modules from your destination project. Since you're now using a development version of the package, the paths will no longer be the same. 
@@ -102,9 +103,9 @@ You'll have to tell the TS compiler that it should open the files from the 'src'
 {
     "compilerOptions": {
         "paths": {
-          "@krayon/core-sdk": ["../node_modules/@krayon/core-sdk/src/index.ts"],
-          "@krayon/walletconnect-sdk": ["../node_modules/@krayon/walletconnect-sdk/src/index.ts"],
-          "@krayon/react-auth0-sdk": ["../node_modules/@krayon/react-auth0-sdk/src/index.ts"]
+          "@krayon-digital/core-sdk": ["../node_modules/@krayon-digital/core-sdk/src/index.ts"],
+          "@krayon-digital/walletconnect-sdk": ["../node_modules/@krayon-digital/walletconnect-sdk/src/index.ts"],
+          "@krayon-digital/react-auth0-sdk": ["../node_modules/@krayon-digital/react-auth0-sdk/src/index.ts"]
         }
     }
 }
@@ -113,7 +114,7 @@ You'll have to tell the TS compiler that it should open the files from the 'src'
 You might also run into issues with the build system. For *vite*, you can add resolutions (within `resolve` key) to your vite.config.js:
 ```
 {
-  '@krayon/core-sdk': path.resolve(__dirname, `node_modules/@krayon/${sdkName}/src/index.ts`),
+  '@krayon-digital/core-sdk': path.resolve(__dirname, `node_modules/@krayon-digital/${sdkName}/src/index.ts`),
   ... // Other krayon packages you might need
 }
 ```

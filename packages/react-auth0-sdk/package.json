@@ -1,14 +1,10 @@
 {
-  "name": "@krayon/react-auth0-sdk",
+  "name": "@krayon-digital/react-auth0-sdk",
   "version": "0.0.1",
   "description": "SDK React/Auth0 functionalities for Krayon SDK",
   "author": "Krayon Digital",
   "license": "MIT",
   "homepage": "https://krayondigital.com",
-  "devDependencies": {
-  },
-  "dependencies": {
-  },
   "peerDependencies": {
     "@auth0/auth0-react": "^2.1",
     "@types/react": "^18",

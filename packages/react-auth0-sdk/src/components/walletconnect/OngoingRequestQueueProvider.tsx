@@ -1,8 +1,8 @@
 import React, { FC, ReactElement, useState, createContext, useRef, ReactNode } from 'react';
 import { SignClientTypes } from '@walletconnect/types';
 import { JsonRpcError, JsonRpcResult, formatJsonRpcError, formatJsonRpcResult } from '@walletconnect/jsonrpc-utils';
-import { Election, ElectionDecision, ElectionResult } from '@krayon/core-sdk';
-import { ApproveRequestResult } from '@krayon/walletconnect-sdk';
+import { Election, ElectionDecision, ElectionResult } from '@krayon-digital/core-sdk';
+import { ApproveRequestResult } from '@krayon-digital/walletconnect-sdk';
 import { useKrayon } from '../../use-sdk-hooks';
 import { useWalletConnect } from './useWalletConnect';
 

@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import SignClient from '@walletconnect/sign-client';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
-import { KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon/walletconnect-sdk';
+import { KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon-digital/walletconnect-sdk';
 import { CoreTypes, EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
 
 type WalletConnectContextType = {

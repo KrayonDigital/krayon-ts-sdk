@@ -1,6 +1,6 @@
 // useKrayonSDK.ts
 import { useContext, useEffect, useState } from 'react';
-import { KrayonSDK, SDKReadyStatus } from '@krayon/core-sdk';
+import { KrayonSDK, SDKReadyStatus } from '@krayon-digital/core-sdk';
 import KrayonSdkClientContext from './sdkClientContext';
 
 export const useKrayon = (): KrayonSDK => {

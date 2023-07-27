@@ -1,4 +1,4 @@
-import { KrayonAPIClient } from '@krayon/core-sdk';
+import { KrayonAPIClient } from '@krayon-digital/core-sdk';
 import {
   SignMessageProps,
   SignTypedDataProps,
@@ -9,9 +9,9 @@ import {
   WalletConnectCallResult,
   ApproveRequestResult,
 } from './types/walletconnect';
-import { ElectionDecision, ElectionResult, ElectionResultPollRejection } from '@krayon/core-sdk';
-import { DataWrap } from '@krayon/core-sdk';
-import { KrayonElectionSDK } from '@krayon/core-sdk';
+import { ElectionDecision, ElectionResult, ElectionResultPollRejection } from '@krayon-digital/core-sdk';
+import { DataWrap } from '@krayon-digital/core-sdk';
+import { KrayonElectionSDK } from '@krayon-digital/core-sdk';
 
 export class KrayonWalletConnectSDK {
   protected readonly apiClient: KrayonAPIClient;
