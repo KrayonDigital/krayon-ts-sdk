@@ -1,21 +1,62 @@
 {
-  "name": "krayon-sdk",
-  "version": "0.1.0",
-  "description": "SDK for Krayon backend API",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/KrayonDigital/krayon-ts-sdk"
-  },
-  "keywords": [
-    "Krayon",
-    "SDK",
-    "API",
-    "TypeScript"
-  ],
-  "author": "Krayon Digital",
+  "name": "@krayon-ts-sdk/source",
+  "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://krayondigital.com"
+  "scripts": {
+    "build": "nx run-many -t build"
+  },
+  "private": true,
+  "devDependencies": {
+    "@babel/preset-react": "^7.14.5",
+    "@nx/eslint-plugin": "16.5.3",
+    "@nx/js": "16.5.3",
+    "@nx/linter": "16.5.3",
+    "@nx/react": "^16.5.3",
+    "@nx/vite": "^16.5.5",
+    "@nx/workspace": "16.5.3",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.4",
+    "@swc/cli": "~0.1.62",
+    "@testing-library/react": "14.0.0",
+    "@types/node": "18.14.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "@vitejs/plugin-react": "~4.0.0",
+    "@vitest/coverage-c8": "~0.32.0",
+    "@vitest/ui": "~0.32.0",
+    "@walletconnect/legacy-types": "^2.0.0",
+    "@walletconnect/types": "^2.9.0",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jsdom": "~22.1.0",
+    "nx": "16.5.3",
+    "prettier": "^2.6.2",
+    "typescript": "4.9.5",
+    "verdaccio": "^5.0.4",
+    "vite": "~4.3.9",
+    "vite-plugin-dts": "~2.3.0",
+    "vite-tsconfig-paths": "~4.2.0",
+    "vitest": "~0.32.0"
+  },
+  "nx": {
+    "includedScripts": []
+  },
+  "dependencies": {
+    "@auth0/auth0-react": "^2.1",
+    "@ethersproject/providers": "^5.7.2",
+    "@nx/esbuild": "^16.5.5",
+    "@nx/node": "^16.5.5",
+    "@nx/rollup": "^16.5.5",
+    "@swc/helpers": "~0.5.0",
+    "@walletconnect/client": "^1.8.0",
+    "@walletconnect/sign-client": "^2.9.0",
+    "@walletconnect/utils": "^2.9.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
 }

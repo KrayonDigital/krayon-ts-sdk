@@ -1,0 +1,33 @@
+{
+  "name": "core-sdk",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/core-sdk/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/core-sdk",
+        "main": "packages/core-sdk/src/index.ts",
+        "tsConfig": "packages/core-sdk/tsconfig.lib.json",
+        "assets": [],
+        "project": "packages/core-sdk/package.json",
+        "compiler": "tsc",
+        "rollupConfig": "packages/core-sdk/rollup.config.js"
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs core-sdk {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/core-sdk/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

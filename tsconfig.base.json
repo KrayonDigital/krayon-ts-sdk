@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": false,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@krayon-digital/core-sdk": ["packages/core-sdk/src/index.ts"],
+      "@krayon-digital/walletconnect-sdk": ["packages/walletconnect-sdk/src/index.ts"],
+      "@krayon-digital/react-auth0-sdk": ["packages/react-auth0-sdk/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

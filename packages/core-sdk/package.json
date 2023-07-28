@@ -1,0 +1,12 @@
+{
+  "name": "@krayon-digital/core-sdk",
+  "version": "0.0.3",
+  "type": "commonjs",
+  "description": "SDK Core for Krayon backend API",
+  "author": "Krayon Digital",
+  "license": "MIT",
+  "homepage": "https://krayondigital.com",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}
