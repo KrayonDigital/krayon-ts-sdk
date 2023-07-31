@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import {
+  CreateSubAccount,
   GetOrganizationOptions,
   OrganizationAssetsFilter,
   OrganizationInvitationsFilter,
@@ -158,14 +159,11 @@ export class KrayonOrganizationSDK {
     );
   }
 
-  subAccountBusiness(orgObj: CreateOrganization, extraParams?: KrayonAPICommonOptions) {
+  subAccountBusiness(orgObj: CreateSubAccount, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    const subAccountObj = { ...orgObj, sub_account_type: 'business' };
-    return this.apiClient.post<DataWrap<Organization>>(
-      `/organizations/${this.organizationId}/sub-account`,
-      subAccountObj,
-      { signal: abortSignal }
-    );
+    return this.apiClient.post<DataWrap<Organization>>(`/organizations/${this.organizationId}/sub-account`, orgObj, {
+      signal: abortSignal,
+    });
   }
 
   subAccountIndividual(user: CreateUser, extraParams?: KrayonAPICommonOptions) {

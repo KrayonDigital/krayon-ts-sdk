@@ -14,6 +14,13 @@ export interface Organization {
   num_quorum: number;
 }
 
+export interface CreateSubAccount {
+  display_name: string;
+  full_name: string;
+  email: string;
+  account_type: string;
+}
+
 export interface SubAccount {
   id: string;
   sub_account_name: string;
