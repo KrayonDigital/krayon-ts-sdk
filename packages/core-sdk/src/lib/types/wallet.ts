@@ -18,6 +18,7 @@ export interface Wallet {
   num_quorum: number;
   num_admins?: number;
   pending_usd_balance: string;
+  parent: string;
   // custom fields
   is_quorum_approved?: boolean;
   is_active?: boolean;
@@ -54,5 +55,5 @@ export type WalletFilter = Partial<Wallet> & PaginationRequest;
 // TODO: we might want to update the asset filters on the backend to be stronger
 export type WalletAssetFilter = Partial<Asset> & PaginationRequest;
 export type WalletUserFilter = Partial<User> & PaginationRequest;
-export type WalletNftCollectionFilter = { wallet_id?: string } & PaginationRequest;
+export type WalletNftCollectionFilter = { wallet_id?: string; blockchain: string } & PaginationRequest;
 export type WalletNftCollectionAssetFilter = { wallet_id?: string } & PaginationRequest;

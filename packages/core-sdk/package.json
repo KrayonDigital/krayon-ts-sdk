@@ -1,6 +1,6 @@
 {
   "name": "@krayon-digital/core-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "commonjs",
   "description": "SDK Core for Krayon backend API",
   "author": "Krayon Digital",
