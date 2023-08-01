@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { OngoingRequestQueueContext } from './OngoingRequestQueueProvider';
 import { WalletConnectContext } from './WalletConnectContextProvider';
-import { LegacyWalletConnectContext } from './LegacyWalletConnectContextProvider';
 import { AvailableWalletsContext } from './AvailableWalletsProvider';
 
 export const useWalletConnect = () => {
@@ -29,14 +28,4 @@ export const useWalletConnectAvailableWallets = () => {
     throw new Error('availableWalletsContext has to be used within <WalletConnectContext.Provider>');
   }
   return availableWalletsContext;
-}
-
-export const useLegacyWalletConnect = () => {
-  const legacyWalletConnectContext = useContext(LegacyWalletConnectContext);
-  if (!legacyWalletConnectContext) {
-    throw new Error('legacyWalletConnectContext has to be used within <WalletConnectContext.Provider>');
-  }
-  return {
-    ...legacyWalletConnectContext,
-  };
 }
