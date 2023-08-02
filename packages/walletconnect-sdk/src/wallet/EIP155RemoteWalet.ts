@@ -1,18 +1,26 @@
 import { Provider, TransactionRequest } from '@ethersproject/abstract-provider';
 import { defineReadOnly } from '@ethersproject/properties';
-import { KrayonRemoteWallet, KrayonRemoteWalletInitParams } from '..//wallet/KrayonRemoteWallet';
+import {
+  KrayonRemoteWallet,
+  KrayonRemoteWalletInitParams,
+} from '..//wallet/KrayonRemoteWallet';
 import { SignClientTypes } from '@walletconnect/types';
 // import { EIP155_SIGNING_METHODS } from '@/data/EIP155Data';
 // import { getSignParamsMessage, getSignTypedDataParamsData } from '@/utils/HelperUtil';
 
-import { TypedDataDomain, TypedDataField } from '@ethersproject/abstract-signer';
+import {
+  TypedDataDomain,
+  TypedDataField,
+} from '@ethersproject/abstract-signer';
 import { getSdkError } from '@walletconnect/utils';
 import { EIP155_SIGNING_METHODS } from '../data/EIP155Data';
-import { getSignParamsMessage, getSignTypedDataParamsData } from '../util/helpers';
+import {
+  getSignParamsMessage,
+  getSignTypedDataParamsData,
+} from '../util/helpers';
 import { ApproveRequestResult, WalletInfo } from '../types/walletconnect';
 import { getChainId } from '../util/chain-utils';
 import { KrayonWalletConnectSDK } from '../walletconnect-sdk';
-import { IJsonRpcRequest } from '@walletconnect/legacy-types';
 import { ChainType } from '../data/ChainType';
 import { WalletConnectModalType } from '../util/client';
 
@@ -55,7 +63,9 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
 
   hasMPA(operationType: WalletConnectModalType): boolean {
     const mpaByNotOnlyOwner = (this.walletInfo?.num_quorum ?? 1) > 1;
-    const mpaByMethod = [WalletConnectModalType.SignTransaction].includes(operationType);
+    const mpaByMethod = [WalletConnectModalType.SignTransaction].includes(
+      operationType
+    );
     return mpaByNotOnlyOwner || mpaByMethod;
   }
   // getMnemonic() {
@@ -77,7 +87,9 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
       const { signature } = response.result;
       return signature;
     } else {
-      throw new Error('Node result received, but election still in progress. Need to wait.');
+      throw new Error(
+        'Node result received, but election still in progress. Need to wait.'
+      );
     }
   }
 
@@ -107,7 +119,9 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
       // The expectation of this function is that we return as soon as we get the first API response
       // If we have an election, we can't do that so this function errors out
       // Use Wallet Connect functionality for election watching
-      throw new Error('Node result received, but election still in progress. Need to wait.');
+      throw new Error(
+        'Node result received, but election still in progress. Need to wait.'
+      );
     }
   }
 
@@ -124,12 +138,17 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
       const { signature } = response.result;
       return signature;
     } else {
-      throw new Error('Node result received, but election still in progress. Need to wait.');
+      throw new Error(
+        'Node result received, but election still in progress. Need to wait.'
+      );
     }
   }
 
   connect(provider: Provider) {
-    return new EIP155RemoteWalet(this.walletInfo, { provider, krayonWalletConnectSdk: this.krayonWalletConnectSdk });
+    return new EIP155RemoteWalet(this.walletInfo, {
+      provider,
+      krayonWalletConnectSdk: this.krayonWalletConnectSdk,
+    });
   }
 
   /**
@@ -141,7 +160,12 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
    * @param requestEvent: SignClientTypes.EventArguments['session_request']
    * @returns Promise<ApproveRequestResult>
    */
-  async startApproveRequest(requestEvent: Pick<SignClientTypes.EventArguments['session_request'], 'id' | 'params'>): Promise<ApproveRequestResult> {
+  async startApproveRequest(
+    requestEvent: Pick<
+      SignClientTypes.EventArguments['session_request'],
+      'id' | 'params'
+    >
+  ): Promise<ApproveRequestResult> {
     const { params, id: wcRequestId } = requestEvent;
     const { chainId, request } = params;
     // Note: we don't actually consider chainId here, since our walletId is already scoped to a chainId
@@ -164,7 +188,10 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
             method: request.method,
             message,
           });
-          return this.krayonWalletConnectSdk.wrapPotentialElection(wcRequestId, result);
+          return this.krayonWalletConnectSdk.wrapPotentialElection(
+            wcRequestId,
+            result
+          );
         }
         break;
 
@@ -172,7 +199,9 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
       case EIP155_SIGNING_METHODS.ETH_SIGN_TYPED_DATA_V3:
       case EIP155_SIGNING_METHODS.ETH_SIGN_TYPED_DATA_V4:
         {
-          const { domain, types, message } = getSignTypedDataParamsData(request.params);
+          const { domain, types, message } = getSignTypedDataParamsData(
+            request.params
+          );
           // Note: for signTypedData, our message actually consists of three internal keys: domain, types, and message
           // one of which is again the message
           const result = await this.krayonWalletConnectSdk.signTypedData({
@@ -180,7 +209,10 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
             method: 'eth_signTypedData',
             message: { domain, types, message },
           });
-          return this.krayonWalletConnectSdk.wrapPotentialElection(wcRequestId, result);
+          return this.krayonWalletConnectSdk.wrapPotentialElection(
+            wcRequestId,
+            result
+          );
         }
         break;
 
@@ -204,7 +236,10 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
             method: 'eth_sendTransaction',
             message: txToSign,
           });
-          return this.krayonWalletConnectSdk.wrapPotentialElection(wcRequestId, result);
+          return this.krayonWalletConnectSdk.wrapPotentialElection(
+            wcRequestId,
+            result
+          );
         }
         break;
 
@@ -216,7 +251,10 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
             method: 'eth_signTransaction',
             message: txToSign,
           });
-          return this.krayonWalletConnectSdk.wrapPotentialElection(wcRequestId, result);
+          return this.krayonWalletConnectSdk.wrapPotentialElection(
+            wcRequestId,
+            result
+          );
         }
         break;
 
@@ -224,25 +262,5 @@ export class EIP155RemoteWalet extends KrayonRemoteWallet {
         throw new Error(getSdkError('INVALID_METHOD').message);
         break;
     }
-  }
-
-  /**
-   * Core function for the legacy (v1) flow - just standardizes the data from the v1 method.
-   *
-   * @param request: IJsonRpcRequest
-   * @returns Promise<ApproveRequestResult>
-   */
-  async legacyStartApproveRequest(request: IJsonRpcRequest) {
-    const { id, method, params } = request;
-
-    const requestEvent = {
-          id,
-          topic: '',
-          params: {
-              request: { method, params },
-              chainId: (await this.getChainId()).toString(),
-          }
-    }
-    return this.startApproveRequest(requestEvent);
   }
 }

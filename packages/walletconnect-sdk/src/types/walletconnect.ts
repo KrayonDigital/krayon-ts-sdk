@@ -2,10 +2,11 @@ import { DataWrap, Wallet } from '@krayon-digital/core-sdk';
 import { Election } from '@krayon-digital/core-sdk';
 import { Transaction } from '@krayon-digital/core-sdk';
 import { TransactionRequest } from '@ethersproject/abstract-provider';
-import { TypedDataDomain, TypedDataField } from '@ethersproject/abstract-signer';
+import {
+  TypedDataDomain,
+  TypedDataField,
+} from '@ethersproject/abstract-signer';
 import { SignClientTypes } from '@walletconnect/types';
-import { IJsonRpcRequest } from '@walletconnect/legacy-types';
-import LegacySignClient from '@walletconnect/client';
 
 export const VALID_ETH_RPC_METHODS = [
   'eth_sign',
@@ -62,7 +63,8 @@ export type WalletConnectCallResult<ResultType> =
     };
 
 // We require id, address and blockchain, but we don't require the rest of the fields
-export type WalletInfo = Partial<Wallet> & Pick<Wallet, 'id' | 'address' | 'blockchain'>;
+export type WalletInfo = Partial<Wallet> &
+  Pick<Wallet, 'id' | 'address' | 'blockchain'>;
 
 export type ApproveRequestResult = {
   walletConnectRequestId: SignClientTypes.EventArguments['session_request']['id'];
@@ -82,5 +84,5 @@ export enum WalletConnectOperation {
   SessionProposal = 'SessionProposal',
   SignMessage = 'SignMessage',
   SignTypedData = 'SignTypedData',
-  SendTransaction = 'SendTransaction'
+  SendTransaction = 'SendTransaction',
 }
