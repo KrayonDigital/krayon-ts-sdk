@@ -180,4 +180,10 @@ export class KrayonOrganizationSDK {
       signal: abortSignal,
     });
   }
+  getWallets(organizationId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<Pageable<Wallet>>(`/organizations/${organizationId}/wallets`, {
+      signal: abortSignal,
+    });
+  }
 }
