@@ -59,7 +59,6 @@ export interface CreateTransaction {
   transaction_fee_usd?: string;
 }
 
-
 interface TransferBase {
   id: string;
   from_address: string;
@@ -95,7 +94,6 @@ export interface TransferDetail extends TransferBase {
   initiator: string;
 }
 
-
 export type UpdateNftTransferDto = Partial<Pick<Transfer, 'note' | 'tags'>>;
 
 export type TransferFilter = PaginationRequest & {
@@ -111,5 +109,6 @@ export type TransferFilter = PaginationRequest & {
   wallet_id?: string;
   status?: string;
   direction?: string;
+  blockchain?: string;
 };
 export type TransferTagsFilter = PaginationRequest;
