@@ -1,4 +1,4 @@
-import { Wallet, WalletNftCollectionAssetFilter, WalletsResponse } from '../types/wallet';
+import { SubAccountWallet, Wallet, WalletNftCollectionAssetFilter, WalletsResponse } from '../types/wallet';
 import { AssetResponse } from '../types/asset';
 import { UserResponse } from '../types/user';
 import { UpdateWallet } from '../types/wallet';
@@ -100,7 +100,7 @@ export class KrayonWalletSDK {
   }
 
   createWallet(
-    walletInfo: { name: string; blockchain: string; group: string | null; image: string; parent?: string },
+    walletInfo: { name: string; blockchain: string; group: string | null; image: string; parent?: string } | SubAccountWallet,
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};

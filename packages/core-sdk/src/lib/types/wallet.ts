@@ -57,3 +57,9 @@ export type WalletAssetFilter = Partial<Asset> & PaginationRequest;
 export type WalletUserFilter = Partial<User> & PaginationRequest;
 export type WalletNftCollectionFilter = { wallet_id?: string; blockchain: string } & PaginationRequest;
 export type WalletNftCollectionAssetFilter = { wallet_id?: string } & PaginationRequest;
+
+export interface  SubAccountWallet{
+  name: string;
+  blockchain: string;
+  sub_account: string;
+};

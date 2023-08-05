@@ -38,6 +38,7 @@ export interface CreateOrganization {
   phone: string;
   email: string;
   address: string;
+  primary_contact?: string;
   logo?: string;
 }
 
