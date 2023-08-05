@@ -57,7 +57,8 @@ export class KrayonOrganizationSDK {
   getOrganization(options?: GetOrganizationOptions) {
     // For backward compatibility, allow passing organization id here as an override
     // This should normally not be done/needed snce other organization id shouldn't be accesible
-    const { organizationId = this.organizationId, abortSignal } = options || {};
+    const {abortSignal } = options || {};
+    const organizationId = options?.organizationId ?? this.organizationId;
     if (!organizationId) {
       throw new Error('Organization id is required for this operation');
     }
@@ -69,12 +70,13 @@ export class KrayonOrganizationSDK {
     return this.apiClient.post<DataWrap<Organization>>('/organizations', orgObj, { signal: abortSignal });
   }
 
-  updateOrganization(orgChangesObj: Partial<CreateOrganization>, extraParams?: KrayonAPICommonOptions) {
+  updateOrganization( orgChangesObj: Partial<CreateOrganization>, subAccountId?: string, extraParams?: KrayonAPICommonOptions) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
     }
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch<DataWrap<Organization>>(`/organizations/${this.organizationId}`, orgChangesObj, {
+    const id = subAccountId ?? this.organizationId
+    return this.apiClient.patch<DataWrap<Organization>>(`/organizations/${id}`, orgChangesObj, {
       signal: abortSignal,
     });
   }
@@ -177,6 +179,18 @@ export class KrayonOrganizationSDK {
   listSubAccounts(extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<SubAccountResponse>(`/organizations/${this.organizationId}/sub-accounts`, {
+      signal: abortSignal,
+    });
+  }
+  getWallets(organizationId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<Pageable<Wallet>>(`/organizations/${organizationId}/wallets`, {
+      signal: abortSignal,
+    });
+  }
+  listSubAccountAssets(organizationId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<AssetResponse>(`/organizations/${organizationId}/assets`, {
       signal: abortSignal,
     });
   }
