@@ -4,7 +4,6 @@ import { PaginationRequest } from './common';
 import { Election } from './election';
 import { Pageable } from './pagination';
 
-
 export interface Wallet {
   id: string;
   name: string;
@@ -44,7 +43,6 @@ export interface UpdateQuorum {
   status: UpdateQuorumStatus;
 }
 
-
 export interface UpdateWallet {
   name?: string;
   description?: string;
@@ -55,11 +53,16 @@ export type WalletFilter = Partial<Wallet> & PaginationRequest;
 // TODO: we might want to update the asset filters on the backend to be stronger
 export type WalletAssetFilter = Partial<Asset> & PaginationRequest;
 export type WalletUserFilter = Partial<User> & PaginationRequest;
-export type WalletNftCollectionFilter = { wallet_id?: string; blockchain: string } & PaginationRequest;
-export type WalletNftCollectionAssetFilter = { wallet_id?: string } & PaginationRequest;
+export type WalletNftCollectionFilter = {
+  wallet_id?: string;
+  blockchain?: string;
+} & PaginationRequest;
+export type WalletNftCollectionAssetFilter = {
+  wallet_id?: string;
+} & PaginationRequest;
 
-export interface  SubAccountWallet{
+export interface SubAccountWallet {
   name: string;
   blockchain: string;
   sub_account: string;
-};
+}
