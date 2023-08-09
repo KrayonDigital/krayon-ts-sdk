@@ -12,6 +12,7 @@ export interface Wallet {
   address: string;
   blockchain: string;
   total_usd_balance: string;
+  aggregated_usd_balance: string;
   image?: string;
   description: string;
   num_quorum: number;
