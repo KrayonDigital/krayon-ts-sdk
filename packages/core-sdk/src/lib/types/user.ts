@@ -7,6 +7,7 @@ export interface User {
   last_name: string;
   email: string;
   is_admin: boolean;
+  role: string;
   organization: string | null;
   extra_data?: SocialInfo;
   social?: SocialInfo;
@@ -17,7 +18,10 @@ export interface User {
 
 export type UserResponse = Pageable<User>;
 
-export type CreateUser = Pick<User, 'first_name' | 'last_name' | 'email' | 'is_admin'>;
+export type CreateUser = Pick<
+  User,
+  'first_name' | 'last_name' | 'email' | 'role'
+>;
 
 export enum UserRole {
   Admin,
