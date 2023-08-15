@@ -1,7 +1,16 @@
-import { DataWrap, KrayonAPICommonOptions, PaginationRequest } from '../types/common';
+import {
+  DataWrap,
+  KrayonAPICommonOptions,
+  PaginationRequest,
+} from '../types/common';
 import { Pageable } from '../types/pagination';
 import { Tag } from '../types/tag';
-import { Transaction, TransferDetail, Transfer, CreateTransaction } from '../types/transfer';
+import {
+  Transaction,
+  TransferDetail,
+  Transfer,
+  CreateTransaction,
+} from '../types/transfer';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
 
@@ -36,9 +45,12 @@ export class KrayonTransferSDK {
 
   getTransferStatus(transferId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<TransferStatusResponse>>(`/transfers/${transferId}/status`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<DataWrap<TransferStatusResponse>>(
+      `/transfers/${transferId}/status`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
   listTransfers(params?: TransferFilter, extraParams?: KrayonAPICommonOptions) {
@@ -49,7 +61,11 @@ export class KrayonTransferSDK {
     });
   }
 
-  listTransferTags(transferId: string, params?: TransferTagsFilter, extraParams?: KrayonAPICommonOptions) {
+  listTransferTags(
+    transferId: string,
+    params?: TransferTagsFilter,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<DataWrap<Tag>>(`/transfers/${transferId}/tags`, {
       params,
@@ -57,9 +73,12 @@ export class KrayonTransferSDK {
     });
   }
 
-  createTransfer(transferData: CreateTransaction, extraParams?: KrayonAPICommonOptions) {
+  createTransfer(
+    transferData: CreateTransaction,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<DataWrap<TransferDetail>>(`/transfers`, transferData, {
+    return this.apiClient.post<TransferDetail>(`/transfers`, transferData, {
       signal: abortSignal,
     });
   }
@@ -71,10 +90,18 @@ export class KrayonTransferSDK {
     });
   }
 
-  updateTransfer(transferId: string, transferDataToUpdate: UpdateTransferDto, extraParams?: KrayonAPICommonOptions) {
+  updateTransfer(
+    transferId: string,
+    transferDataToUpdate: UpdateTransferDto,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch<DataWrap<Transfer>>(`/transfers/${transferId}`, transferDataToUpdate, {
-      signal: abortSignal,
-    });
+    return this.apiClient.patch<DataWrap<Transfer>>(
+      `/transfers/${transferId}`,
+      transferDataToUpdate,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 }
