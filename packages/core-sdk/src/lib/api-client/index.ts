@@ -14,9 +14,12 @@ export class KrayonAPIClient {
   // Store endpoint-specific throttling settings and state
   private endpointThrottling = new Map<string, ThrottlingInfo>();
 
-  private authErrorCounter: number = 0;
-
   private axiosInstance: AxiosInstance;
+  setRequestInterceptor: AxiosInstance['interceptors']['request']['use'];
+  setResponseInterceptor: AxiosInstance['interceptors']['response']['use'];
+
+  clearRequestInterceptor: AxiosInstance['interceptors']['request']['clear'];
+  clearResponseInterceptor: AxiosInstance['interceptors']['response']['clear'];
 
   constructor(config: KrayonAPIClientConfig) {
     const {
@@ -30,7 +33,11 @@ export class KrayonAPIClient {
     } = config;
     this.axiosInstance = axios.create(axiosConfig);
 
-    this.setInterceptor();
+    this.setRequestInterceptor = (onFulfilled, onError, options) => this.axiosInstance.interceptors?.request?.use(onFulfilled, onError, options);
+    this.setResponseInterceptor = (onFulfilled, onError, options) => this.axiosInstance.interceptors?.response?.use(onFulfilled, onError, options);
+
+    this.clearRequestInterceptor = () => this.axiosInstance.interceptors?.request?.clear();
+    this.clearResponseInterceptor = () => this.axiosInstance.interceptors?.response?.clear();
 
     // There might be a case where we don't have the token yet
     // This is potentially if we use the SDK itself to get the token
@@ -61,35 +68,6 @@ export class KrayonAPIClient {
     if (rawUserInfoHeader) {
       this.axiosInstance.defaults.headers.common['UserInfo'] = rawUserInfoHeader;
     }
-  }
-
-  setInterceptor() {
-    const context = this;
-    this.axiosInstance?.interceptors?.response?.use(
-      function (response) {
-        context.authErrorCounter = 0;
-        // Any status code that lie within the range of 2xx cause this function to trigger
-        // Do something with response data
-        // NOTE: Uncomment to collect real data
-        // axios.post('http://localhost:3001/collect', { url: response.config.url, payload: response.data });
-        return response;
-      },
-      async function (error) {
-        const originalRequest = error.config;
-
-        if (error.response?.status === 401) {
-          if (context.authErrorCounter < 2) {
-            context.authErrorCounter += 1;
-          } else {
-            context.authErrorCounter = 0;
-            window.location.href = '/login';
-          }
-        }
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        // Do something with response error
-        return Promise.reject(error);
-      }
-    );
   }
 
   // Perform a request, using endpoint-specific or default throttling settings
