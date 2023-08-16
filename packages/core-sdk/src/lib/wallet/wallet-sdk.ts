@@ -1,18 +1,36 @@
-import { SubAccountWallet, Wallet, WalletNftCollectionAssetFilter, WalletsResponse } from '../types/wallet';
+import {
+  AssignUserToWalletResponse,
+  SubAccountWallet,
+  Wallet,
+  WalletNftCollectionAssetFilter,
+  WalletsResponse,
+} from '../types/wallet';
 import { AssetResponse } from '../types/asset';
 import { UserResponse } from '../types/user';
 import { UpdateWallet } from '../types/wallet';
 import { NftResponse, NftCollectionResponse } from '../types/nft';
 import { DataWrap, KrayonAPICommonOptions } from '../types/common';
-import { WalletFilter, WalletAssetFilter, WalletNftCollectionFilter, WalletUserFilter } from '../types/wallet';
+import {
+  WalletFilter,
+  WalletAssetFilter,
+  WalletNftCollectionFilter,
+  WalletUserFilter,
+} from '../types/wallet';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
+import { Election } from '../types';
 
 export class KrayonWalletSDK {
   readonly apiClient: KrayonAPIClient;
   readonly organizationId?: string;
 
-  constructor({ apiClient, organizationId }: { organizationId?: string; apiClient: KrayonSDK['apiClient'] }) {
+  constructor({
+    apiClient,
+    organizationId,
+  }: {
+    organizationId?: string;
+    apiClient: KrayonSDK['apiClient'];
+  }) {
     this.apiClient = apiClient;
     // when we remove /organizations/orgid/ we can remove this dep
     this.organizationId = organizationId;
@@ -35,7 +53,11 @@ export class KrayonWalletSDK {
     );
   }
 
-  getParentWallets(parentId: string, blockchain = 'all', extraParams?: KrayonAPICommonOptions) {
+  getParentWallets(
+    parentId: string,
+    blockchain = 'all',
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<WalletsResponse>(`/wallets/${parentId}`, {
       params: { blockchain },
@@ -43,7 +65,11 @@ export class KrayonWalletSDK {
     });
   }
 
-  getWallet(walletId: string, params?: any, extraParams?: KrayonAPICommonOptions) {
+  getWallet(
+    walletId: string,
+    params?: any,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<DataWrap<Wallet>>(`/wallets/${walletId}`, {
       params: params || {},
@@ -53,21 +79,35 @@ export class KrayonWalletSDK {
 
   getWalletElections(walletId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<Wallet>>(`/wallets/${walletId}/elections`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<DataWrap<Wallet>>(
+      `/wallets/${walletId}/elections`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
-  assignUserToWallet(walletId: string, userId: string, extraParams?: KrayonAPICommonOptions) {
+  assignUserToWallet(
+    walletId: string,
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<UserResponse>(`/wallets/${walletId}/assign-user`, {
-      user_id: userId,
-    });
+    return this.apiClient.post<AssignUserToWalletResponse>(
+      `/wallets/${walletId}/assign-user`,
+      {
+        user_id: userId,
+      }
+    );
   }
 
-  unassignUserFromWallet(walletId: string, userId: string, extraParams?: KrayonAPICommonOptions) {
+  unassignUserFromWallet(
+    walletId: string,
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<UserResponse>(
+    return this.apiClient.post<AssignUserToWalletResponse>(
       `/wallets/${walletId}/unassign-user`,
       {
         user_id: userId,
@@ -78,9 +118,13 @@ export class KrayonWalletSDK {
     );
   }
 
-  listWalletUsers(walletId: string, userFilter?: WalletUserFilter, extraParams?: KrayonAPICommonOptions) {
+  listWalletUsers(
+    walletId: string,
+    userFilter?: WalletUserFilter,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<UserResponse>(`/wallets/${walletId}/users`, { 
+    return this.apiClient.get<UserResponse>(`/wallets/${walletId}/users`, {
       params: userFilter,
       signal: abortSignal,
     });
@@ -100,47 +144,100 @@ export class KrayonWalletSDK {
   }
 
   createWallet(
-    walletInfo: { name: string; blockchain: string; group: string | null; image: string; parent?: string } | SubAccountWallet,
+    walletInfo:
+      | {
+          name: string;
+          blockchain: string;
+          group: string | null;
+          image: string;
+          parent?: string;
+        }
+      | SubAccountWallet,
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<Wallet>('/wallets', walletInfo, { signal: abortSignal });
+    return this.apiClient.post<Wallet>('/wallets', walletInfo, {
+      signal: abortSignal,
+    });
   }
 
-  updateWallet(walletId: string, walletData: Wallet, extraParams?: KrayonAPICommonOptions) {
+  updateWallet(
+    walletId: string,
+    walletData: Wallet,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.put<Wallet>(`/wallets/${walletId}`, walletData, { signal: abortSignal });
+    return this.apiClient.put<Wallet>(`/wallets/${walletId}`, walletData, {
+      signal: abortSignal,
+    });
   }
 
-  partialUpdateWallet(walletId: string, walletUpdateParams: UpdateWallet, extraParams?: KrayonAPICommonOptions) {
+  partialUpdateWallet(
+    walletId: string,
+    walletUpdateParams: UpdateWallet,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     // For now, just use group and name for compatibility
     // However, the types seem to to support some other fields
     const { group, name } = walletUpdateParams;
-    return this.apiClient.patch(`/wallets/${walletId}`, { group, name }, { signal: abortSignal });
+    return this.apiClient.patch(
+      `/wallets/${walletId}`,
+      { group, name },
+      { signal: abortSignal }
+    );
   }
 
-  updateWalletGasStationStatus(walletId: string, gas_station_status: number, extraParams?: KrayonAPICommonOptions) {
+  updateWalletGasStationStatus(
+    walletId: string,
+    gas_station_status: number,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch(`/wallets/${walletId}`, { gas_station_status }, { signal: abortSignal });
+    return this.apiClient.patch(
+      `/wallets/${walletId}`,
+      { gas_station_status },
+      { signal: abortSignal }
+    );
   }
 
-  updateWalletQuorum(walletId: string, num_quorum: number, extraParams?: KrayonAPICommonOptions) {
+  updateWalletQuorum(
+    walletId: string,
+    num_quorum: number,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`/wallets/${walletId}/set-quorum`, { num_quorum }, { signal: abortSignal });
+    return this.apiClient.post(
+      `/wallets/${walletId}/set-quorum`,
+      { num_quorum },
+      { signal: abortSignal }
+    );
   }
 
-  requestWalletAccess(walletId: string, userId: string, extraParams?: KrayonAPICommonOptions) {
+  requestWalletAccess(
+    walletId: string,
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`/wallets/${walletId}/request-wallet-access`, { id: userId }, { signal: abortSignal });
+    return this.apiClient.post(
+      `/wallets/${walletId}/request-wallet-access`,
+      { id: userId },
+      { signal: abortSignal }
+    );
   }
 
   syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get(`/wallets/${walletId}/sync`, { signal: abortSignal });
+    return this.apiClient.get(`/wallets/${walletId}/sync`, {
+      signal: abortSignal,
+    });
   }
 
-  listWalletNftCollections(nftFilter?: WalletNftCollectionFilter, extraParams?: KrayonAPICommonOptions) {
+  listWalletNftCollections(
+    nftFilter?: WalletNftCollectionFilter,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<NftResponse | undefined>('/nft-collections', {
       params: nftFilter,
@@ -154,14 +251,19 @@ export class KrayonWalletSDK {
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<NftCollectionResponse | undefined>(`/nft-collections/${collectionId}/assets`, {
-      params: filterObj,
-      signal: abortSignal,
-    });
+    return this.apiClient.get<NftCollectionResponse | undefined>(
+      `/nft-collections/${collectionId}/assets`,
+      {
+        params: filterObj,
+        signal: abortSignal,
+      }
+    );
   }
 
   getNftAsset(assetId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get(`/non-fungible-assets/${assetId}`, { signal: abortSignal });
+    return this.apiClient.get(`/non-fungible-assets/${assetId}`, {
+      signal: abortSignal,
+    });
   }
 }
