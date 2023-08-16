@@ -17,6 +17,7 @@ export interface Wallet {
   description: string;
   num_quorum: number;
   num_admins?: number;
+  num_approvers?: number;
   pending_usd_balance: string;
   parent: string;
   // custom fields
