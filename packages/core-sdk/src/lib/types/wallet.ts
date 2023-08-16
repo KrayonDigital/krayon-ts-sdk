@@ -32,7 +32,7 @@ export interface Wallet {
 
 export type WalletsResponse = Pageable<Wallet>;
 
-enum UpdateQuorumStatus {
+export enum UpdateQuorumStatus {
   AWAITING_MPA = 'AWAITING_MPA',
   PROCESSED = 'PROCESSED',
 }
@@ -44,6 +44,18 @@ export interface UpdateQuorum {
   election: Election;
   status: UpdateQuorumStatus;
 }
+
+export interface AssignUser {
+  status: UpdateQuorumStatus;
+}
+
+export interface UnAssignUser {
+  status: UpdateQuorumStatus;
+}
+
+export type AssignUserToWalletResponse = AssignUser & Election
+
+export type UnAssignUserToWalletResponse  = UnAssignUser & Election
 
 export interface UpdateWallet {
   name?: string;
