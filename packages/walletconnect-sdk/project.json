@@ -12,7 +12,10 @@
         "main": "packages/walletconnect-sdk/src/index.ts",
         "tsConfig": "packages/walletconnect-sdk/tsconfig.lib.json",
         "project": "packages/walletconnect-sdk/package.json",
-        "assets": []
+        "assets": [
+          "packages/walletconnect-sdk/src/README.md",
+          "packages/walletconnect-sdk/src/LICENSE"
+        ]
       }
     },
     "publish": {

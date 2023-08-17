@@ -11,7 +11,7 @@
         "outputPath": "dist/core-sdk",
         "main": "packages/core-sdk/src/index.ts",
         "tsConfig": "packages/core-sdk/tsconfig.lib.json",
-        "assets": [],
+        "assets": ["packages/core-sdk/src/README.md", "packages/core-sdk/src/LICENSE"],
         "project": "packages/core-sdk/package.json",
         "compiler": "tsc",
         "rollupConfig": "packages/core-sdk/rollup.config.js"

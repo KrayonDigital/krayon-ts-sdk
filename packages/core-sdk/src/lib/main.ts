@@ -25,7 +25,8 @@ export interface KrayonSDKConfig {
   userData: User;
 }
 
-export type KrayonSDKCreateParams = Pick<KrayonSDKConfig, 'token'> & AuthPluginOptions;
+export type KrayonSDKCreateParams = Pick<KrayonSDKConfig, 'token'> &
+  AuthPluginOptions;
 
 export class KrayonSDK {
   asset: KrayonAssetSDK;
@@ -105,10 +106,14 @@ export class KrayonSDK {
    * @throws Error if the authProvider is not a valid and safe path.
    * @throws Error if the authentication plugin cannot be found or loaded.
    */
-  protected async loadAuthPlugin(authProvider: KrayonSDKCreateParams['authProvider']): Promise<AuthPlugin> {
+  protected async loadAuthPlugin(
+    authProvider: KrayonSDKCreateParams['authProvider']
+  ): Promise<AuthPlugin> {
     try {
       // Import and return the authentication plugin
-      const authPluginModule = await import(`./plugins/auth/${authProvider}.ts`);
+      const authPluginModule = await import(
+        `./plugins/auth/${authProvider}.ts`
+      );
       const authPlugin: AuthPlugin = authPluginModule.default;
       return authPlugin;
     } catch (err) {
@@ -135,7 +140,8 @@ export class KrayonSDK {
       // Set up the authentication plugin and obtain authClaims and rawUserInfoHeader
       const authPlugin = await this.loadAuthPlugin(authProvider);
 
-      const { authClaims, rawUserInfoHeader } = await authPlugin.processAuthClaim(authPluginParams);
+      const { authClaims, rawUserInfoHeader } =
+        await authPlugin.processAuthClaim(authPluginParams);
 
       // Set the token and rawUserInfoHeader in the API client
       this.apiClient.setAuthorizationHeaders(token, rawUserInfoHeader);
@@ -167,10 +173,19 @@ export class KrayonSDK {
   }
 
   public setOrganizationId(organizationId: string) {
-    this.organization = new KrayonOrganizationSDK({ apiClient: this.apiClient, organizationId });
+    this.organization = new KrayonOrganizationSDK({
+      apiClient: this.apiClient,
+      organizationId,
+    });
     this.tag = new KrayonTagSDK({ apiClient: this.apiClient, organizationId });
-    this.wallet = new KrayonWalletSDK({ apiClient: this.apiClient, organizationId });
-    this.walletGroup = new KrayonWalletGroupSDK({ apiClient: this.apiClient, organizationId });
+    this.wallet = new KrayonWalletSDK({
+      apiClient: this.apiClient,
+      organizationId,
+    });
+    this.walletGroup = new KrayonWalletGroupSDK({
+      apiClient: this.apiClient,
+      organizationId,
+    });
   }
 
   public getUserData() {
@@ -184,7 +199,8 @@ export class KrayonSDK {
     this.eventHandlers.readyStateChange.push(fn);
   }
   public offReadyStateChange(fn: (status: SDKReadyStatus) => void) {
-    this.eventHandlers.readyStateChange = this.eventHandlers.readyStateChange.filter((f) => f !== fn);
+    this.eventHandlers.readyStateChange =
+      this.eventHandlers.readyStateChange.filter((f) => f !== fn);
   }
   protected setReadyState(newStatus: SDKReadyStatus) {
     this.status = newStatus;
