@@ -1,10 +1,16 @@
 import { Wallet } from './wallet';
 
+export enum GasStationType {
+  DISABLED = 0,
+  ENABLED = 1,
+  PUMP = 2,
+}
+
 export interface GasStationDto extends Wallet {
   balance_cap: number;
   red_marker: number;
   max_network_fee: number;
-  gas_station_status: number;
+  gas_station_status: GasStationType;
   balance: string;
   assets: GasStationWalletAsset[];
   symbol: string;
@@ -41,4 +47,4 @@ export interface GasStationsItem {
   red_marker: number;
   max_network_fee: number;
   assets: GasStationWalletAsset[];
-};
+}
