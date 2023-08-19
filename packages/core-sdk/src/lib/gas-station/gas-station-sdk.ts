@@ -34,13 +34,12 @@ export class KrayonGasStationSDK {
   }
 
   updateGasStation(
-    gasStationId: string,
     data: AddGasStation,
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.patch<GasStationDto>(
-      `/gas-stations/${gasStationId}`,
+      `/gas-stations/${data.id}`,
       data,
       {
         signal: abortSignal,

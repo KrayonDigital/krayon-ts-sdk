@@ -1,9 +1,9 @@
 import { Wallet } from './wallet';
 
 export interface GasStationDto extends Wallet {
-  balance_cap: number | string;
-  red_marker: number | string;
-  max_network_fee: number | string;
+  balance_cap: number;
+  red_marker: number;
+  max_network_fee: number;
   gas_station_status: number;
   balance: string;
   assets: GasStationAssets[];
@@ -24,6 +24,7 @@ export interface GasStationAssets {
   wallet?: string;
 }
 export interface AddGasStation {
+  id?: string;
   name?: string;
   blockchain: string;
   group?: string;
@@ -31,13 +32,13 @@ export interface AddGasStation {
   max_network_fee: number;
   red_marker: number;
 }
-export type GasStationsItemType = {
+export interface GasStationsItem {
   id: string;
   address: string;
   blockchain: string;
   total_usd_balance: string;
-  balance_cap: number | string;
-  red_marker: number | string;
-  max_network_fee: number | string;
+  balance_cap: number;
+  red_marker: number;
+  max_network_fee: number;
   assets: GasStationAssets[];
-}
+};
