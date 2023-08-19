@@ -6,11 +6,11 @@ export interface GasStationDto extends Wallet {
   max_network_fee: number;
   gas_station_status: number;
   balance: string;
-  assets: GasStationAssets[];
+  assets: GasStationWalletAsset[];
   symbol: string;
   data?: any;
 }
-export interface GasStationAssets {
+export interface GasStationWalletAsset {
   balance: string;
   blockchain: string;
   decimals?: number;
@@ -23,7 +23,7 @@ export interface GasStationAssets {
   usd_balance: string;
   wallet?: string;
 }
-export interface AddGasStation {
+export interface AddGasStationPayload {
   id?: string;
   name?: string;
   blockchain: string;
@@ -40,5 +40,5 @@ export interface GasStationsItem {
   balance_cap: number;
   red_marker: number;
   max_network_fee: number;
-  assets: GasStationAssets[];
+  assets: GasStationWalletAsset[];
 };
