@@ -1,24 +1,14 @@
-import { BlockchainTitle } from "./blockchain-types";
+import { Wallet } from './wallet';
 
-export interface GasStationDto {
+export interface GasStationDto extends Wallet {
+  balance_cap: number | string;
+  red_marker: number | string;
+  max_network_fee: number | string;
+  gas_station_status: number;
+  balance: string;
+  assets: GasStationAssets[];
+  symbol: string;
   data?: any;
-  name?: string;
-  blockchain: BlockchainTitle;
-  organization?: string;
-  group?: string;
-  balance_cap?: number | string;
-  red_marker?: number | string;
-  max_network_fee?: number | string;
-  id?: string;
-  address?: string;
-  description?: string;
-  gas_station_status?: number;
-  image?: string;
-  balance?: string;
-  pending_usd_balance?: number;
-  total_usd_balance?: string;
-  symbol?: string;
-  assets?: GasStationAssets[];
 }
 export interface GasStationAssets {
   balance: string;
@@ -32,4 +22,22 @@ export interface GasStationAssets {
   symbol: string;
   usd_balance: string;
   wallet?: string;
+}
+export interface AddGasStation {
+  name?: string;
+  blockchain: string;
+  group?: string;
+  balance_cap: number;
+  max_network_fee: number;
+  red_marker: number;
+}
+export type GasStationsItemType = {
+  id: string;
+  address: string;
+  blockchain: string;
+  total_usd_balance: string;
+  balance_cap: number | string;
+  red_marker: number | string;
+  max_network_fee: number | string;
+  assets: GasStationAssets[];
 }
