@@ -11,11 +11,7 @@
         "outputPath": "dist/walletconnect-sdk",
         "main": "packages/walletconnect-sdk/src/index.ts",
         "tsConfig": "packages/walletconnect-sdk/tsconfig.lib.json",
-        "project": "packages/walletconnect-sdk/package.json",
-        "assets": [
-          "packages/walletconnect-sdk/src/README.md",
-          "packages/walletconnect-sdk/src/LICENSE"
-        ]
+        "project": "packages/walletconnect-sdk/package.json"
       }
     },
     "publish": {

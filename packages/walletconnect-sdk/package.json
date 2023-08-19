@@ -1,6 +1,6 @@
 {
   "name": "@krayon-digital/walletconnect-sdk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "commonjs",
   "devDependencies": {
     "@walletconnect/types": "^2.9.0"
