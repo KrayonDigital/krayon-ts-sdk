@@ -1,4 +1,4 @@
-import { GasStationDto } from '../types/gas-station';
+import { AddGasStationPayload, GasStationDto } from '../types/gas-station';
 import { KrayonAPICommonOptions } from '../types/common';
 import { KrayonAPIClient } from '../api-client';
 
@@ -9,7 +9,7 @@ export class KrayonGasStationSDK {
     this.apiClient = apiClient;
   }
 
-  createGasStation(data: GasStationDto, extraParams?: KrayonAPICommonOptions) {
+  createGasStation(data: AddGasStationPayload, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<GasStationDto>(`/gas-stations`, data, {
       signal: abortSignal,
@@ -25,15 +25,25 @@ export class KrayonGasStationSDK {
 
   getGasStationAssets(walletId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<GasStationDto>(`/gas-stations/${walletId}/assets`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<GasStationDto>(
+      `/gas-stations/${walletId}/assets`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
-  updateGasStation(gasStationId: string, data: GasStationDto, extraParams?: KrayonAPICommonOptions) {
+  updateGasStation(
+    data: AddGasStationPayload,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch<GasStationDto>(`/gas-stations/${gasStationId}`, data, {
-      signal: abortSignal,
-    });
+    return this.apiClient.patch<GasStationDto>(
+      `/gas-stations/${data.id}`,
+      data,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 }
