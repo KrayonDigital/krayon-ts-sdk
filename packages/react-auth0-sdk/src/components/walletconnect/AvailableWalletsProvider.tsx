@@ -59,9 +59,6 @@ export const AvailableWalletsProvider: FC<PropsWithChildren> = ({
         // type guard - shouldn't happen since we only call this once this condition is met
         console.warn('WalletConnect SDK not initialized');
         return;
-      } else if (status === 'not-loaded' && sdkStatus === 'ready') {
-        console.warn('WalletConnect SDK not loaded');
-        return;
       }
       try {
         const walletDtos = (await Krayon.wallet.listWallets()).data.data;
