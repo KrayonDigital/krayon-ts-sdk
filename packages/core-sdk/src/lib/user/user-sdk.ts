@@ -65,7 +65,7 @@ export class KrayonUserSDK {
 
   assignUserToWallets(wallets: string[], userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<DataWrap<unknown>>(
+    return this.apiClient.post(
       `/users/${userId}/assign-wallets`,
       { wallets },
       { signal: abortSignal }
@@ -74,7 +74,7 @@ export class KrayonUserSDK {
 
   unassignUserFromWallets(wallets: string[], userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<DataWrap<unknown>>(
+    return this.apiClient.post(
       `/users/${userId}/unassign-wallets`,
       { wallets },
       { signal: abortSignal }

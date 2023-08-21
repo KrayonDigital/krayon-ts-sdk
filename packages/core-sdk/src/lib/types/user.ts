@@ -37,3 +37,9 @@ interface SocialInfo {
   updated_at: string;
   org_id?: string; // gets the current organization id from the social provider
 }
+
+export enum AssignUserToWalletsStatus {
+  AWAITING_MPA = 'AWAITING_MPA',
+  PROCESSED = 'PROCESSED',
+  ERROR = 'ERROR',
+}
