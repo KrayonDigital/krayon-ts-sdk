@@ -1,7 +1,7 @@
 import { DataWrap, KrayonAPICommonOptions } from '../types/common';
 import { ApiTokenResponseDto } from '../types/api-token';
 import { Pageable } from '../types/pagination';
-import { CreateUser, User } from '../types/user';
+import { AssignWalletsResponse, CreateUser, User } from '../types/user';
 import { UserSpendingLimit } from '../types/spending-limit';
 import { Wallet } from '../types/wallet';
 import { KrayonSDK } from '../main';
@@ -63,18 +63,26 @@ export class KrayonUserSDK {
     return this.apiClient.get<Pageable<Wallet>>(`/users/${userId}/wallets`, { signal: abortSignal });
   }
 
-  assignUserToWallets(wallets: string[], userId: string, extraParams?: KrayonAPICommonOptions) {
+  assignUserToWallets(
+    wallets: string[],
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(
+    return this.apiClient.post<DataWrap<AssignWalletsResponse[]>>(
       `/users/${userId}/assign-wallets`,
       { wallets },
       { signal: abortSignal }
     );
   }
 
-  unassignUserFromWallets(wallets: string[], userId: string, extraParams?: KrayonAPICommonOptions) {
+  unassignUserFromWallets(
+    wallets: string[],
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(
+    return this.apiClient.post<DataWrap<AssignWalletsResponse[]>>(
       `/users/${userId}/unassign-wallets`,
       { wallets },
       { signal: abortSignal }

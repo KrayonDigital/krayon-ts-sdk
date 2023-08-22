@@ -1,3 +1,4 @@
+import { Election } from './election';
 import { Pageable } from './pagination';
 
 export interface User {
@@ -42,4 +43,11 @@ export enum AssignUserToWalletsStatus {
   AWAITING_MPA = 'AWAITING_MPA',
   PROCESSED = 'PROCESSED',
   ERROR = 'ERROR',
+}
+
+export interface AssignWalletsResponse {
+  status: string;
+  wallet: string;
+  result?: string;
+  election?: Election;
 }
