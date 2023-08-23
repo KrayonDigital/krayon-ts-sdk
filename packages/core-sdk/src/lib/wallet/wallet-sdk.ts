@@ -229,9 +229,9 @@ export class KrayonWalletSDK {
 
   syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get(`/wallets/${walletId}/sync`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.post(`/wallets/${walletId}/sync`,
+        {},
+        {signal: abortSignal});
   }
 
   listWalletNftCollections(
