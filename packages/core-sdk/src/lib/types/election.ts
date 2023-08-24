@@ -107,6 +107,13 @@ export type Election = {
       proposition_data: unknown;
     }
   | {
+      proposition_type: PropositionType.ORGANIZATION_ROLE_CHANGE;
+      proposition_data: {
+        current_role: string;
+        new_role: string;
+      };
+    }
+  | {
       proposition_type: PropositionType.USER_SPENDING_LIMIT_CHANGE;
       proposition_data: {
         spending_limits?: {
