@@ -31,7 +31,7 @@ export class KrayonUserSDK {
 
   updateUser(user: Partial<User>, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch<DataWrap<User>>(`/users/${user.id}`, user, { signal: abortSignal });
+    return this.apiClient.patch<User>(`/users/${user.id}`, user, { signal: abortSignal });
   }
 
   listUserApiTokens(userId: string, extraParams?: KrayonAPICommonOptions) {
