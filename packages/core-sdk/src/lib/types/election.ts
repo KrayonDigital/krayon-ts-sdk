@@ -15,7 +15,7 @@ export enum PropositionType {
   ORGANIZATION_QUORUM_CHANGE = 'ORGANIZATION_QUORUM_CHANGE',
   ORGANIZATION_ADMIN_ADD = 'ORGANIZATION_ADMIN_ADD',
   ORGANIZATION_ADMIN_REMOVE = 'ORGANIZATION_ADMIN_REMOVE',
-
+  ORGANIZATION_ROLE_CHANGE = 'ORGANIZATION_ROLE_CHANGE',
   ORGANIZATION_WHITELIST_REMOVE = 'ORGANIZATION_WHITELIST_REMOVE',
   ORGANIZATION_WHITELIST_ADD = 'ORGANIZATION_WHITELIST_ADD',
 }
@@ -105,6 +105,13 @@ export type Election = {
   | {
       proposition_type: PropositionType.ORGANIZATION_ADMIN_REMOVE;
       proposition_data: unknown;
+    }
+  | {
+      proposition_type: PropositionType.ORGANIZATION_ROLE_CHANGE;
+      proposition_data: {
+        current_role: string;
+        new_role: string;
+      };
     }
   | {
       proposition_type: PropositionType.USER_SPENDING_LIMIT_CHANGE;

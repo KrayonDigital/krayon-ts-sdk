@@ -25,8 +25,10 @@ export type CreateUser = Pick<
 >;
 
 export enum UserRole {
-  Admin,
-  User,
+  ADMIN = 'admin', // "An admin user on an organization"
+  USER = 'user', // "A user on an organization"
+  USER_APPROVER = 'user_approver', // "A user-approver user on an organization"
+  SUB_ACCOUNT_USER = 'sub_account_user', // Owner: "A sub-account user on an organization"
 }
 
 interface SocialInfo {
