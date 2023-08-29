@@ -21,15 +21,30 @@ export interface CreateSubAccount {
   account_type: string;
 }
 
-export interface SubAccount {
+export interface SubAccountListItem {
   id: string;
   sub_account_name: string;
   email: string;
-  sub_account_type: string;
+  sub_account_type: SubAccountType;
   usd_value: number;
 }
+export enum SubAccountType {
+  BUSINESS = 'business',
+  INDIVIDUAL = 'individual',
+}
+export interface UpdateSubAccount {
+  id?: string;
+  first_name?: string;
+  last_name?: string;
+  display_name?: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  sub_account_type?: SubAccountType;
+}
+export type SubAccount = UpdateSubAccount;
 
-export type SubAccountResponse = Pageable<SubAccount>;
+export type SubAccountResponse = Pageable<SubAccountListItem>;
 
 export interface CreateOrganization {
   name: string;
@@ -52,6 +67,8 @@ export interface InviteUser {
 export type SpendingLimitFilter = PaginationRequest;
 export type OrganizationUsersFilter = PaginationRequest;
 export type OrganizationAssetsFilter = PaginationRequest;
-export type GetOrganizationOptions = KrayonAPICommonOptions & { organizationId?: string };
+export type GetOrganizationOptions = KrayonAPICommonOptions & {
+  organizationId?: string;
+};
 export type OrganizationInvitationsFilter = PaginationRequest;
 export type OrganizationInvitationsType = string[];
