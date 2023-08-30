@@ -56,7 +56,7 @@ export class KrayonOrganizationSDK {
 
   getOrganization(options?: GetOrganizationOptions) {
     // For backward compatibility, allow passing organization id here as an override
-    // This should normally not be done/needed snce other organization id shouldn't be accesible
+    // This should normally not be done/needed since other organization id shouldn't be accessible
     const {abortSignal } = options || {};
     const organizationId = options?.organizationId ?? this.organizationId;
     if (!organizationId) {

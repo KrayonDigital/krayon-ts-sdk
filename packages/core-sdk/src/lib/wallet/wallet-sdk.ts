@@ -18,7 +18,6 @@ import {
 } from '../types/wallet';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
-import { Election } from '../types';
 
 export class KrayonWalletSDK {
   readonly apiClient: KrayonAPIClient;

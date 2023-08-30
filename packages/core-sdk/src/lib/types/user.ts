@@ -15,6 +15,7 @@ export interface User {
   email_verified?: boolean;
   avatar?: string;
   date_joined: Date;
+  election?: string | null;
 }
 
 export type UserResponse = Pageable<User>;
