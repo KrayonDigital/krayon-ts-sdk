@@ -77,8 +77,8 @@ export const KrayonWithAuth0SDKProvider = (
 
   return (
     <KrayonSdkClientContext.Provider value={krayonSdkInstance}>
-      {/*  {(isAuth0Loading || (isAuth0Authenticated && !isSdkReady)) &&
-        loaderComponent} */}
+      {(isAuth0Loading || (isAuth0Authenticated && !isSdkReady)) &&
+        loaderComponent}
       {!isAuth0Loading && (
         <>
           {/* If SDK is not ready, and we have a sdkNotReadyComponent, render it instead
