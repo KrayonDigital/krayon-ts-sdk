@@ -17,7 +17,7 @@ export const KrayonWithAuth0SDKProvider = (
 ): JSX.Element | null => {
   const {
     children,
-    loaderComponent = <div>Loading...</div>,
+    // loaderComponent = <div>Loading...</div>,
     sdkNotReadyComponent = null,
     krayonSdkInstance, // for now, required the krayonSdkInstance to be passed in, since we need the base URL
   } = props;
@@ -77,8 +77,8 @@ export const KrayonWithAuth0SDKProvider = (
 
   return (
     <KrayonSdkClientContext.Provider value={krayonSdkInstance}>
-      {(isAuth0Loading || (isAuth0Authenticated && !isSdkReady)) &&
-        loaderComponent}
+      {/*  {(isAuth0Loading || (isAuth0Authenticated && !isSdkReady)) &&
+        loaderComponent} */}
       {!isAuth0Loading && (
         <>
           {/* If SDK is not ready, and we have a sdkNotReadyComponent, render it instead
