@@ -1,3 +1,4 @@
+import { Election } from './election';
 import { Pageable } from './pagination';
 
 export interface User {
@@ -14,6 +15,7 @@ export interface User {
   email_verified?: boolean;
   avatar?: string;
   date_joined: Date;
+  election?: string | null;
 }
 
 export type UserResponse = Pageable<User>;
@@ -38,4 +40,17 @@ interface SocialInfo {
   nickname: string;
   updated_at: string;
   org_id?: string; // gets the current organization id from the social provider
+}
+
+export enum AssignUserToWalletsStatus {
+  AWAITING_MPA = 'AWAITING_MPA',
+  PROCESSED = 'PROCESSED',
+  ERROR = 'ERROR',
+}
+
+export interface AssignWalletsResponse {
+  status: string;
+  wallet: string;
+  result?: string;
+  election?: Election;
 }
