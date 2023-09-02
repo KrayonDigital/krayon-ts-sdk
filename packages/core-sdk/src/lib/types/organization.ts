@@ -15,6 +15,7 @@ export interface Organization {
 }
 
 export interface CreateSubAccount {
+  type: SubAccountType;
   display_name: string;
   full_name: string;
   email: string;
@@ -40,7 +41,7 @@ export interface UpdateSubAccount {
   address?: string;
   phone?: string;
   email?: string;
-  sub_account_type?: SubAccountType;
+  sub_account_type: SubAccountType;
 }
 export type SubAccount = UpdateSubAccount;
 
