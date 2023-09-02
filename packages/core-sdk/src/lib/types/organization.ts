@@ -12,6 +12,7 @@ export interface Organization {
   email: string;
   num_admins: number;
   num_quorum: number;
+  sub_account_type: SubAccountType;
 }
 
 export interface CreateSubAccount {
