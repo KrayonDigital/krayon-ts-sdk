@@ -7,8 +7,9 @@ import React, {
 } from 'react';
 import SignClient from '@walletconnect/sign-client';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
-import { KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon-digital/walletconnect-sdk';
+import { EIP155RemoteWalet, KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon-digital/walletconnect-sdk';
 import { CoreTypes, EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
+import { Wallet } from '@krayon-digital/core-sdk';
 
 type WalletConnectContextType = {
   sdk: KrayonWalletConnectSDK | null, // this is essentially WalletConnect SDK, lacking a better name
@@ -21,6 +22,7 @@ type WalletConnectContextType = {
   finishSessionRequest: () => void;
   finishProposal: () => void;
   refreshPairings: () => void;
+  getRemoteWallet: (walletInfo: Wallet) => EIP155RemoteWalet;
 }
 
 export const WalletConnectContext = createContext<WalletConnectContextType>({signClient: null} as WalletConnectContextType);
@@ -138,6 +140,14 @@ export function WalletConnectContextProvider(props: WalletConnectContextProvider
     refreshPairings,
     finishProposal,
     finishSessionRequest,
+    getRemoteWallet: (walletInfo: Wallet) => {
+      if(!walletConnectSdk) {
+        throw new Error("WalletConnect SDK not initialized");
+      }
+      // TODO: add wallet instance selection for non-eip155 chains
+      // TODO: consider caching
+      return new EIP155RemoteWalet(walletInfo, { krayonWalletConnectSdk: walletConnectSdk })
+    },
   }
 
   return (

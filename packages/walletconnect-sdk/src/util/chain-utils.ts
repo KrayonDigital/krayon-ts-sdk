@@ -1,3 +1,4 @@
+import { ChainType, SUPPORTED_CHAIN_TYPES } from '../data/ChainType';
 import { EIP155_CHAINS } from '../data/EIP155Data';
 
 export function isValidQualifiedChain(chainTypeAndChain: string) {
@@ -6,6 +7,15 @@ export function isValidQualifiedChain(chainTypeAndChain: string) {
   // EIP155 chains taken verbatim from the EIP155_CHAINS
   return Object.keys(EIP155_CHAINS).includes(chainTypeAndChain.toString());
 }
+
+export function getChainType(blockchain: string): ChainType | null {
+    const eipOptions = new Set(Object.entries(EIP155_CHAINS).map(([qualifiedChainId, chainData]) => chainData.blockchain));
+    if(eipOptions.has(blockchain as any)) {
+      return 'eip155' as ChainType;
+    }
+    return null;
+}
+
 
 // Create a function that looks up a chain_id based on the blockchain
 export function getChainId(blockchain: string | number): number {
@@ -47,12 +57,19 @@ export function getChainIdHex(blockchain: string | number): string {
   return chainIdHex;
 }
 
-export function parseQualifiedChainId(qualifiedChainID: string): number {
-  const [_, chainIdStr] = qualifiedChainID.split(':');
+export function parseQualifiedChainId(qualifiedChainID: string): {chainType: ChainType, chainId: number} {
+  const [chainType, chainIdStr] = qualifiedChainID.split(':');
   const chainId = parseInt(chainIdStr);
+
+  if(!SUPPORTED_CHAIN_TYPES.includes(chainType as ChainType)) {
+    throw new Error(`Unsupported chain type: ${chainType}`);
+  }
   if (!isValidQualifiedChain(qualifiedChainID)) {
     throw new Error(`Invalid qualified chain id: ${qualifiedChainID}`);
   }
 
-  return chainId;
+  return {
+    chainType: chainType as ChainType,
+    chainId
+  };
 }
