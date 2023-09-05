@@ -57,6 +57,14 @@ export function getChainIdHex(blockchain: string | number): string {
   return chainIdHex;
 }
 
+export function findBlockchainByChainId(chainId: number, chainType: ChainType = 'eip155') {
+  if(chainType === 'eip155') {
+    const chainDef = Object.values(EIP155_CHAINS).find(chain => chain.chainId === chainId);
+    return chainDef?.blockchain;
+  }
+  throw new Error(`Unsupported chain id ${chainId} on ${chainType}`);
+}
+
 export function parseQualifiedChainId(qualifiedChainID: string): {chainType: ChainType, chainId: number} {
   const [chainType, chainIdStr] = qualifiedChainID.split(':');
   const chainId = parseInt(chainIdStr);
