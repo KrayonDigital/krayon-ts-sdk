@@ -1,3 +1,4 @@
+import { SubAccountType } from '@krayon-digital/core-sdk';
 import { Election } from './election';
 import { Pageable } from './pagination';
 
@@ -16,6 +17,8 @@ export interface User {
   avatar?: string;
   date_joined: Date;
   election?: string | null;
+
+  sub_account_type: SubAccountType;
 }
 
 export type UserResponse = Pageable<User>;
