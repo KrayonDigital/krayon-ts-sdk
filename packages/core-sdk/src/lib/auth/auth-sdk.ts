@@ -8,6 +8,8 @@ export class KrayonAuthSDK {
 
   constructor({ apiClient }: { apiClient: KrayonSDK['apiClient'] }) {
     this.apiClient = apiClient;
+    console.log('AVIAD ITS ALIVE!!!!');
+    
   }
 
   createApiToken(options?: KrayonAPICommonOptions) {
