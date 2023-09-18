@@ -127,7 +127,7 @@ export class KrayonOrganizationSDK {
       throw new Error('Organization id is required for this operation');
     }
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<WhitelistContract[]>>(`/organizations/${this.organizationId}/whitelists`, {
+    return this.apiClient.get<DataWrap<WhitelistContract[]>>(`/whitelists`, {
       signal: abortSignal,
     });
   }
