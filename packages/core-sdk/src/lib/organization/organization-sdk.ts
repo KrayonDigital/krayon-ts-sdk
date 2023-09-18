@@ -122,6 +122,20 @@ export class KrayonOrganizationSDK {
     });
   }
 
+  updateOrganizationPolicies(allowed_whitelist_recipients_only:boolean, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post(`/organization-policies/${this.organizationId}`,{allowed_whitelist_recipients_only}, {
+      signal: abortSignal,
+    });
+  }
+
+  getOrganizationPolicies(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<DataWrap<{allowed_whitelist_recipients_only:boolean}>>(`/organization-policies/${this.organizationId}`, {
+      signal: abortSignal,
+    });
+  }
+
   getWhitelists(extraParams?: KrayonAPICommonOptions) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
