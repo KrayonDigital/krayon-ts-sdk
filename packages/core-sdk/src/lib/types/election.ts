@@ -18,6 +18,7 @@ export enum PropositionType {
   ORGANIZATION_ROLE_CHANGE = 'ORGANIZATION_ROLE_CHANGE',
   ORGANIZATION_WHITELIST_REMOVE = 'ORGANIZATION_WHITELIST_REMOVE',
   ORGANIZATION_WHITELIST_ADD = 'ORGANIZATION_WHITELIST_ADD',
+  ORGANIZATION_POLICIES_UPDATE = 'ORGANIZATION_POLICIES_UPDATE',
 }
 
 export enum ElectionDecision {
@@ -46,6 +47,7 @@ export type Election = {
     num_quorum?: number;
     wallet_id?: string;
     organization_id?: string;
+    policies?: any;
     whitelists?: {
       name: string;
       notes: string;
@@ -61,7 +63,8 @@ export type Election = {
     [key in ElectionDecision]: number;
   };
   detail?: string;
-} & ({
+} & (
+  | {
       proposition_type: PropositionType.TRANSFER;
       proposition_data: {
         transfer_id: string;
@@ -76,7 +79,9 @@ export type Election = {
       };
     }
   | {
-      proposition_type: PropositionType.WALLET_USER_ADD | PropositionType.WALLET_USER_REMOVE;
+      proposition_type:
+        | PropositionType.WALLET_USER_ADD
+        | PropositionType.WALLET_USER_REMOVE;
       proposition_data: {
         wallet_id: string;
         user_id: string;
@@ -143,6 +148,13 @@ export type Election = {
       proposition_type: PropositionType.ORGANIZATION_WHITELIST_ADD;
       proposition_data: {
         organization_id: string;
+      };
+    }
+  | {
+      proposition_type: PropositionType.ORGANIZATION_POLICIES_UPDATE;
+      proposition_data: {
+        organization_id: string;
+        policies: unknown;
       };
     }
 );
