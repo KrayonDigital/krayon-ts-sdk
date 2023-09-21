@@ -124,14 +124,14 @@ export class KrayonOrganizationSDK {
 
   updateOrganizationPolicies(allowed_whitelist_recipients_only:boolean, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`/organization-policies/${this.organizationId}`,{allowed_whitelist_recipients_only}, {
+    return this.apiClient.patch(`/organization-policies`,{allowed_whitelist_recipients_only}, {
       signal: abortSignal,
     });
   }
 
   getOrganizationPolicies(extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<{allowed_whitelist_recipients_only:boolean}>>(`/organization-policies/${this.organizationId}`, {
+    return this.apiClient.get<DataWrap<{allowed_whitelist_recipients_only:boolean}>>(`/organization-policies`, {
       signal: abortSignal,
     });
   }
