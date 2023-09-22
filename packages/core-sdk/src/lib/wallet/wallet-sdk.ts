@@ -226,7 +226,7 @@ export class KrayonWalletSDK {
     );
   }
 
-  syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions) {
+  syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions):Promise<void> {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post(`/wallets/${walletId}/sync`,
         {},
