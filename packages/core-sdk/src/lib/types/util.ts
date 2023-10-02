@@ -24,11 +24,11 @@ export interface Blockchain {
   logo_uri: string;
   status: string;
   links: Link[];
-  test_net: boolean;
+  testnet: boolean;
   swap: boolean;
 }
 
-export type BlockchainListResponse = DataWrap<{[key: string]: Blockchain}>;
+export type BlockchainListResponse = DataWrap<{ [key: string]: Blockchain }>;
 
 export interface EstimateTransactionFeeDTO {
   estimated_fee: number;
@@ -38,8 +38,8 @@ export interface EstimateTransactionFeeDTO {
   error: string;
 }
 
-
-export type EstimateTransactionFeeResponse = DataWrap<EstimateTransactionFeeDTO>;
+export type EstimateTransactionFeeResponse =
+  DataWrap<EstimateTransactionFeeDTO>;
 
 export type CoinPriceDto = { data: Record<string, number> };
 
@@ -51,9 +51,13 @@ export interface CoinTypesResponse {
   };
 }
 
-export type FetchCoinPriceParams = { symbol: Coin; };
+export type FetchCoinPriceParams = { symbol: Coin };
 
-export type DecodeContractInteractionParams = { blockchain: string; address: string; tx_data: string };
+export type DecodeContractInteractionParams = {
+  blockchain: string;
+  address: string;
+  tx_data: string;
+};
 export type DecodedContractInteraction = {
   name: string;
   arguments: {
@@ -76,4 +80,5 @@ export type DecodedContractInteraction = {
   };
 };
 
-export type DecodeContractInteractionResponse = DataWrap<DecodedContractInteraction>;
+export type DecodeContractInteractionResponse =
+  DataWrap<DecodedContractInteraction>;
