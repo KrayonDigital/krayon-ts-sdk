@@ -59,6 +59,37 @@ export interface CreateOrganization {
   logo?: string;
 }
 
+export interface CompanyVerification {
+  company_details: {
+    company_name: string;
+    company_owner: string;
+    legal_structure: string;
+    date_of_incorporation: string;
+    registered_address: string;
+    country_of_incorporation: string;
+  };
+  directors: [
+    {
+      first_name: string;
+      middle_man: string;
+      last_name: string;
+      date_of_birth: string;
+      nationality: string;
+      address: string;
+      email: string;
+      phone: string;
+      pep_status: boolean;
+    }[]
+  ];
+  bank_details: {
+    name_of_account_holder: string;
+    account_no: string;
+    sort_code: string;
+    swift_iban: string;
+    address: string;
+  };
+}
+
 export type OrganizationsResponse = Pageable<Organization>;
 
 export interface InviteUser {
