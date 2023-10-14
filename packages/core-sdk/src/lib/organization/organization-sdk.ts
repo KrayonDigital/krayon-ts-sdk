@@ -1,5 +1,6 @@
 import { AxiosInstance } from 'axios';
 import {
+  CompanyVerification,
   CreateSubAccount,
   GetOrganizationOptions,
   OrganizationAssetsFilter,
@@ -205,6 +206,13 @@ export class KrayonOrganizationSDK {
   listSubAccountAssets(organizationId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<AssetResponse>(`/organizations/${organizationId}/assets`, {
+      signal: abortSignal,
+    });
+  }
+
+  companyVerification(payload: CompanyVerification, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post(`/kyb`, payload, {
       signal: abortSignal,
     });
   }
