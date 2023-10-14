@@ -88,6 +88,11 @@ export interface CompanyVerification {
     swift_iban: string;
     address: string;
   };
+  documents: {
+    certificate_of_incorporation: string;
+    company_proof_of_address: string;
+    ubos: { file: string }[];
+  };
 }
 
 export type OrganizationsResponse = Pageable<Organization>;
