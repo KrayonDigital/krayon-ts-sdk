@@ -316,19 +316,10 @@ export class KrayonOrganizationSDK {
     formData.append('file', payload.documents.certificate_of_incorporation);
     formData.append('file', payload.documents.company_proof_of_address);
     payload.documents.ubos.forEach((a) => formData.append('file', a.file));
-    /*  const test = {
-      ...payload,
-      documents: formData,
-    }; */
-    /*    formData.append('file', payload.documents.certificate_of_incorporation);
-    formData.append('file', payload.documents.company_proof_of_address);
-    payload.documents.ubos.forEach((a) => formData.append('file', a.file)); */
 
-    /*  axios.post("http://localhost:8000/api/upload/", formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        } */
-    return this.apiClient.post(`/kyb`, payload, {
+    formData.append('json', JSON.stringify(payload));
+
+    return this.apiClient.post(`/kyb`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       signal: abortSignal,
     });
