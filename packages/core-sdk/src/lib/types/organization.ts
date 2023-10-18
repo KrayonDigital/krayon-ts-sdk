@@ -59,9 +59,7 @@ export interface CreateOrganization {
   logo?: string;
 }
 
-export type UploadFile = {
-  file?: any;
-};
+export type UploadFile = any
 
 export interface CompanyVerification {
   company_details: {
