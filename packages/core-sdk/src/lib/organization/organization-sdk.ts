@@ -311,14 +311,26 @@ export class KrayonOrganizationSDK {
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
-
+    const getBlob = (file:any) => {
+      return file
+    }
+    
     const formData = new FormData();
-    formData.append('file', payload.documents.certificate_of_incorporation);
-    formData.append('file', payload.documents.company_proof_of_address);
-    payload.documents.ubos.forEach((a) => formData.append('file', a.file));
+    formData.append('file', getBlob(payload.documents.certificate_of_incorporation));
+    // formData.append('file', getBlob(payload.documents.company_proof_of_address.file));
+    console.log('WTFFFF!!!!!!!!!!',payload);
+    // payload.documents.ubos.forEach((a) => formData.append('file', getBlob(a.file)));
 
     formData.append('json', JSON.stringify(payload));
 
+  /*   let formData = new FormData();
+    formData.append("file", Buffer.from(file.data), {
+        filename: file.name,
+        contentType: file.mimetype,
+    });
+ */
+    console.log('formData',formData);
+    
     return this.apiClient.post(`/kyb`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
       signal: abortSignal,
