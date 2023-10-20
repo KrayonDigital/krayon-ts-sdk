@@ -310,12 +310,24 @@ export class KrayonOrganizationSDK {
     payload: CompanyVerification,
     extraParams?: KrayonAPICommonOptions
   ) {
+    console.log('payload', payload);
     const { abortSignal } = extraParams || {};
-
     const formData = new FormData();
-    formData.append('file', payload.documents.certificate_of_incorporation);
-    formData.append('file', payload.documents.company_proof_of_address);
-    payload.documents.ubos.forEach((a) => formData.append('file', a.file));
+    const addFile = (name: string, file: any) => {
+      formData.append(name, file, file.name);
+    };
+
+    addFile(
+      'certificate_of_incorporation',
+      payload.documents.certificate_of_incorporation
+    );
+    addFile(
+      'company_proof_of_address',
+      payload.documents.company_proof_of_address
+    );
+    payload.documents.ubos.forEach((file, index) =>
+      addFile('ubos' + (index + 1), file)
+    );
 
     formData.append('json', JSON.stringify(payload));
 

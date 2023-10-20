@@ -59,6 +59,8 @@ export interface CreateOrganization {
   logo?: string;
 }
 
+export type UploadFile = any
+
 export interface CompanyVerification {
   company_details: {
     company_name: string;
@@ -89,9 +91,9 @@ export interface CompanyVerification {
     address: string;
   };
   documents: {
-    certificate_of_incorporation: string;
-    company_proof_of_address: string;
-    ubos: { file: string }[];
+    certificate_of_incorporation: UploadFile;
+    company_proof_of_address: UploadFile;
+    ubos: UploadFile[];
   };
 }
 
