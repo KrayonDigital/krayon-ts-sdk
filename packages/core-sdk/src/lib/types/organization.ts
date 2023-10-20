@@ -1,6 +1,7 @@
 import { Pageable } from './pagination';
 import { KrayonAPICommonOptions, PaginationRequest } from './common';
 
+export type KYBStatus = 'Unverified' | 'Pending' | 'Verified' | 'Rejected';
 export interface Organization {
   id: string;
   name: string;
@@ -9,6 +10,7 @@ export interface Organization {
   logo: string;
   phone: string;
   address: string;
+  kyb_status: KYBStatus;
   email: string;
   num_admins: number;
   num_quorum: number;
@@ -59,7 +61,7 @@ export interface CreateOrganization {
   logo?: string;
 }
 
-export type UploadFile = any
+export type UploadFile = any;
 
 export interface CompanyVerification {
   company_details: {
