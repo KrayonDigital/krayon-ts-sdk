@@ -329,6 +329,8 @@ export class KrayonOrganizationSDK {
       addFile('ubos' + (index + 1), file)
     );
 
+    // delete payload.documents;
+
     formData.append('json', JSON.stringify(payload));
 
     return this.apiClient.post(`/kyb`, formData, {
