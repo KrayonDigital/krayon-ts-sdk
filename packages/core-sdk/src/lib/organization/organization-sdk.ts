@@ -310,7 +310,6 @@ export class KrayonOrganizationSDK {
     payload: CompanyVerification,
     extraParams?: KrayonAPICommonOptions
   ) {
-    console.log('payload', payload);
     const { abortSignal } = extraParams || {};
     const formData = new FormData();
     const addFile = (name: string, file: any) => {
@@ -326,10 +325,8 @@ export class KrayonOrganizationSDK {
       payload.documents.company_proof_of_address
     );
     payload.documents.ubos.forEach((file, index) =>
-      addFile('ubos' + (index + 1), file)
+      addFile('ubos' + (index + 1), file.file)
     );
-
-    // delete payload.documents;
 
     formData.append('json', JSON.stringify(payload));
 
