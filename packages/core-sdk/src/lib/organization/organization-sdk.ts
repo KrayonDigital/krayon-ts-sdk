@@ -306,6 +306,10 @@ export class KrayonOrganizationSDK {
     );
   }
 
+  getCompanyVerificationDetails() {
+    return this.apiClient.get(`/kyb`);
+  }
+
   companyVerification(
     payload: CompanyVerification,
     extraParams?: KrayonAPICommonOptions
