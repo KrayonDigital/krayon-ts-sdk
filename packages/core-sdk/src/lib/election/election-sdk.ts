@@ -24,6 +24,10 @@ export class KrayonElectionSDK {
     return this.apiClient.get<ElectionDetail>(`/elections/${id}`, config);
   }
 
+  cancelElection(id: string) {
+    return this.apiClient.delete<ElectionVote>(`/elections/${id}/vote`);
+  }
+
   voteElection(id: string, vote: ElectionDecision, options?: KrayonAPICommonOptions) {
     const { abortSignal: signal } = options || {};
     const payload = { vote };
