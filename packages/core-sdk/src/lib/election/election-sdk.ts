@@ -1,7 +1,16 @@
 import { AxiosError } from 'axios';
-import { Election, ElectionErrorResponse, ElectionResult } from '../types/election';
+import {
+  Election,
+  ElectionErrorResponse,
+  ElectionResult,
+} from '../types/election';
 import { DataWrap, KrayonAPICommonOptions } from '../types/common';
-import { ElectionFilter, ElectionDetail, ElectionDecision, ElectionVote } from '../types/election';
+import {
+  ElectionFilter,
+  ElectionDetail,
+  ElectionDecision,
+  ElectionVote,
+} from '../types/election';
 import { Pageable } from '../types/pagination';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
@@ -15,7 +24,10 @@ export class KrayonElectionSDK {
 
   listElections(params: ElectionFilter, options?: KrayonAPICommonOptions) {
     const { abortSignal: signal } = options || {};
-    return this.apiClient.get<Pageable<Election>>(`/elections`, { params, signal });
+    return this.apiClient.get<Pageable<Election>>(`/elections`, {
+      params,
+      signal,
+    });
   }
 
   getElection(id: string, options?: KrayonAPICommonOptions) {
@@ -25,21 +37,32 @@ export class KrayonElectionSDK {
   }
 
   cancelElection(id: string) {
-    return this.apiClient.delete<ElectionVote>(`/elections/${id}/vote`);
+    return this.apiClient.delete<ElectionVote>(`/elections/${id}`);
   }
 
-  voteElection(id: string, vote: ElectionDecision, options?: KrayonAPICommonOptions) {
+  voteElection(
+    id: string,
+    vote: ElectionDecision,
+    options?: KrayonAPICommonOptions
+  ) {
     const { abortSignal: signal } = options || {};
     const payload = { vote };
     const config = { signal };
     // No data wrap here - should this be changed on the API?
-    return this.apiClient.post<ElectionVote>(`/elections/${id}/vote`, payload, config);
+    return this.apiClient.post<ElectionVote>(
+      `/elections/${id}/vote`,
+      payload,
+      config
+    );
   }
 
   getElectionResult(id: string, options?: KrayonAPICommonOptions) {
     const { abortSignal: signal } = options || {};
     const config = { signal };
-    return this.apiClient.get<DataWrap<ElectionResult>>(`/elections/${id}/result`, config);
+    return this.apiClient.get<DataWrap<ElectionResult>>(
+      `/elections/${id}/result`,
+      config
+    );
   }
 
   pollElectionResult(electionId: string, timeoutMs = 120000) {
@@ -49,7 +72,8 @@ export class KrayonElectionSDK {
       const intervalId = setInterval(async () => {
         totalMSElapsed += pollInterval;
         try {
-          const electionResult = (await this.getElectionResult(electionId)).data;
+          const electionResult = (await this.getElectionResult(electionId))
+            .data;
           if (totalMSElapsed > timeoutMs || electionResult) {
             clearInterval(intervalId);
             if (!electionResult) {
@@ -62,7 +86,10 @@ export class KrayonElectionSDK {
         } catch (e) {
           try {
             const axError = e as AxiosError<ElectionErrorResponse>;
-            const errDetails = axError.response?.data?.error?.details ?? { message: '', extra: {} };
+            const errDetails = axError.response?.data?.error?.details ?? {
+              message: '',
+              extra: {},
+            };
 
             // quick hack to parse the response, and if it isn't pending, just reject it
             const {
