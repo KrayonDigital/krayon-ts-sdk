@@ -25,7 +25,7 @@ export class KrayonElectionSDK {
   }
 
   cancelElection(id: string) {
-    return this.apiClient.delete<ElectionVote>(`/elections/${id}/vote`);
+    return this.apiClient.delete<ElectionVote>(`/elections/${id}`);
   }
 
   voteElection(id: string, vote: ElectionDecision, options?: KrayonAPICommonOptions) {
