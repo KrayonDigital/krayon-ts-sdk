@@ -167,7 +167,8 @@ export class KrayonSDK {
         this.setReadyState(SDKReadyStatus.ReadyNotOnboarded);
       }
     } catch (error) {
-      this.status = SDKReadyStatus.Error;
+      // this.status = SDKReadyStatus.Error;
+      this.setReadyState(SDKReadyStatus.Error);
       throw new Error('An error occurred during the setup process: ' + error);
     }
   }
