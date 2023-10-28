@@ -16,51 +16,82 @@ export class KrayonUserSDK {
 
   addUser(user: CreateUser, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<DataWrap<User>>(`/users`, user, { signal: abortSignal });
+    return this.apiClient.post<DataWrap<User>>(`/users`, user, {
+      signal: abortSignal,
+    });
   }
 
   getUser(userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<User>>(`/users/${userId}`, { signal: abortSignal });
+    return this.apiClient.get<DataWrap<User>>(`/users/${userId}`, {
+      signal: abortSignal,
+    });
   }
 
   deleteUser(userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.delete<DataWrap<User>>(`/users/${userId}`, { signal: abortSignal });
+    return this.apiClient.delete<DataWrap<User>>(`/users/${userId}`, {
+      signal: abortSignal,
+    });
   }
 
   updateUser(user: Partial<User>, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch<DataWrap<User>>(`/users/${user.id}`, user, { signal: abortSignal });
+    return this.apiClient.patch<DataWrap<User>>(`/users/${user.id}`, user, {
+      signal: abortSignal,
+    });
   }
 
   listUserApiTokens(userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<ApiTokenResponseDto>(`/users/${userId}/tokens`, { signal: abortSignal });
+    return this.apiClient.get<ApiTokenResponseDto>(`/users/${userId}/tokens`, {
+      signal: abortSignal,
+    });
   }
 
-  deleteUserSpendingLimits(limit: Partial<UserSpendingLimit>, userId: string, extraParams?: KrayonAPICommonOptions) {
+  deleteUserSpendingLimits(
+    limit: Partial<UserSpendingLimit>,
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<UserSpendingLimit>(
       `/users/${userId}/spending-limits`,
-      {spending_limits: [Object.assign(limit, { allowance: null, address: undefined })]},
+      {
+        spending_limits: [
+          Object.assign(limit, { allowance: null, address: undefined }),
+        ],
+      },
       { signal: abortSignal }
     );
   }
 
-  addUserSpendingLimits(data: {spending_limits: Partial<UserSpendingLimit>[]}, userId: string, extraParams?: KrayonAPICommonOptions) {
+  addUserSpendingLimits(
+    data: { spending_limits: Partial<UserSpendingLimit>[] },
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post<UserSpendingLimit>(`/users/${userId}/spending-limits`, data, { signal: abortSignal });
+    return this.apiClient.post<UserSpendingLimit>(
+      `/users/${userId}/spending-limits`,
+      data,
+      { signal: abortSignal }
+    );
   }
 
   listUserSpendingLimits(userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<Pageable<UserSpendingLimit>>(`/users/${userId}/spending-limits`, { signal: abortSignal });
+    return this.apiClient.get<Pageable<UserSpendingLimit>>(
+      `/users/${userId}/spending-limits`,
+      { signal: abortSignal }
+    );
   }
 
   listUserWallets(userId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<Pageable<Wallet>>(`/users/${userId}/wallets`, { signal: abortSignal });
+    return this.apiClient.get<Pageable<Wallet>>(`/users/${userId}/wallets`, {
+      signal: abortSignal,
+    });
   }
 
   assignUserToWallets(
@@ -89,11 +120,17 @@ export class KrayonUserSDK {
     );
   }
 
-  getUserEmailVerification(userId: string, extraParams?: KrayonAPICommonOptions) {
+  getUserEmailVerification(
+    userId: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<DataWrap<{ email_verified: boolean }>>(`/users/${userId}/is-email-verified`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<DataWrap<{ email_verified: boolean }>>(
+      `/users/${userId}/is-email-verified`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
   listUserElections(userId: string, extraParams?: KrayonAPICommonOptions) {
@@ -101,6 +138,25 @@ export class KrayonUserSDK {
     return this.apiClient.get(`/users/${userId}/elections`, {
       signal: abortSignal,
     });
+  }
+
+  linkUserIdentities(userId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post<DataWrap<any[]>>(
+      `/users/${userId}/link-user-identities`,
+      {},
+      { signal: abortSignal }
+    );
+  }
+
+  getUserIdentities(userId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<{ user_id: string; provider: string }[]>(
+      `/users/${userId}/list-user-identities`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
   getUseIntercomId(userId: string, extraParams?: KrayonAPICommonOptions) {
