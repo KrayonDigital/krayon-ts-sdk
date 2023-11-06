@@ -1,21 +1,33 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from 'react-native-auth0';
+
 import { KrayonSDK } from '@krayon-digital/core-sdk';
 import { SDKReadyStatus } from '@krayon-digital/core-sdk';
 import KrayonSdkClientContext from './sdkClientContext';
 
-type KrayonAuth0SDKProviderProps = PropsWithChildren<{
+export type Auth0HookBridge = () => {
+  isLoading: boolean;
+  isAuthenticated: boolean;
+  getAccessTokenSilently: () => Promise<string>;
+  getIdTokenClaims: () => Promise<any>;
+};
+
+export type KrayonAuth0SDKProviderProps = PropsWithChildren<{
   krayonSdkInstance: KrayonSDK;
   loaderComponent?: React.ReactNode | null;
   sdkNotReadyComponent?: React.ReactNode;
+  auth0Bridge: Auth0HookBridge;
 }>;
+
 
 // This component will basically get the token from auth0 and pass it to the SDK
 // And will provide the SDK instance down the line
-export const KrayonWithAuth0SDKProvider = (
-  props: KrayonAuth0SDKProviderProps
+export const KrayonWithAuth0SDKProviderBase = (
+  props: KrayonAuth0SDKProviderProps,
 ): JSX.Element | null => {
   const {
+    auth0Bridge,
     children,
     // loaderComponent = <div>Loading...</div>,
     sdkNotReadyComponent = null,
@@ -27,7 +39,7 @@ export const KrayonWithAuth0SDKProvider = (
     isAuthenticated: isAuth0Authenticated,
     getAccessTokenSilently,
     getIdTokenClaims,
-  } = useAuth0();
+  } = auth0Bridge();
 
   // Use the SDK status to not render the children (or render a loader)
   // Even though this mirrors krayonSdkInstance.status, we need to use a state variable
