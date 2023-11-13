@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { OngoingRequestQueueContext } from './OngoingRequestQueueProvider';
 import { WalletConnectContext } from './WalletConnectContextProvider';
 
 export const useWalletConnect = () => {
@@ -11,11 +10,3 @@ export const useWalletConnect = () => {
     isReady: walletConnectContext?.signClient !== null,
   }
 };
-
-export const useWalletConnectOngoingRequests = () => {
-  const electionQueueContext = useContext(OngoingRequestQueueContext);
-  if (!electionQueueContext) {
-    throw new Error('electionQueueContext has to be used within <WalletConnectContext.Provider>');
-  }
-  return electionQueueContext;
-}

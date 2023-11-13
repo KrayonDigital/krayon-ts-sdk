@@ -16,6 +16,7 @@ import { KrayonTradeSDK } from './trade/trade-sdk';
 import { KrayonAPIClient } from './api-client';
 import { SDKReadyStatus } from './consts/enums';
 import { KrayonGasStationSDK } from './gas-station/gas-station-sdk';
+import { AxiosError } from 'axios';
 
 export interface KrayonSDKConfig {
   token: string;
