@@ -29,6 +29,10 @@ import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
 import { Wallet } from '../types/wallet';
 import { GasStationDto } from '../types';
+import {
+  MerchantDepositsResponse,
+  MerchantNotificationResponse,
+} from '../types/merchant';
 
 export type OrganizationAssetFilter = Partial<Asset> & PaginationRequest;
 
@@ -304,6 +308,21 @@ export class KrayonOrganizationSDK {
         signal: abortSignal,
       }
     );
+  }
+
+  // MERCHANT - consider moving to merchant SDK
+  getDeposits(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<MerchantDepositsResponse>(`/deposits`, {
+      signal: abortSignal,
+    });
+  }
+
+  getNotifications(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<MerchantNotificationResponse>(`/notifications`, {
+      signal: abortSignal,
+    });
   }
 
   companyVerification(
