@@ -9,11 +9,11 @@ export interface MerchantDeposit {
   gross_payment: string;
   payment_fee: string;
   net_amount: string;
+  type: string;
 }
 
-export interface MerchantNotification {
+export interface MerchantNotificationDeposit {
   id: string;
-
   organization: string;
   wallet: string;
   status: string;
@@ -21,10 +21,15 @@ export interface MerchantNotification {
   currency: string;
   symbol: string;
   webhook_url: string;
+  type: string;
+}
 
-  date: string;
-  request: string;
-  response: string;
+export interface MerchantNotification {
+  id: string;
+  created_at: string;
+  delivery_status: string;
+  delivery_error_message: string;
+  related_object_details: MerchantNotificationDeposit | any;
 }
 
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
