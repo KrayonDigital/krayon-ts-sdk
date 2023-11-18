@@ -19,3 +19,5 @@ export * from './transfer';
 export * from './user';
 export * from './util';
 export * from './wallet';
+export * from './deposit';
+export * from './notification';
