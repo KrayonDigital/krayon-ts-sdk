@@ -45,27 +45,5 @@ export interface MerchantNotification {
   related_object_details: MerchantNotificationDeposit | any;
 }
 
-export const getMerchantStatusColor = (status?: string) => {
-  const statusColor = { bg: 'bg-red/10', text: 'text-red' };
-
-  switch (status) {
-    case DepositStatus.UNKNOWN:
-      statusColor.bg = 'bg-blue/10';
-      statusColor.text = 'text-blue';
-      break;
-
-    case DepositStatus.SUCCESS:
-      statusColor.bg = 'bg-green/10';
-      statusColor.text = 'text-green';
-      break;
-
-    default:
-      statusColor.bg = 'bg-red/10';
-      statusColor.text = 'text-red';
-      break;
-  }
-  return statusColor;
-};
-
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
 export type MerchantNotificationResponse = Pageable<MerchantNotification>;
