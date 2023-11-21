@@ -18,6 +18,7 @@ import { SDKReadyStatus } from './consts/enums';
 import { KrayonGasStationSDK } from './gas-station/gas-station-sdk';
 import { KrayonDepositSDK } from './deposit/deposit-sdk';
 import { KrayonNotificationSDK } from './notification/notification-sdk';
+import { KrayonCheckoutSDK } from './checkout/checkout-sdk';
 
 export interface KrayonSDKConfig {
   token: string;
@@ -47,6 +48,7 @@ export class KrayonSDK {
   walletGroup: KrayonWalletGroupSDK;
   deposit: KrayonDepositSDK;
   notification: KrayonNotificationSDK;
+  checkout: KrayonCheckoutSDK;
   // For now, don't use the KrayonAPIClient, but rather, the singleton one
   // Easy to swap it later on
   // defaultApiClient: KrayonAPIClient;
@@ -87,6 +89,7 @@ export class KrayonSDK {
     this.gasStation = new KrayonGasStationSDK({ apiClient });
     this.deposit = new KrayonDepositSDK({ apiClient });
     this.notification = new KrayonNotificationSDK({ apiClient });
+    this.checkout = new KrayonCheckoutSDK({ apiClient });
     // Lastly, initialize all the SDKs that are (currently) dependent on the organization ID
     // We should eventually refactor these deps away, and simply be able to initialize everything here
     // But for now, this is the easiest way to do it, and we simply rerun this function in the
