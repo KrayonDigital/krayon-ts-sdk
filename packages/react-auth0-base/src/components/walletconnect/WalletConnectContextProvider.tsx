@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useCallback,
   useEffect,
@@ -8,7 +8,7 @@ import React, {
 import SignClient from '@walletconnect/sign-client';
 import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
 import { EIP155RemoteWalet, KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon-digital/walletconnect-sdk';
-import { CoreTypes, EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
+import { EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
 import { Wallet } from '@krayon-digital/core-sdk';
 
 type WalletConnectContextType = {
@@ -27,10 +27,9 @@ type WalletConnectContextType = {
 
 export const WalletConnectContext = createContext<WalletConnectContextType>({signClient: null} as WalletConnectContextType);
 
-
 // Props here are all the event handlers
 export type WalletConnectContextProviderProps = PropsWithChildren<Partial<Parameters<typeof assignSignClientModalEvents>[1]>> & {
-  wcInitializationParams: CoreTypes.Options
+  wcInitializationParams: Parameters<(typeof SignClient)['init']>[0]
 };
 
 export function WalletConnectContextProvider(props: WalletConnectContextProviderProps) {

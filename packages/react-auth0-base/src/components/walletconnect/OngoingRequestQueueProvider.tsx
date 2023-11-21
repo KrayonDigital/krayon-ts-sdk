@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, createContext, useRef, ReactNode } from 'react';
+import { ReactElement, useState, createContext, useRef, PropsWithChildren } from 'react';
 import { SignClientTypes } from '@walletconnect/types';
 import { JsonRpcError, JsonRpcResult, formatJsonRpcError, formatJsonRpcResult } from '@walletconnect/jsonrpc-utils';
 import { Election, ElectionDecision, ElectionResult } from '@krayon-digital/core-sdk';
@@ -28,14 +28,14 @@ export interface ElectionQueueInterface {
 export const OngoingRequestQueueContext = createContext<ElectionQueueInterface>({
   activeElections: [],
   pastElections: [],
-  enqueueStartApprovalResult: (params) => {},
+  enqueueStartApprovalResult: (params) => {return},
 }); // appease TS
 
 /**
  * Functional component that provides an Election Queue Context to its children
  * This context provides state and actions for handling and storing election results
  */
-export const OngoingRequestQueueProvider: FC<{ children: ReactNode }> = ({ children }): ReactElement => {
+export const OngoingRequestQueueProvider = ({ children }: PropsWithChildren): ReactElement => {
   // We store the active and past elections in state
   const [activeElections, setActiveElections] = useState<Election[]>([]);
   const [pastElections, setPastElections] = useState<Election[]>([]);

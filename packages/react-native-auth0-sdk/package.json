@@ -1,23 +1,14 @@
 {
   "name": "@krayon-digital/react-native-auth0-sdk",
-<<<<<<< HEAD
   "version": "0.0.1",
-=======
-  "version": "0.0.8",
->>>>>>> 857d4a8b303bf7d5c30c9a60c6e2696d4d9d0096
   "description": "SDK React/Auth0 functionalities for Krayon SDK",
   "author": "Krayon Digital",
   "license": "MIT",
   "homepage": "https://krayondigital.com",
   "peerDependencies": {
-<<<<<<< HEAD
-    "react": "^18.2.37",
-    "react-native": "^0.72.6",
-=======
     "@types/react": "^18.2.14",
     "react": "^18.2.14",
     "react-native": "0.72.6",
->>>>>>> 857d4a8b303bf7d5c30c9a60c6e2696d4d9d0096
     "react-native-auth0": "^3.0.2"
   }
 }

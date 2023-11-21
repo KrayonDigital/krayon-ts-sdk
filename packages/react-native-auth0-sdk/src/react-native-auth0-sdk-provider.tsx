@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { SDKReadyStatus } from '@krayon-digital/core-sdk';
-import { KrayonSdkClientContext, KrayonAuth0SDKProviderProps } from '../../react-auth0-base/src/index';
+import { KrayonSdkClientContext, KrayonAuth0SDKProviderProps } from '@krayon-digital/react-auth0-base';
 import { useAuth0 } from 'react-native-auth0';
 import { ActivityIndicator } from 'react-native';
 
