@@ -7,8 +7,6 @@
   "homepage": "https://krayondigital.com",
   "peerDependencies": {
     "@auth0/auth0-react": "^2.1",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
     "react": "^18",
     "react-dom": "^18"
   }
