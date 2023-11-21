@@ -6,7 +6,7 @@ import {
   PropsWithChildren,
 } from 'react';
 import SignClient from '@walletconnect/sign-client';
-import { useKrayon, useKrayonSDKStatus } from '../../use-sdk-hooks';
+import { useKrayon, useKrayonSDKStatus } from '../../../../react-auth0-base/src/use-sdk-hooks';
 import { EIP155RemoteWalet, KrayonWalletConnectSDK, SessionRequestHandlerParam, assignSignClientModalEvents } from '@krayon-digital/walletconnect-sdk';
 import { EngineTypes, PairingTypes, SignClientTypes } from '@walletconnect/types';
 import { Wallet } from '@krayon-digital/core-sdk';
