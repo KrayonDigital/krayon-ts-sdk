@@ -1,8 +1,14 @@
-import { Pageable } from './pagination';
+export enum CheckoutDepositStatus {
+  SUCCESS = 'SUCCESS',
+  PENDING = 'PENDING',
+  FAILED = 'FAILED',
+  CANCELLED = 'CANCELLED',
+  EXPIRED = 'EXPIRED',
+}
 
 export interface Checkout {
   id: string;
-  status: string;
+  status: CheckoutDepositStatus;
   amount: string;
   currency: string;
   description: string;
