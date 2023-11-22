@@ -1,6 +1,10 @@
 import { KrayonAPIClient } from '../api-client';
 import { KrayonSDK } from '../main';
-import { KrayonAPICommonOptions, MerchantDepositsResponse } from '../types';
+import {
+  KrayonAPICommonOptions,
+  MerchantDepositBalanceResponse,
+  MerchantDepositsResponse,
+} from '../types';
 
 export class KrayonDepositSDK {
   readonly apiClient: KrayonAPIClient;
@@ -14,5 +18,15 @@ export class KrayonDepositSDK {
     return this.apiClient.get<MerchantDepositsResponse>(`/deposits`, {
       signal: abortSignal,
     });
+  }
+
+  getDepositBalances(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<MerchantDepositBalanceResponse>(
+      `/deposits/balance`,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 }
