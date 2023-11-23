@@ -42,6 +42,7 @@ export interface MerchantDeposit {
 export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
+  sum_settled_deposits: number;
 }
 
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
