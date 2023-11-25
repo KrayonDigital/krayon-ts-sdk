@@ -142,6 +142,22 @@ export class KrayonWalletSDK {
     });
   }
 
+  addAssetToken(
+    walletId: string,
+    blockchain: string,
+    symbol: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post<AssetResponse>(
+      `/wallets/${walletId}/add-assets`,
+      { blockchain, symbol },
+      {
+        signal: abortSignal,
+      }
+    );
+  }
+
   createWallet(
     walletInfo:
       | {
@@ -226,11 +242,16 @@ export class KrayonWalletSDK {
     );
   }
 
-  syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions):Promise<void> {
+  syncWallet(
+    walletId: string,
+    extraParams?: KrayonAPICommonOptions
+  ): Promise<void> {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`/wallets/${walletId}/sync`,
-        {},
-        {signal: abortSignal});
+    return this.apiClient.post(
+      `/wallets/${walletId}/sync`,
+      {},
+      { signal: abortSignal }
+    );
   }
 
   listWalletNftCollections(
