@@ -22,6 +22,8 @@ export interface MerchantDeposit {
   description: string;
   id: string;
   name: string;
+  customer_country: string;
+  customer_email: string;
   currency: string;
   logo: string;
   created_at: string;
