@@ -1,3 +1,4 @@
+import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
 
 export enum DepositStatus {
@@ -5,6 +6,7 @@ export enum DepositStatus {
   ERROR = 'ERROR',
   UNKNOWN = 'UNKNOWN',
   CANCELLED = 'CANCELLED',
+  FAILED = 'FAILED',
   EXPIRED = 'EXPIRED',
   PENDING = 'PENDING',
 }
@@ -40,6 +42,22 @@ export interface MerchantDeposit {
   wallet: string;
   webhook_url: string;
 }
+
+export type DepositsFilter = PaginationRequest & {
+  from_address?: string;
+  from_address_con?: string;
+  from_address_nexact?: string;
+  to_address?: string;
+  to_address_con?: string;
+  to_address_nexact?: string;
+  date_from?: string;
+  date_to?: string;
+  tags?: string;
+  wallet_id?: string;
+  status?: string;
+  direction?: string;
+  blockchain?: string;
+};
 
 export interface MerchantDepositBalance {
   sum_deposits: number;
