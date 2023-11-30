@@ -49,9 +49,9 @@ export type DepositsFilter = PaginationRequest & {
   date_to?: string;
   status?: string;
   type?: string;
-  country: string;
-  id: string;
-  email: string;
+  country?: string;
+  id?: string;
+  email?: string;
 };
 
 export interface MerchantDepositBalance {
