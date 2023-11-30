@@ -32,6 +32,7 @@ export interface MerchantDeposit {
   gross_payment: string;
   payment_fee: string;
   amount: string;
+  net_amount: string;
   symbol: string;
   type: string;
   payment_method: string;
