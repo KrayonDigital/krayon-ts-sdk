@@ -1,3 +1,4 @@
+import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
 
 export enum DepositStatus {
@@ -5,6 +6,7 @@ export enum DepositStatus {
   ERROR = 'ERROR',
   UNKNOWN = 'UNKNOWN',
   CANCELLED = 'CANCELLED',
+  FAILED = 'FAILED',
   EXPIRED = 'EXPIRED',
   PENDING = 'PENDING',
 }
@@ -29,7 +31,9 @@ export interface MerchantDeposit {
   created_at: string;
   gross_payment: string;
   payment_fee: string;
+  net_fee: string;
   amount: string;
+  net_amount: string;
   symbol: string;
   type: string;
   payment_method: string;
@@ -41,10 +45,21 @@ export interface MerchantDeposit {
   webhook_url: string;
 }
 
+export type DepositsFilter = PaginationRequest & {
+  date_from?: string;
+  date_to?: string;
+  status?: string;
+  type?: string;
+  country?: string;
+  id?: string;
+  email?: string;
+};
+
 export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
   sum_settled_deposits: number;
+  currency: string;
 }
 
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
