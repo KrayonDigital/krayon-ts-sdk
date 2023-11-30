@@ -45,19 +45,13 @@ export interface MerchantDeposit {
 }
 
 export type DepositsFilter = PaginationRequest & {
-  from_address?: string;
-  from_address_con?: string;
-  from_address_nexact?: string;
-  to_address?: string;
-  to_address_con?: string;
-  to_address_nexact?: string;
   date_from?: string;
   date_to?: string;
-  tags?: string;
-  wallet_id?: string;
   status?: string;
-  direction?: string;
-  blockchain?: string;
+  type?: string;
+  country: string;
+  id: string;
+  email: string;
 };
 
 export interface MerchantDepositBalance {
