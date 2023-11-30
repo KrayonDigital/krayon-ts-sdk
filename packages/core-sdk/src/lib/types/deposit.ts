@@ -31,6 +31,7 @@ export interface MerchantDeposit {
   created_at: string;
   gross_payment: string;
   payment_fee: string;
+  net_fee: string;
   amount: string;
   net_amount: string;
   symbol: string;
@@ -58,6 +59,7 @@ export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
   sum_settled_deposits: number;
+  currency: string;
 }
 
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
