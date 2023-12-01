@@ -29,7 +29,6 @@ export interface MerchantDeposit {
   currency: string;
   logo: string;
   created_at: string;
-  gross_payment: string;
   payment_fee: string;
   net_fee: string;
   amount: string;
