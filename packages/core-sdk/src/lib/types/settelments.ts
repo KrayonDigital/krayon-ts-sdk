@@ -10,8 +10,13 @@ export interface Settlement {
   amount: string;
   wallet: string;
   description: string;
-
   type: string;
+
+  address: string;
+  blockchain: string;
+  currency: string;
+  exchange_rate: string;
+  settled_amount: string;
 }
 
 export type SettlementsFilter = PaginationRequest & {
