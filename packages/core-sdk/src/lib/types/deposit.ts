@@ -54,6 +54,10 @@ export type DepositsFilter = PaginationRequest & {
   email?: string;
 };
 
+export type FetchDepositBalanceParams = {
+  currency?: string;
+};
+
 export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
