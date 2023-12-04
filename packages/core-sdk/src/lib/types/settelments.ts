@@ -24,6 +24,7 @@ export enum SettlementStatus {
   FAILED = 'FAILED',
   CANCELLED = 'CANCELLED',
   EXPIRED = 'EXPIRED',
+  REJECTED = 'REJECTED',
 }
 
 export const SettlementStatusName = new Map([
@@ -32,6 +33,7 @@ export const SettlementStatusName = new Map([
   [SettlementStatus.FAILED, 'Failed'],
   [SettlementStatus.CANCELLED, 'Canceled'],
   [SettlementStatus.EXPIRED, 'Expired'],
+  [SettlementStatus.REJECTED, 'Rejected'],
 ]);
 
 export type SettlementsFilter = PaginationRequest & {
