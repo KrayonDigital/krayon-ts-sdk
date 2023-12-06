@@ -19,11 +19,16 @@ export class KrayonUtilSDK {
   }
 
   getSupportedBlockchains() {
-    return this.apiClient.get<BlockchainListResponse>('/utils/supported-blockchains');
+    return this.apiClient.get<BlockchainListResponse>(
+      '/utils/supported-blockchains'
+    );
   }
 
   getGasPrice(blockchain: string) {
-    return this.apiClient.get<DataWrap<{ gas_price: number }>>(`/utils/gas-price`, { params: { blockchain } });
+    return this.apiClient.get<DataWrap<{ gas_price: number }>>(
+      `/utils/gas-price`,
+      { params: { blockchain } }
+    );
   }
 
   estimateTransactionFee(params: {
@@ -33,15 +38,23 @@ export class KrayonUtilSDK {
     symbol: string;
     token_id?: string;
   }) {
-    return this.apiClient.get<EstimateTransactionFeeResponse>(`/utils/estimate-tx-fee`, { params });
+    return this.apiClient.get<EstimateTransactionFeeResponse>(
+      `/utils/estimate-tx-fee`,
+      { params }
+    );
   }
 
   async fetchCoinPrice(params: FetchCoinPriceParams) {
-    const { symbol } = params;
-    const response = await this.apiClient.get<CoinPriceDto>('/utils/symbol-price', {
-      params: { symbols: `${symbol}` },
-    });
-    return symbol in response.data.data ? response.data.data[symbol] : '';
+    const { symbols, currencies } = params;
+    const response = await this.apiClient.get<CoinPriceDto>(
+      '/utils/symbol-price',
+      {
+        params: { symbols: `${symbols}`, currencies: `${currencies}` },
+      }
+    );
+    return symbols in response.data.data
+      ? response.data.data[symbols][currencies]
+      : '';
   }
 
   getSupportedCoins() {
@@ -49,6 +62,9 @@ export class KrayonUtilSDK {
   }
 
   decodeContractInteraction(params: DecodeContractInteractionParams) {
-    return this.apiClient.post<DecodeContractInteractionResponse>('/utils/contract-decoder', params);
+    return this.apiClient.post<DecodeContractInteractionResponse>(
+      '/utils/contract-decoder',
+      params
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { DataWrap } from './common';
 
 export type Coin = 'ETH' | 'WETH' | 'BTC' | 'XTZ' | string;
+export type Currency = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'AUD' | string;
 export type TimeInterval = 'hour' | 'day' | 'week' | 'month' | 'onetime';
 
 export interface Link {
@@ -41,17 +42,19 @@ export interface EstimateTransactionFeeDTO {
 export type EstimateTransactionFeeResponse =
   DataWrap<EstimateTransactionFeeDTO>;
 
-export type CoinPriceDto = { data: Record<string, number> };
+export type CoinPriceInfo = Record<string, number>;
+
+export type CoinPriceDto = {
+  data: {
+    [key: string]: CoinPriceInfo;
+  };
+};
 
 export interface CoinTypesResponse {
-  data: {
-    coins: {
-      [key: string]: string;
-    };
-  };
+  data: CoinPriceDto;
 }
 
-export type FetchCoinPriceParams = { symbol: Coin };
+export type FetchCoinPriceParams = { symbols: Coin; currencies: Currency };
 
 export type DecodeContractInteractionParams = {
   blockchain: string;
