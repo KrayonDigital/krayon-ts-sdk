@@ -49,11 +49,16 @@ export class KrayonUtilSDK {
     const response = await this.apiClient.get<CoinPriceDto>(
       '/utils/symbol-price',
       {
-        params: { symbols: `${symbols}`, currencies: `${currencies}` },
+        params: {
+          symbols: `${symbols}`,
+          currencies: `${currencies.join(',')}`,
+        },
       }
     );
+
+    //TODO - add support for multiple currencies - replace currencies[0]
     return symbols in response.data.data
-      ? response.data.data[symbols][currencies]
+      ? response.data.data[symbols][currencies[0]]
       : '';
   }
 

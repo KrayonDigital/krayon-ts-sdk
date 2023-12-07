@@ -54,7 +54,7 @@ export interface CoinTypesResponse {
   data: CoinPriceDto;
 }
 
-export type FetchCoinPriceParams = { symbols: Coin; currencies: Currency };
+export type FetchCoinPriceParams = { symbols: Coin; currencies: Currency[] };
 
 export type DecodeContractInteractionParams = {
   blockchain: string;
