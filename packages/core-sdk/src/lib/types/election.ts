@@ -1,3 +1,4 @@
+import { PaginationRequest } from './common';
 import { Transfer } from './transfer';
 import { TimeInterval } from './util';
 
@@ -185,7 +186,7 @@ export interface Voter {
   decision: ElectionDecision;
 }
 
-export interface ElectionFilter {
+export interface ElectionFilter extends PaginationRequest {
   initiator_id?: string;
   num_required_accept?: [number, number];
   created_at?: [string, string];
