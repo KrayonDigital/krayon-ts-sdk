@@ -1,3 +1,4 @@
+import { PaginationRequest } from './common';
 import { DepositStatus } from './deposit';
 import { Pageable } from './pagination';
 
@@ -20,5 +21,11 @@ export interface MerchantNotificationDeposit {
   webhook_url: string;
   type: string;
 }
+
+export type NotificationsFilter = PaginationRequest & {
+  status?: string;
+  type?: string;
+  id?: string;
+};
 
 export type MerchantNotificationResponse = Pageable<MerchantNotification>;
