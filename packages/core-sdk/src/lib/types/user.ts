@@ -13,11 +13,11 @@ export interface User {
   organization: string | null;
   extra_data?: SocialInfo;
   social?: SocialInfo;
-  email_verified?: boolean;
+  email_verified: boolean;
   avatar?: string;
   date_joined: Date;
   election?: string | null;
-
+  is_active: boolean;
   sub_account_type: SubAccountType;
 }
 

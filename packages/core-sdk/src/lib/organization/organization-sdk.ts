@@ -1,8 +1,19 @@
-import { AxiosInstance } from 'axios';
+import { KrayonAPIClient } from '../api-client';
+import { KrayonSDK } from '../main';
+import { GasStationDto } from '../types';
+import { Asset, AssetResponse } from '../types/asset';
+import {
+  DataWrap,
+  KrayonAPICommonOptions,
+  PaginationRequest,
+} from '../types/common';
 import {
   CompanyVerification,
+  CreateOrganization,
   CreateSubAccount,
   GetOrganizationOptions,
+  InviteUser,
+  Organization,
   OrganizationAssetsFilter,
   OrganizationInvitationsFilter,
   OrganizationInvitationsType,
@@ -10,25 +21,11 @@ import {
   SpendingLimitFilter,
   SubAccountResponse,
 } from '../types/organization';
-import {
-  DataWrap,
-  KrayonAPICommonOptions,
-  PaginationRequest,
-} from '../types/common';
-import { Asset, AssetResponse } from '../types/asset';
-import { WhitelistContract } from '../types/whitelist';
-import {
-  CreateOrganization,
-  InviteUser,
-  Organization,
-} from '../types/organization';
 import { Pageable } from '../types/pagination';
-import { CreateUser, User, UserResponse } from '../types/user';
 import { UserSpendingLimit } from '../types/spending-limit';
-import { KrayonSDK } from '../main';
-import { KrayonAPIClient } from '../api-client';
+import { CreateUser, User, UserResponse } from '../types/user';
 import { Wallet } from '../types/wallet';
-import { GasStationDto } from '../types';
+import { WhitelistContract } from '../types/whitelist';
 
 export type OrganizationAssetFilter = Partial<Asset> & PaginationRequest;
 

@@ -16,6 +16,10 @@ import { KrayonTradeSDK } from './trade/trade-sdk';
 import { KrayonAPIClient } from './api-client';
 import { SDKReadyStatus } from './consts/enums';
 import { KrayonGasStationSDK } from './gas-station/gas-station-sdk';
+import { KrayonDepositSDK } from './deposit/deposit-sdk';
+import { KrayonNotificationSDK } from './notification/notification-sdk';
+import { KrayonCheckoutSDK } from './checkout/checkout-sdk';
+import { KrayonSettlementSDK } from './settlement/settlement-sdk';
 
 export interface KrayonSDKConfig {
   token: string;
@@ -43,6 +47,10 @@ export class KrayonSDK {
   whitelist: KrayonWhitelistnSDK;
   gasStation: KrayonGasStationSDK;
   walletGroup: KrayonWalletGroupSDK;
+  deposit: KrayonDepositSDK;
+  notification: KrayonNotificationSDK;
+  checkout: KrayonCheckoutSDK;
+  settlement: KrayonSettlementSDK;
   // For now, don't use the KrayonAPIClient, but rather, the singleton one
   // Easy to swap it later on
   // defaultApiClient: KrayonAPIClient;
@@ -81,7 +89,10 @@ export class KrayonSDK {
     this.user = new KrayonUserSDK({ apiClient });
     this.whitelist = new KrayonWhitelistnSDK({ apiClient });
     this.gasStation = new KrayonGasStationSDK({ apiClient });
-
+    this.deposit = new KrayonDepositSDK({ apiClient });
+    this.notification = new KrayonNotificationSDK({ apiClient });
+    this.checkout = new KrayonCheckoutSDK({ apiClient });
+    this.settlement = new KrayonSettlementSDK({ apiClient });
     // Lastly, initialize all the SDKs that are (currently) dependent on the organization ID
     // We should eventually refactor these deps away, and simply be able to initialize everything here
     // But for now, this is the easiest way to do it, and we simply rerun this function in the
@@ -167,7 +178,8 @@ export class KrayonSDK {
         this.setReadyState(SDKReadyStatus.ReadyNotOnboarded);
       }
     } catch (error) {
-      this.status = SDKReadyStatus.Error;
+      // this.status = SDKReadyStatus.Error;
+      this.setReadyState(SDKReadyStatus.Error);
       throw new Error('An error occurred during the setup process: ' + error);
     }
   }

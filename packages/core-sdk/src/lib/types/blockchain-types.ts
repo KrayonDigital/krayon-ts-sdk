@@ -5,4 +5,5 @@ export interface BlockchainListItem {
   name: string;
   value: string;
   icon: string;
+  swap?: boolean;
 }
