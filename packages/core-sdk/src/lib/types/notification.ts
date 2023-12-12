@@ -23,21 +23,14 @@ export interface MerchantNotificationDeposit {
 
 export enum NotificationStatus {
   SUCCESS = 'SUCCESS',
-  PENDING = 'PENDING',
-  FAILED = 'FAILED',
-  CANCELLED = 'CANCELLED',
-  EXPIRED = 'EXPIRED',
-  REJECTED = 'REJECTED',
   ERROR = 'ERROR',
+  UNKNOWN = 'UNKNOWN',
 }
 
 export const NotificationStatusName = new Map([
   [NotificationStatus.ERROR, 'Error'],
   [NotificationStatus.SUCCESS, 'Success'],
-  [NotificationStatus.CANCELLED, 'Canceled'],
-  [NotificationStatus.EXPIRED, 'Expired'],
-  [NotificationStatus.PENDING, 'Pending'],
-  [NotificationStatus.REJECTED, 'Rejected'],
+  [NotificationStatus.UNKNOWN, 'Unknown'],
 ]);
 
 export type NotificationsFilter = PaginationRequest & {
