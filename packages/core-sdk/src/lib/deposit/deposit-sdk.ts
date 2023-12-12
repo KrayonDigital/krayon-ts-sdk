@@ -6,6 +6,7 @@ import {
   KrayonAPICommonOptions,
   MerchantDepositBalanceResponse,
   MerchantDepositsResponse,
+  SettlementsFilter,
 } from '../types';
 
 export class KrayonDepositSDK {
@@ -15,7 +16,10 @@ export class KrayonDepositSDK {
     this.apiClient = apiClient;
   }
 
-  getDeposits(params?: DepositsFilter, extraParams?: KrayonAPICommonOptions) {
+  getDeposits(
+    params?: SettlementsFilter,
+    extraParams?: KrayonAPICommonOptions
+  ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<MerchantDepositsResponse>(`/deposits`, {
       params,

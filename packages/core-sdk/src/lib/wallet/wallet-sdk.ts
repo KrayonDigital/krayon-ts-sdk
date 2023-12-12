@@ -131,13 +131,12 @@ export class KrayonWalletSDK {
 
   listWalletAssets(
     walletId: string,
-    blockchain: string,
-    assetFilter?: WalletAssetFilter,
+    params?: WalletAssetFilter,
     extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<AssetResponse>(`/wallets/${walletId}/assets`, {
-      params: { assetFilter, blockchain },
+      params,
       signal: abortSignal,
     });
   }
@@ -226,11 +225,16 @@ export class KrayonWalletSDK {
     );
   }
 
-  syncWallet(walletId: string, extraParams?: KrayonAPICommonOptions):Promise<void> {
+  syncWallet(
+    walletId: string,
+    extraParams?: KrayonAPICommonOptions
+  ): Promise<void> {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`/wallets/${walletId}/sync`,
-        {},
-        {signal: abortSignal});
+    return this.apiClient.post(
+      `/wallets/${walletId}/sync`,
+      {},
+      { signal: abortSignal }
+    );
   }
 
   listWalletNftCollections(

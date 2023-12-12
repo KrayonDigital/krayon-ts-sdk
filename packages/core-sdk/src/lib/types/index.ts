@@ -22,3 +22,4 @@ export * from './wallet';
 export * from './deposit';
 export * from './notification';
 export * from './checkout';
+export * from './settelments';
