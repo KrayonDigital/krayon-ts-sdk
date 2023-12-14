@@ -10,6 +10,7 @@ import {
   TransferDetail,
   Transfer,
   CreateTransaction,
+  WithdrawalTransaction,
 } from '../types/transfer';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
@@ -88,6 +89,20 @@ export class KrayonTransferSDK {
     return this.apiClient.get<DataWrap<Transfer>>(`/transfers/${transferId}`, {
       signal: abortSignal,
     });
+  }
+
+  createTransferWithdrawal(
+    transferData: WithdrawalTransaction,
+    extraParams?: KrayonAPICommonOptions
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post<TransferDetail>(
+      `/transfers/withdrawal`,
+      transferData,
+      {
+        signal: abortSignal,
+      }
+    );
   }
 
   updateTransfer(
