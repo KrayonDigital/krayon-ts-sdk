@@ -10,12 +10,12 @@ export interface Settlement {
   wallet: string;
   description: string;
   type: string;
-
   address: string;
   blockchain: string;
   currency: string;
   exchange_rate: string;
   settled_amount: string;
+  settlement_fee: string;
 }
 
 export enum SettlementStatus {
