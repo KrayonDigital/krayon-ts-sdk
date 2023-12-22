@@ -15,6 +15,7 @@ export interface Settlement {
   currency: string;
   exchange_rate: string;
   settled_amount: string;
+  net_amount: string;
   settlement_fee: string;
 }
 
