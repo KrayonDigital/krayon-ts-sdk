@@ -11,6 +11,7 @@ import {
   Transfer,
   CreateTransaction,
   WithdrawalTransaction,
+  DepositTransaction,
 } from '../types/transfer';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
@@ -98,6 +99,20 @@ export class KrayonTransferSDK {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(
       `/transfers/withdrawal`,
+      transferData,
+      {
+        signal: abortSignal,
+      }
+    );
+  }
+
+  createTransferDeposit(
+    transferData: DepositTransaction,
+    extraParams?: KrayonAPICommonOptions
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post<TransferDetail>(
+      `/transfers/deposit`,
       transferData,
       {
         signal: abortSignal,
