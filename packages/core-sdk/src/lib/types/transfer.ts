@@ -49,6 +49,25 @@ export interface Transaction {
   block_time_stamp: string;
 }
 
+export interface WithdrawalTransaction {
+  amount: string;
+  wallet: string | undefined;
+  symbol: string;
+  currency: string;
+  note?: string;
+  tags?: string[];
+  transaction_fee?: string;
+  transaction_fee_usd?: string;
+}
+
+export interface DepositTransaction {
+  amount: string;
+  wallet: string | undefined;
+  symbol: string;
+  currency: string;
+  type: string;
+}
+
 export interface CreateTransaction {
   from_address: string | undefined;
   to_address: string;
