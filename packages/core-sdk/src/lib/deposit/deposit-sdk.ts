@@ -18,7 +18,7 @@ export class KrayonDepositSDK {
 
   getDeposits(
     params?: SettlementsFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<MerchantDepositsResponse>(`/deposits`, {
@@ -29,7 +29,7 @@ export class KrayonDepositSDK {
 
   getDepositBalances(
     params?: FetchDepositBalanceParams,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<MerchantDepositBalanceResponse>(
@@ -37,7 +37,15 @@ export class KrayonDepositSDK {
       {
         params,
         signal: abortSignal,
-      }
+      },
     );
+  }
+
+  downloadDeposits(params?: any, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<string>(`/deposits/download-csv`, {
+      params,
+      signal: abortSignal,
+    });
   }
 }
