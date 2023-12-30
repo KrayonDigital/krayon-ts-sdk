@@ -25,10 +25,21 @@ export class KrayonSettlementSDK {
 
   getSettlements(
     params?: SettlementsFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<MerchantSettlementsResponse>(`/settlements`, {
+      params,
+      signal: abortSignal,
+    });
+  }
+
+  downloadSettlements(
+    params?: any,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<string>(`/settlements/download-csv`, {
       params,
       signal: abortSignal,
     });
