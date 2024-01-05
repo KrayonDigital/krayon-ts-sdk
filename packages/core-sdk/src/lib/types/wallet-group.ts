@@ -4,6 +4,7 @@ import { Pageable } from './pagination';
 export interface WalletGroup {
   id: string;
   name: string;
+  order: number;
   organization: string;
 }
 
