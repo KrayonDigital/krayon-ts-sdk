@@ -122,9 +122,17 @@ export class KrayonSDK {
   ): Promise<AuthPlugin> {
     try {
       // Import and return the authentication plugin
-      const authPluginModule = await import(
-        `./plugins/auth/${authProvider}.ts`
-      );
+      let authPluginModule;
+      if (authProvider === 'auth0') {
+        authPluginModule = await import('./plugins/auth/auth0');
+      }
+      else {
+        throw new Error(`Unknown auth plugin ${authProvider}`);
+      }
+      // Apparenly, this doesn't work with React Native bundler
+      // const authPluginModule = await import(
+      //   `./plugins/auth/${authProvider}.ts`
+      // );
       const authPlugin: AuthPlugin = authPluginModule.default;
       return authPlugin;
     } catch (err) {

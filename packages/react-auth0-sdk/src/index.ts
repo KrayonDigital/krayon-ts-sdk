@@ -1,4 +1,3 @@
-export * from './auth0-sdk-provider';
-export * from './sdkClientContext';
-export * from './use-sdk-hooks';
-export * from './components';
+export * from '../../react-auth0-base/src/index';
+export * from './react-auth0-sdk-provider';
+export * from './components'

@@ -1,3 +1,4 @@
+export * from './WalletConnectContextProvider';
 export * from './OngoingRequestQueueProvider';
 export * from './useWalletConnect';
-export * from './WalletConnectContextProvider';
+export * from './useWalletConnectOngoingRequests';
