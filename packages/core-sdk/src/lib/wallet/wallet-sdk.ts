@@ -141,6 +141,22 @@ export class KrayonWalletSDK {
     });
   }
 
+  addAssetToken(
+    walletId: string,
+    blockchain: string,
+    symbol: string,
+    extraParams?: KrayonAPICommonOptions
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post<AssetResponse>(
+      `/wallets/${walletId}/add-assets`,
+      { blockchain, symbol },
+      {
+        signal: abortSignal,
+      }
+    );
+  }
+
   createWallet(
     walletInfo:
       | {

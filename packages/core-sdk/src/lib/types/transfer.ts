@@ -60,6 +60,14 @@ export interface WithdrawalTransaction {
   transaction_fee_usd?: string;
 }
 
+export interface DepositTransaction {
+  amount: string;
+  wallet: string | undefined;
+  symbol: string;
+  currency: string;
+  type: string;
+}
+
 export interface CreateTransaction {
   from_address: string | undefined;
   to_address: string;
