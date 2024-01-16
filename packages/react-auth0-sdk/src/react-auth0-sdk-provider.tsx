@@ -1,14 +1,7 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { KrayonSDK } from '@krayon-digital/core-sdk';
 import { SDKReadyStatus } from '@krayon-digital/core-sdk';
-import KrayonSdkClientContext from './sdkClientContext';
-
-type KrayonAuth0SDKProviderProps = PropsWithChildren<{
-  krayonSdkInstance: KrayonSDK;
-  loaderComponent?: React.ReactNode | null;
-  sdkNotReadyComponent?: React.ReactNode;
-}>;
+import { KrayonAuth0SDKProviderProps, KrayonSdkClientContext } from '.';
 
 // This component will basically get the token from auth0 and pass it to the SDK
 // And will provide the SDK instance down the line
