@@ -55,6 +55,13 @@ export type Election = {
       address: string;
       blockchain: string;
     }[];
+    spending_limits?: {
+      contract: string;
+      currency: string;
+      interval: TimeInterval;
+      allowance: number;
+      old_allowance: number;
+    }[];
   };
   initiator_id: string;
   proposition_details: {
@@ -121,15 +128,6 @@ export type Election = {
     }
   | {
       proposition_type: PropositionType.USER_SPENDING_LIMIT_CHANGE;
-      proposition_data: {
-        spending_limits?: {
-          contract: string;
-          currency: string;
-          interval: TimeInterval;
-          allowance: number;
-          old_allowance: number;
-        }[];
-      };
     }
   | {
       proposition_type: PropositionType.ASSET_SPENDING_LIMIT_CHANGE;
@@ -160,12 +158,25 @@ export type Election = {
     }
 );
 
-export type ElectionDetail = Election & {
+export type ElectionQuorum = {
   voters: Voter[];
   pending_voter_ids: string[];
   vote_url: string;
   updated_num_required_accept?: number;
   updated_num_approved?: number;
+};
+
+export type ElectionDetail = Election & ElectionQuorum;
+export type ElectionDetailSpendingLimit = Election & {
+  proposition_data: {
+    spending_limits: {
+      contract: string;
+      currency: string;
+      interval: string;
+      allowance: number;
+      old_allowance: number;
+    }[];
+  };
 };
 
 export interface ElectionVote {
