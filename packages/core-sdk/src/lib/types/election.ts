@@ -167,17 +167,6 @@ export type ElectionQuorum = {
 };
 
 export type ElectionDetail = Election & ElectionQuorum;
-export type ElectionDetailSpendingLimit = Election & {
-  proposition_data: {
-    spending_limits: {
-      contract: string;
-      currency: string;
-      interval: string;
-      allowance: number;
-      old_allowance: number;
-    }[];
-  };
-};
 
 export interface ElectionVote {
   election: Election;
