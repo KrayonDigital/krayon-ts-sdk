@@ -3,6 +3,7 @@ import { AxiosRequestConfig } from 'axios';
 // Define configuration type for KrayonAPIClient
 export type KrayonAPIClientConfig = AxiosRequestConfig & {
   appId?: string;
+  frontendVariant?: 'mobile' | 'web',
   maxRequests?: number;
   perMilliseconds?: number;
   // Define endpoint-specific throttling settings. Note, the initial config should omit the currentRequests and requestQueue fields

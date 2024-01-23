@@ -24,6 +24,7 @@ export class KrayonAPIClient {
   constructor(config: KrayonAPIClientConfig) {
     const {
       appId,
+      frontendVariant = 'web',
       maxRequests = 5,
       perMilliseconds = 1000,
       endpointThrottling: requestedEndpointThrottling = {},
@@ -38,6 +39,9 @@ export class KrayonAPIClient {
 
     this.clearRequestInterceptor = () => this.axiosInstance.interceptors?.request?.clear();
     this.clearResponseInterceptor = () => this.axiosInstance.interceptors?.response?.clear();
+
+    // Set the frontend ver header which will tell the backend how to decode the claims
+    this.axiosInstance.defaults.headers.common['X-Krayon-Frontend-Ver'] = frontendVariant;
 
     // There might be a case where we don't have the token yet
     // This is potentially if we use the SDK itself to get the token

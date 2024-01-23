@@ -36,10 +36,6 @@ export const KrayonSDKProviderWithAuth0 = (props: PropsWithChildren<KrayonAuth0S
     }
 
     (async () => {
-      // const creds = await authorize({ scope: "openid profile email", audience: "https://mobile-app.krayondigital.com/" });
-      // if (!creds) {
-      //   throw new Error('Not authorized');
-      // }
       const creds = await getCredentials("openid profile email");
       const token = creds?.accessToken;
       const idTokenClaims = {__raw: creds?.idToken}; // Mimic the auth0 interface for now, later on, change this in the auth0 SDK plugin
@@ -51,12 +47,10 @@ export const KrayonSDKProviderWithAuth0 = (props: PropsWithChildren<KrayonAuth0S
       // component rerender by itself
       krayonSdkInstance.onReadyStateChange(setSdkStatus);
 
-      console.log("WARNING: not passing idTokenClaims to SDK, as it's not working with the backend")
-
       // Actually start the SDK once we have auth0 data
       await krayonSdkInstance.start({
         token,
-        // idTokenClaims, // Omitting this for now, as the backend rejects it due to invalid SOCIAL_AUTH_AUTH0_KEY, and can fetch it itself
+        idTokenClaims,
         authProvider: 'auth0',
       });
       // console.log("Started SDK with token: ", token, " and idTokenClaims: ", idTokenClaims)

@@ -70,10 +70,11 @@ export class KrayonSDK {
     readyStateChange: [],
   };
 
-  public constructor({ baseURL }: { baseURL: string }) {
+  public constructor({ baseURL, frontendVariant = 'web' }: { baseURL: string, frontendVariant?: 'mobile' | 'web' }) {
     // The API client is in anonymous mode
     this.apiClient = new KrayonAPIClient({
       baseURL,
+      frontendVariant,
     });
 
     // Alias it for less verbose code in the initializations
@@ -188,7 +189,7 @@ export class KrayonSDK {
     } catch (error) {
       // this.status = SDKReadyStatus.Error;
       this.setReadyState(SDKReadyStatus.Error);
-      throw new Error('An error occurred during the setup process: ' + error);
+      throw new Error('An error occurred during the Krayon SDK start process: ' + error);
     }
   }
 
