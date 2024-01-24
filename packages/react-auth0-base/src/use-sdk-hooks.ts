@@ -17,11 +17,15 @@ export const useKrayonSDKStatus = () => {
   const Krayon = useKrayon();
   const [status, setStatus] = useState(Krayon.status);
   useEffect(() => {
+    // Make sure we don't try to subscribe to SDK events if our instance isn't correct yet
+    if(!Krayon?.status || !Krayon?.onReadyStateChange || !Krayon.offReadyStateChange) {
+      return;
+    }
     const handleStatusChange = (newStatus: SDKReadyStatus) => {
       setStatus(newStatus);
     };
     Krayon.onReadyStateChange(handleStatusChange);
     return () => Krayon.offReadyStateChange(handleStatusChange);
-  });
+  }, [Krayon]);
   return status;
 };
