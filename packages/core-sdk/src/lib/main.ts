@@ -193,7 +193,24 @@ export class KrayonSDK {
     }
   }
 
-  public setOrganizationId(organizationId: string) {
+  /**
+   * Logout from the SDK. This is the opposite of SDK start.
+   */
+  public logout() {
+    this.storage = null;
+    this.apiClient.clearAuthorizationHeaders();
+    this.setOrganizationId(undefined);
+    this.setReadyState(SDKReadyStatus.Anonymous);
+  }
+
+  /**
+   * Reinitialize all the SDKs that are dependent on the organization ID.
+   * Also, support the exceptional case where we don't have an org id - which will essentially
+   * reinitialize the SDKs to the state where they are not dependent on the org id.
+   *
+   * @param organizationId
+   */
+  public setOrganizationId(organizationId: string | undefined) {
     this.organization = new KrayonOrganizationSDK({
       apiClient: this.apiClient,
       organizationId,
