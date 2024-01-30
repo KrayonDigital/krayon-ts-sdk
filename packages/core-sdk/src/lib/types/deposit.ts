@@ -52,10 +52,18 @@ export type DepositsFilter = PaginationRequest & {
   country?: string;
   id?: string;
   email?: string;
+
+  payment_method: string;
+  currency?: string;
+  symbol?: string;
+  blockchain?: string;
 };
 
 export type FetchDepositBalanceParams = {
   currency?: string;
+  payment_method?: string;
+  blockchain?: string;
+  symbol?: string;
 };
 
 export interface MerchantDepositBalance {
