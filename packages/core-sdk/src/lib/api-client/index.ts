@@ -74,6 +74,11 @@ export class KrayonAPIClient {
     }
   }
 
+  clearAuthorizationHeaders() {
+    delete this.axiosInstance.defaults.headers.common['Authorization'];
+    delete this.axiosInstance.defaults.headers.common['UserInfo'];
+  }
+
   // Perform a request, using endpoint-specific or default throttling settings
   async request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R> {
     const endpointConfig = this.endpointThrottling.get(config.url ?? '');

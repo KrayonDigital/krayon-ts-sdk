@@ -26,6 +26,7 @@ export const KrayonSDKProviderWithAuth0 = (props: PropsWithChildren<KrayonAuth0S
   const [sdkStatus, setSdkStatus] = useState<SDKReadyStatus>(
     krayonSdkInstance.status
   );
+  const [isStateChangeCallbackAssigned, setIsStateChangeCallbackAssigned] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isAuth0Authenticated || isAuth0Loading) {
@@ -43,9 +44,14 @@ export const KrayonSDKProviderWithAuth0 = (props: PropsWithChildren<KrayonAuth0S
       if (!token || !idTokenClaims) {
         throw new Error('No valid claims found in token');
       }
-      // Assign the status setter since the krayonSdkInstance.status won't trigger the
-      // component rerender by itself
-      krayonSdkInstance.onReadyStateChange(setSdkStatus);
+
+      // Make sure we don't double assign the callback
+      if(!isStateChangeCallbackAssigned) {
+        // Assign the status setter since the krayonSdkInstance.status won't trigger the
+        // component rerender by itself
+        krayonSdkInstance.onReadyStateChange(setSdkStatus);
+        setIsStateChangeCallbackAssigned(true);
+      }
 
       // Actually start the SDK once we have auth0 data
       await krayonSdkInstance.start({
@@ -53,12 +59,12 @@ export const KrayonSDKProviderWithAuth0 = (props: PropsWithChildren<KrayonAuth0S
         idTokenClaims,
         authProvider: 'auth0',
       });
-      // console.log("Started SDK with token: ", token, " and idTokenClaims: ", idTokenClaims)
     })();
 
     // Remove the event listener when the component unmounts
     return () => krayonSdkInstance.offReadyStateChange(setSdkStatus);
   }, [
+    user,
     isAuth0Authenticated,
     isAuth0Loading,
     getCredentials,
