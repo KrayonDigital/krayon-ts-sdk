@@ -1,5 +1,6 @@
 import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
+import { Wallet } from './wallet';
 
 export enum DepositStatus {
   SUCCESS = 'SUCCESS',
@@ -40,7 +41,7 @@ export interface MerchantDeposit {
   redirect_url: string;
   return_url: string;
   status: DepositStatus;
-  wallet: string;
+  wallet?: Wallet;
   webhook_url: string;
 }
 
