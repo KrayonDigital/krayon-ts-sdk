@@ -20,7 +20,7 @@ export interface Wallet {
   num_approvers?: number;
   pending_usd_balance: string;
   parent: string;
-  assets?: Asset[];
+  assets: Asset[];
   // custom fields
   is_quorum_approved?: boolean;
   is_active?: boolean;

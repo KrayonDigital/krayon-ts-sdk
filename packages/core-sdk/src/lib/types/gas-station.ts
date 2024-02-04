@@ -1,3 +1,4 @@
+import { Asset } from './asset';
 import { Wallet } from './wallet';
 
 export enum GasStationType {
@@ -12,7 +13,7 @@ export interface GasStationDto extends Wallet {
   max_network_fee: number;
   gas_station_status: GasStationType;
   balance: string;
-  assets: GasStationWalletAsset[];
+  // assets: GasStationWalletAsset[];
   symbol: string;
   data?: any;
 }
@@ -46,5 +47,6 @@ export interface GasStationsItem {
   balance_cap: number;
   red_marker: number;
   max_network_fee: number;
-  assets: GasStationWalletAsset[];
+  // assets: GasStationWalletAsset[];
+  assets: Asset[];
 }
