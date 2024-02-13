@@ -62,6 +62,7 @@ export type DepositsFilter = PaginationRequest & {
 
 export type FetchDepositBalanceParams = {
   currency?: string;
+  to_currency?: string;
   payment_method?: string;
   blockchain?: string;
   symbol?: string;
