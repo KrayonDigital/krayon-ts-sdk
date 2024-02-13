@@ -16,6 +16,11 @@ export class KrayonDepositSDK {
     this.apiClient = apiClient;
   }
 
+  getSupportedBlockchains(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get(`/deposits/supported-blockchains`);
+  }
+
   getDeposits(
     params?: SettlementsFilter,
     extraParams?: KrayonAPICommonOptions,
