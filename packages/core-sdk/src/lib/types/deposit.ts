@@ -54,7 +54,7 @@ export type DepositsFilter = PaginationRequest & {
   id?: string;
   email?: string;
 
-  payment_method: string;
+  payment_method?: string;
   currency?: string;
   symbol?: string;
   blockchain?: string;
