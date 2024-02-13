@@ -1,5 +1,6 @@
 import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
+import { Wallet } from './wallet';
 
 export enum DepositStatus {
   SUCCESS = 'SUCCESS',
@@ -40,7 +41,7 @@ export interface MerchantDeposit {
   redirect_url: string;
   return_url: string;
   status: DepositStatus;
-  wallet: string;
+  wallet?: Wallet;
   webhook_url: string;
 }
 
@@ -53,7 +54,7 @@ export type DepositsFilter = PaginationRequest & {
   id?: string;
   email?: string;
 
-  payment_method: string;
+  payment_method?: string;
   currency?: string;
   symbol?: string;
   blockchain?: string;
@@ -61,6 +62,7 @@ export type DepositsFilter = PaginationRequest & {
 
 export type FetchDepositBalanceParams = {
   currency?: string;
+  to_currency?: string;
   payment_method?: string;
   blockchain?: string;
   symbol?: string;
