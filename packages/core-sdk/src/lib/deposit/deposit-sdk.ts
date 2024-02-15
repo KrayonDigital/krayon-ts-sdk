@@ -29,6 +29,9 @@ export class KrayonDepositSDK {
     return this.apiClient.get<MerchantDepositsResponse>(`/deposits`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 
@@ -42,6 +45,9 @@ export class KrayonDepositSDK {
       {
         params,
         signal: abortSignal,
+        paramsSerializer: {
+          indexes: null, // by default: false
+        },
       },
     );
   }

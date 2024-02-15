@@ -15,12 +15,15 @@ export class KrayonNotificationSDK {
 
   getNotifications(
     params?: NotificationsFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<MerchantNotificationResponse>(`/notifications`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }

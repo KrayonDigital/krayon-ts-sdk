@@ -31,13 +31,13 @@ export class KrayonSettlementSDK {
     return this.apiClient.get<MerchantSettlementsResponse>(`/settlements`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 
-  downloadSettlements(
-    params?: any,
-    extraParams?: KrayonAPICommonOptions,
-  ) {
+  downloadSettlements(params?: any, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<string>(`/settlements/download-csv`, {
       params,
