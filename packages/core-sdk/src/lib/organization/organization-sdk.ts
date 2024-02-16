@@ -17,6 +17,7 @@ import {
   OrganizationAssetsFilter,
   OrganizationInvitationsFilter,
   OrganizationInvitationsType,
+  OrganizationPolcies,
   OrganizationUsersFilter,
   SpendingLimitFilter,
   SubAccountResponse,
@@ -46,7 +47,7 @@ export class KrayonOrganizationSDK {
 
   listOrganizationUsers(
     params?: OrganizationUsersFilter,
-    options?: KrayonAPICommonOptions
+    options?: KrayonAPICommonOptions,
   ) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
@@ -57,13 +58,13 @@ export class KrayonOrganizationSDK {
       {
         params,
         signal: abortSignal,
-      }
+      },
     );
   }
 
   listOrganizationAssets(
     params?: OrganizationAssetsFilter,
-    options?: KrayonAPICommonOptions
+    options?: KrayonAPICommonOptions,
   ) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
@@ -74,7 +75,7 @@ export class KrayonOrganizationSDK {
       {
         params,
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -88,26 +89,26 @@ export class KrayonOrganizationSDK {
     }
     return this.apiClient.get<DataWrap<Organization>>(
       `/organizations/${organizationId}`,
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   createOrganization(
     orgObj: CreateOrganization,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<DataWrap<Organization>>(
       '/organizations',
       orgObj,
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   updateOrganization(
     orgChangesObj: Partial<CreateOrganization>,
     subAccountId?: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
@@ -119,13 +120,13 @@ export class KrayonOrganizationSDK {
       orgChangesObj,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
   inviteUserToOrganization(
     userObj: InviteUser,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
@@ -136,13 +137,13 @@ export class KrayonOrganizationSDK {
       userObj,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
   listOrganizationInvitations(
     filterObj?: OrganizationInvitationsFilter,
-    options?: KrayonAPICommonOptions
+    options?: KrayonAPICommonOptions,
   ) {
     if (!this.organizationId) {
       throw new Error('Organization id is required for this operation');
@@ -153,14 +154,14 @@ export class KrayonOrganizationSDK {
       {
         params: filterObj,
         signal: abortSignal,
-      }
+      },
     );
   }
 
   // TODO: check whether we should even allow passing org id? using it now for compatibility with Frontend
   listOrganizationSpendingLimits(
     spendingLimitFilter?: SpendingLimitFilter & { organizationId?: string },
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { organizationId, ...params } = spendingLimitFilter || {};
     const usedOrgId = organizationId || this.organizationId; // Must be ||, shouldn't be ??, since we might have a '' as orgId (compatibility)
@@ -174,31 +175,28 @@ export class KrayonOrganizationSDK {
       {
         params, // this already contains all the required spending limit params less orgID
         signal: abortSignal,
-      }
+      },
     );
   }
 
   updateOrganizationPolicies(
-    allowed_whitelist_recipients_only: boolean,
-    extraParams?: KrayonAPICommonOptions
+    params: OrganizationPolcies,
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.patch(
-      `/organization-policies`,
-      { allowed_whitelist_recipients_only },
-      {
-        signal: abortSignal,
-      }
-    );
+    return this.apiClient.patch(`/organization-policies`, params, {
+      signal: abortSignal,
+    });
   }
 
   getOrganizationPolicies(extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<
-      DataWrap<{ allowed_whitelist_recipients_only: boolean }>
-    >(`/organization-policies`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<DataWrap<OrganizationPolcies>>(
+      `/organization-policies`,
+      {
+        signal: abortSignal,
+      },
+    );
   }
 
   getWhitelists(extraParams?: KrayonAPICommonOptions) {
@@ -220,7 +218,7 @@ export class KrayonOrganizationSDK {
       `/organizations/${this.organizationId}/ext-wallets`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -233,7 +231,7 @@ export class KrayonOrganizationSDK {
       `/organizations/${this.organizationId}/gas-stations`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -242,13 +240,13 @@ export class KrayonOrganizationSDK {
     return this.apiClient.post(
       `/organizations/${this.organizationId}/set-quorum`,
       { num_quorum },
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   subAccountBusiness(
     orgObj: CreateSubAccount,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<DataWrap<Organization>>(
@@ -256,7 +254,7 @@ export class KrayonOrganizationSDK {
       orgObj,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -268,7 +266,7 @@ export class KrayonOrganizationSDK {
       subAccountObj,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -278,7 +276,7 @@ export class KrayonOrganizationSDK {
       `/organizations/${this.organizationId}/sub-accounts`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
   getWallets(organizationId: string, extraParams?: KrayonAPICommonOptions) {
@@ -287,19 +285,19 @@ export class KrayonOrganizationSDK {
       `/organizations/${organizationId}/wallets`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
   listSubAccountAssets(
     organizationId: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<AssetResponse>(
       `/organizations/${organizationId}/assets`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -309,7 +307,7 @@ export class KrayonOrganizationSDK {
 
   companyVerification(
     payload: CompanyVerification,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     const formData = new FormData();
@@ -319,14 +317,14 @@ export class KrayonOrganizationSDK {
 
     addFile(
       'certificate_of_incorporation',
-      payload.documents.certificate_of_incorporation
+      payload.documents.certificate_of_incorporation,
     );
     addFile(
       'company_proof_of_address',
-      payload.documents.company_proof_of_address
+      payload.documents.company_proof_of_address,
     );
     payload.documents.ubos.forEach((file, index) =>
-      addFile('ubos' + (index + 1), file.file)
+      addFile('ubos' + (index + 1), file.file),
     );
 
     formData.append('json', JSON.stringify(payload));

@@ -46,6 +46,11 @@ export interface UpdateSubAccount {
   email?: string;
   sub_account_type: SubAccountType;
 }
+
+export type OrganizationPolcies = {
+  allowed_whitelist_recipients_only: boolean;
+  send_transfer_notifications_once: boolean;
+};
 export type SubAccount = UpdateSubAccount;
 
 export type SubAccountResponse = Pageable<SubAccountListItem>;
@@ -83,7 +88,7 @@ export interface CompanyVerification {
       email: string;
       phone: string;
       pep_status: boolean;
-    }[]
+    }[],
   ];
   bank_details: {
     name_of_account_holder: string;
