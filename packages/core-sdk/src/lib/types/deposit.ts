@@ -73,9 +73,13 @@ export interface MerchantDepositBalance {
   sum_withdrawals: number;
   sum_settled_deposits: number;
   currency: string;
+  symbol: string;
+  payment_method: PaymentMethod;
 }
 
 export type MerchantDepositsResponse = Pageable<MerchantDeposit>;
 export type MerchantDepositBalanceResponse = {
   data: MerchantDepositBalance;
 };
+
+export type PaymentMethod = 'UPI' | 'CRYPTO';

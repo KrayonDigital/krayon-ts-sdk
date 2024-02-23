@@ -31,6 +31,14 @@ export interface Wallet {
   gas_station_status?: number;
 }
 
+export type WalletDerivedBlanceResponse = {
+  data: {
+    symbol: string;
+    total_balance: string;
+    total_usd_balance: string;
+  }[];
+};
+
 export type WalletsResponse = Pageable<Wallet>;
 
 export enum UpdateQuorumStatus {
