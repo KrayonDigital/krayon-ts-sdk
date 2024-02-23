@@ -2,6 +2,7 @@ import {
   AssignUserToWalletResponse,
   SubAccountWallet,
   Wallet,
+  WalletDerivedBlanceResponse,
   WalletNftCollectionAssetFilter,
   WalletsResponse,
 } from '../types/wallet';
@@ -48,14 +49,14 @@ export class KrayonWalletSDK {
       {
         params,
         signal: abortSignal,
-      }
+      },
     );
   }
 
   getParentWallets(
     parentId: string,
     blockchain = 'all',
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<WalletsResponse>(`/wallets/${parentId}`, {
@@ -64,10 +65,25 @@ export class KrayonWalletSDK {
     });
   }
 
+  getWalletDerivedBalance(
+    id: string,
+    symbol: string,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<WalletDerivedBlanceResponse>(
+      `/wallets/${id}/derived-wallets-balance`,
+      {
+        params: { symbol },
+        signal: abortSignal,
+      },
+    );
+  }
+
   getWallet(
     walletId: string,
     params?: any,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<DataWrap<Wallet>>(`/wallets/${walletId}`, {
@@ -82,28 +98,28 @@ export class KrayonWalletSDK {
       `/wallets/${walletId}/elections`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
   assignUserToWallet(
     walletId: string,
     userId: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<AssignUserToWalletResponse>(
       `/wallets/${walletId}/assign-user`,
       {
         user_id: userId,
-      }
+      },
     );
   }
 
   unassignUserFromWallet(
     walletId: string,
     userId: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<AssignUserToWalletResponse>(
@@ -113,14 +129,14 @@ export class KrayonWalletSDK {
       },
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
   listWalletUsers(
     walletId: string,
     userFilter?: WalletUserFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<UserResponse>(`/wallets/${walletId}/users`, {
@@ -132,7 +148,7 @@ export class KrayonWalletSDK {
   listWalletAssets(
     walletId: string,
     params?: WalletAssetFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<AssetResponse>(`/wallets/${walletId}/assets`, {
@@ -145,7 +161,7 @@ export class KrayonWalletSDK {
     walletId: string,
     blockchain: string,
     symbol: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<AssetResponse>(
@@ -153,7 +169,7 @@ export class KrayonWalletSDK {
       { blockchain, symbol },
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -167,7 +183,7 @@ export class KrayonWalletSDK {
           parent?: string;
         }
       | SubAccountWallet,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<Wallet>('/wallets', walletInfo, {
@@ -178,7 +194,7 @@ export class KrayonWalletSDK {
   updateWallet(
     walletId: string,
     walletData: Wallet,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.put<Wallet>(`/wallets/${walletId}`, walletData, {
@@ -189,7 +205,7 @@ export class KrayonWalletSDK {
   partialUpdateWallet(
     walletId: string,
     walletUpdateParams: UpdateWallet,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     // For now, just use group and name for compatibility
@@ -198,64 +214,64 @@ export class KrayonWalletSDK {
     return this.apiClient.patch(
       `/wallets/${walletId}`,
       { group, name },
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   updateWalletGasStationStatus(
     walletId: string,
     gas_station_status: number,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.patch(
       `/wallets/${walletId}`,
       { gas_station_status },
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   updateWalletQuorum(
     walletId: string,
     num_quorum: number,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post(
       `/wallets/${walletId}/set-quorum`,
       { num_quorum },
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   requestWalletAccess(
     walletId: string,
     userId: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post(
       `/wallets/${walletId}/request-wallet-access`,
       { id: userId },
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   syncWallet(
     walletId: string,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ): Promise<void> {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post(
       `/wallets/${walletId}/sync`,
       {},
-      { signal: abortSignal }
+      { signal: abortSignal },
     );
   }
 
   listWalletNftCollections(
     nftFilter?: WalletNftCollectionFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<NftResponse | undefined>('/nft-collections', {
@@ -267,7 +283,7 @@ export class KrayonWalletSDK {
   listNftCollectionAssets(
     collectionId: string,
     filterObj?: WalletNftCollectionAssetFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<NftCollectionResponse | undefined>(
@@ -275,7 +291,7 @@ export class KrayonWalletSDK {
       {
         params: filterObj,
         signal: abortSignal,
-      }
+      },
     );
   }
 
