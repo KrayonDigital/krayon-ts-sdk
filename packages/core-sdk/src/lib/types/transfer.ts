@@ -69,7 +69,6 @@ export interface DepositTransaction {
 }
 
 export interface CreateTransaction {
-  from_address: string | undefined;
   to_address: string;
   amount: string;
   wallet: string | undefined;
