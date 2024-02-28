@@ -1,3 +1,5 @@
+import { PaymentMethod } from './deposit';
+
 export enum CheckoutDepositStatus {
   SUCCESS = 'SUCCESS',
   PENDING = 'PENDING',
@@ -12,7 +14,7 @@ export interface Checkout {
   amount: string;
   currency: string;
   description: string;
-  payment_method: string;
+  payment_method: PaymentMethod;
   return_url: string;
   qr_code: string;
   created_at: string;
