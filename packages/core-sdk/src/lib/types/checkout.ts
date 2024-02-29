@@ -9,6 +9,7 @@ export enum CheckoutDepositStatus {
 }
 
 export interface Checkout {
+  organization: string;
   blockchain: string;
   symbol: string;
   id: string;
