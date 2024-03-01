@@ -12,6 +12,7 @@ export interface Checkout {
   organization: string;
   blockchain: string;
   symbol: string;
+  logo: string;
   id: string;
   status: CheckoutDepositStatus;
   amount: string;
