@@ -2,6 +2,7 @@ import { Pageable } from './pagination';
 
 export interface Asset {
   id: string;
+  wallet_parent: string;
   wallet: string;
   pending_balance: string;
   pending_usd_balance: string;
