@@ -15,6 +15,7 @@ export enum DepositStatus {
 export const DepositStatusName = new Map([
   [DepositStatus.ERROR, 'Error'],
   [DepositStatus.SUCCESS, 'Success'],
+  [DepositStatus.FAILED, 'Failed'],
   [DepositStatus.UNKNOWN, 'Unknown'],
   [DepositStatus.CANCELLED, 'Canceled'],
   [DepositStatus.EXPIRED, 'Expired'],
