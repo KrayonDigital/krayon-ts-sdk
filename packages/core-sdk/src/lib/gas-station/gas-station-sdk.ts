@@ -43,7 +43,21 @@ export class KrayonGasStationSDK {
       data,
       {
         signal: abortSignal,
-      }
+      },
+    );
+  }
+
+  syncGasStation(
+    id: string,
+    extraParams?: KrayonAPICommonOptions,
+  ): Promise<void> {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post(
+      `/gas-stations/${id}/sync`,
+      {},
+      {
+        signal: abortSignal,
+      },
     );
   }
 }
