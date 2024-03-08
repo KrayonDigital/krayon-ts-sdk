@@ -301,6 +301,19 @@ export class KrayonOrganizationSDK {
     );
   }
 
+  getTotalBalance(
+    organizationId: string,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get(
+      `/organizations/${organizationId}/total-balance`,
+      {
+        signal: abortSignal,
+      },
+    );
+  }
+
   getCompanyVerificationDetails() {
     return this.apiClient.get(`/kyb`);
   }
