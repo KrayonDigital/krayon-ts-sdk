@@ -18,6 +18,8 @@ import {
   OrganizationInvitationsFilter,
   OrganizationInvitationsType,
   OrganizationPolcies,
+  OrganizationTotalBalance,
+  OrganizationTotalBalanceResponse,
   OrganizationUsersFilter,
   SpendingLimitFilter,
   SubAccountResponse,
@@ -306,7 +308,7 @@ export class KrayonOrganizationSDK {
     extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get(
+    return this.apiClient.get<OrganizationTotalBalanceResponse>(
       `/organizations/${organizationId}/total-balance`,
       {
         signal: abortSignal,
