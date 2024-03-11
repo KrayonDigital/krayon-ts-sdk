@@ -68,11 +68,10 @@ export interface CreateOrganization {
 
 export type UploadFile = any;
 
-
-export type OrganizationTotalBalance {
+export type OrganizationTotalBalance = {
   total_usd_balance: number;
   total_pending_usd_balance: number;
-}
+};
 
 export interface OrganizationTotalBalanceResponse {
   data: OrganizationTotalBalance;
