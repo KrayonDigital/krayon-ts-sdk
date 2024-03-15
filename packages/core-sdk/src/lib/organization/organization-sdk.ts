@@ -18,6 +18,8 @@ import {
   OrganizationInvitationsFilter,
   OrganizationInvitationsType,
   OrganizationPolcies,
+  OrganizationTotalBalance,
+  OrganizationTotalBalanceResponse,
   OrganizationUsersFilter,
   SpendingLimitFilter,
   SubAccountResponse,
@@ -295,6 +297,19 @@ export class KrayonOrganizationSDK {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<AssetResponse>(
       `/organizations/${organizationId}/assets`,
+      {
+        signal: abortSignal,
+      },
+    );
+  }
+
+  getTotalBalance(
+    organizationId: string,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<OrganizationTotalBalanceResponse>(
+      `/organizations/${organizationId}/total-balance`,
       {
         signal: abortSignal,
       },
