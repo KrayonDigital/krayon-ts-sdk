@@ -69,14 +69,15 @@ export interface DepositTransaction {
 }
 
 export interface CreateTransaction {
+  from_address?: string;
   to_address: string;
   amount: string;
   wallet: string | undefined;
   native_price?: number;
   transaction_fee?: string;
   transaction_fee_usd?: string;
-  note: string;
-  reference_id: string;
+  note?: string;
+  reference_id?: string;
 }
 
 interface TransferBase {
