@@ -17,6 +17,7 @@ export interface Settlement {
   settled_amount: string;
   net_amount: string;
   settlement_fee: string;
+  metadata?: Record<string, any> | null;
 }
 
 export enum SettlementStatus {
