@@ -137,4 +137,12 @@ export class KrayonTransferSDK {
       },
     );
   }
+
+  downloadTransfers(params: any, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get<string>(`/transfers/download-csv`, {
+      params,
+      signal: abortSignal,
+    });
+  }
 }
