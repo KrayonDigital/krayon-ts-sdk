@@ -51,7 +51,7 @@ export class KrayonTransferSDK {
       `/transfers/${transferId}/status`,
       {
         signal: abortSignal,
-      },
+      }
     );
   }
 
@@ -69,7 +69,7 @@ export class KrayonTransferSDK {
   listTransferTags(
     transferId: string,
     params?: TransferTagsFilter,
-    extraParams?: KrayonAPICommonOptions,
+    extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<DataWrap<Tag>>(`/transfers/${transferId}/tags`, {
@@ -80,7 +80,7 @@ export class KrayonTransferSDK {
 
   createTransfer(
     transferData: CreateTransaction,
-    extraParams?: KrayonAPICommonOptions,
+    extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(`/transfers`, transferData, {
@@ -97,7 +97,7 @@ export class KrayonTransferSDK {
 
   createTransferWithdrawal(
     transferData: WithdrawalTransaction,
-    extraParams?: KrayonAPICommonOptions,
+    extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(
@@ -105,13 +105,13 @@ export class KrayonTransferSDK {
       transferData,
       {
         signal: abortSignal,
-      },
+      }
     );
   }
 
   createTransferDeposit(
     transferData: DepositTransaction,
-    extraParams?: KrayonAPICommonOptions,
+    extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(
@@ -119,14 +119,14 @@ export class KrayonTransferSDK {
       transferData,
       {
         signal: abortSignal,
-      },
+      }
     );
   }
 
   updateTransfer(
     transferId: string,
     transferDataToUpdate: UpdateTransferDto,
-    extraParams?: KrayonAPICommonOptions,
+    extraParams?: KrayonAPICommonOptions
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.patch<DataWrap<Transfer>>(
@@ -134,15 +134,16 @@ export class KrayonTransferSDK {
       transferDataToUpdate,
       {
         signal: abortSignal,
-      },
+      }
     );
   }
 
   downloadTransfers(params: any, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get<string>(`/transfers/download-csv`, {
+    return this.apiClient.get<Blob>(`/transfers/download-csv`, {
       params,
       signal: abortSignal,
+      responseType: 'blob',
       paramsSerializer: {
         indexes: null, // by default: false
       },
