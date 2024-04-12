@@ -58,6 +58,9 @@ export class KrayonDepositSDK {
       params,
       signal: abortSignal,
       responseType: 'blob',
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }

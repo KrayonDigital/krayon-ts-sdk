@@ -43,6 +43,9 @@ export class KrayonSettlementSDK {
       params,
       signal: abortSignal,
       responseType: 'blob',
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }

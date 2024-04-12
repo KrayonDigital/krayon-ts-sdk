@@ -144,6 +144,9 @@ export class KrayonTransferSDK {
       params,
       signal: abortSignal,
       responseType: 'blob',
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }
