@@ -143,6 +143,9 @@ export class KrayonTransferSDK {
     return this.apiClient.get<string>(`/transfers/download-csv`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }

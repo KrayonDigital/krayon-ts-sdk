@@ -42,6 +42,9 @@ export class KrayonSettlementSDK {
     return this.apiClient.get<string>(`/settlements/download-csv`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }
