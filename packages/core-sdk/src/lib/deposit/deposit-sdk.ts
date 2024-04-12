@@ -57,6 +57,9 @@ export class KrayonDepositSDK {
     return this.apiClient.get<string>(`/deposits/download-csv`, {
       params,
       signal: abortSignal,
+      paramsSerializer: {
+        indexes: null, // by default: false
+      },
     });
   }
 }
