@@ -75,8 +75,8 @@ export interface CreateTransaction {
   native_price?: number;
   transaction_fee?: string;
   transaction_fee_usd?: string;
-  note: string;
-  reference_id: string;
+  note?: string;
+  reference_id?: string;
 }
 
 interface TransferBase {
