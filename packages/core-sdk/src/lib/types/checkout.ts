@@ -12,7 +12,7 @@ export type PaymentDetails = {
   account_number: string;
   account_name: string;
   bank_name: string;
-  type?: 'ngn_bank_transfer'; // 'ngn_bank_transfer' is the only value for now, other to be added later
+  type?: 'NGN_bank_transfer' | 'ZAR_bank_transfer' | 'GHS_bank_transfer';
 
 }
 

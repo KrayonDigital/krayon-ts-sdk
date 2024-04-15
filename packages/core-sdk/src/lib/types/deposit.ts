@@ -83,4 +83,4 @@ export type MerchantDepositBalanceResponse = {
   data: MerchantDepositBalance;
 };
 
-export type PaymentMethod = 'UPI' | 'CRYPTO';
+export type PaymentMethod = 'UPI' | 'CRYPTO' | 'NETBANKING' | 'EFT' | 'YELLOWCARD_PIN';
