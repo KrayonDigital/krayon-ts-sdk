@@ -106,6 +106,7 @@ export interface Transfer extends TransferBase {
   name: string;
   logo_uri: string;
   hash: string;
+  reference_id: string;
 }
 
 export interface TransferDetail extends TransferBase {
