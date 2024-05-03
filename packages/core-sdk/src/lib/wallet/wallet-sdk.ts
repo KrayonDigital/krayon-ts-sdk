@@ -301,4 +301,18 @@ export class KrayonWalletSDK {
       signal: abortSignal,
     });
   }
+
+  sweepStop(walletId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post(`/wallets/${walletId}/sweep/stop`, null, {
+      signal: abortSignal,
+    });
+  }
+
+  sweepReport(walletId: string, extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get(`/wallets/${walletId}/sweep/report`, {
+      signal: abortSignal,
+    });
+  }
 }
