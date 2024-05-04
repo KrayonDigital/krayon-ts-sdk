@@ -19,6 +19,7 @@ import {
 } from '../types/wallet';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
+import { SettlementSweepReport } from '../types/settelments';
 
 export class KrayonWalletSDK {
   readonly apiClient: KrayonAPIClient;
@@ -311,8 +312,11 @@ export class KrayonWalletSDK {
 
   sweepReport(walletId: string, extraParams?: KrayonAPICommonOptions) {
     const { abortSignal } = extraParams || {};
-    return this.apiClient.get(`/wallets/${walletId}/sweep/report`, {
-      signal: abortSignal,
-    });
+    return this.apiClient.get<DataWrap<SettlementSweepReport>>(
+      `/wallets/${walletId}/sweep/report`,
+      {
+        signal: abortSignal,
+      },
+    );
   }
 }
