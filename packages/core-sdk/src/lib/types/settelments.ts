@@ -1,13 +1,25 @@
 import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
+import { Wallet } from './wallet';
 
+export interface SettlementSweepReport {
+  status: string;
+  num_deposits_swept: number;
+  num_deposits_left: number;
+  num_deposits_included: number;
+  conversion_rate: number;
+  start_time: string | null;
+  end_time: string | null;
+  settlement_id: string;
+  blockchains: any;
+}
 export interface Settlement {
   id: string;
   status: SettlementStatus;
   created_at: string;
   symbol: string;
   amount: string;
-  wallet: string;
+  wallet: Wallet;
   description: string;
   type: string;
   address: string;
