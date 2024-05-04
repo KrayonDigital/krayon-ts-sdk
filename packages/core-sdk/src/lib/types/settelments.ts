@@ -1,5 +1,6 @@
 import { PaginationRequest } from './common';
 import { Pageable } from './pagination';
+import { Wallet } from './wallet';
 
 export interface SettlementSweepReport {
   status: string;
@@ -18,7 +19,7 @@ export interface Settlement {
   created_at: string;
   symbol: string;
   amount: string;
-  wallet: string;
+  wallet: Wallet;
   description: string;
   type: string;
   address: string;
