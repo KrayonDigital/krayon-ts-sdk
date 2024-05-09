@@ -16,4 +16,16 @@ export class KrayonCheckoutSDK {
       signal: abortSignal,
     });
   }
+
+  valiidateCheckout(
+    id: string,
+    utr_number: string,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.put<CheckoutResponse>(`/checkouts/${id}`, {
+      utr_number,
+      signal: abortSignal,
+    });
+  }
 }
