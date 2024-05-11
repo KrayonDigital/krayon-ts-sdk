@@ -83,4 +83,11 @@ export type MerchantDepositBalanceResponse = {
   data: MerchantDepositBalance;
 };
 
-export type PaymentMethod = 'UPI' | 'UPI_SAP' | 'CRYPTO' | 'NETBANKING' | 'EFT' | 'YELLOWCARD_PIN';
+export type PaymentMethod =
+  | 'UPI'
+  | 'UPI_SAP'
+  | 'CRYPTO'
+  | 'NETBANKING'
+  | 'EFT'
+  | 'YELLOWCARD_PIN'
+  | 'MOBILE_MONEY';
