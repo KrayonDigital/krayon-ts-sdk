@@ -17,7 +17,7 @@ export class KrayonCheckoutSDK {
     });
   }
 
-  valiidateCheckout(
+  validateCheckout(
     id: string,
     utr_number: string,
     extraParams?: KrayonAPICommonOptions,
