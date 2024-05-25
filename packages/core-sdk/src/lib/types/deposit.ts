@@ -86,8 +86,8 @@ export type MerchantDepositBalanceResponse = {
 export type PaymentMethod =
   | 'UPI'
   | 'UPI_SAP'
+  | 'PAYTM'
   | 'CRYPTO'
   | 'NETBANKING'
-  | 'EFT'
   | 'YELLOWCARD_PIN'
   | 'MOBILE_MONEY';
