@@ -12,10 +12,13 @@ export type PaymentDetails = {
   account_number: string;
   account_name: string;
   bank_name: string;
-  type?: 'NGN_bank_transfer' | 'ZAR_bank_transfer' | 'GHS_bank_transfer' | 'KES_bank_transfer' ;
-  reference?: string
-
-}
+  type?:
+    | 'NGN_bank_transfer'
+    | 'ZAR_bank_transfer'
+    | 'GHS_bank_transfer'
+    | 'KES_bank_transfer';
+  reference?: string;
+};
 
 export interface Checkout {
   organization: string;
@@ -32,6 +35,7 @@ export interface Checkout {
   qr_code: string;
   created_at: string;
   payment_details?: PaymentDetails | null;
+  destination_vpa?: string;
 }
 
 export type CheckoutResponse = { data: Checkout };
