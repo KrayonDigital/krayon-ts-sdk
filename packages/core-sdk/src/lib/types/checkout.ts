@@ -36,6 +36,7 @@ export interface Checkout {
   created_at: string;
   payment_details?: PaymentDetails | null;
   destination_vpa?: string;
+  extra_qr_code?: Record<string, string>;
 }
 
 export type CheckoutResponse = { data: Checkout };
