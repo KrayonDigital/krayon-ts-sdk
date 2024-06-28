@@ -8,6 +8,7 @@ import {
   PaginationRequest,
 } from '../types/common';
 import {
+  CompanyKYB,
   CompanyVerification,
   CreateOrganization,
   CreateSubAccount,
@@ -124,6 +125,27 @@ export class KrayonOrganizationSDK {
         signal: abortSignal,
       },
     );
+  }
+
+  getCompanyKYB() {
+    return this.apiClient.get<DataWrap<CompanyKYB>>(`/kyb`);
+  }
+
+  externalAccountList(extraParams?: KrayonAPICommonOptions) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.get(`external-accounts`, {
+      signal: abortSignal,
+    });
+  }
+
+  externalAccount(
+    organization: Organization,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+    return this.apiClient.post(`external-accounts`, organization, {
+      signal: abortSignal,
+    });
   }
 
   inviteUserToOrganization(

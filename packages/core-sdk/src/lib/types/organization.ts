@@ -77,6 +77,16 @@ export interface OrganizationTotalBalanceResponse {
   data: OrganizationTotalBalance;
 }
 
+export interface CompanyKYB {
+  id: string;
+  display_name: string;
+  kyb_status: string;
+  tos_status: string;
+  kyc_link: string;
+  kyc_tos_link: string;
+  rejection_reasons: [];
+}
+
 export interface CompanyVerification {
   company_details: {
     company_name: string;
