@@ -20,6 +20,7 @@ import { KrayonDepositSDK } from './deposit/deposit-sdk';
 import { KrayonNotificationSDK } from './notification/notification-sdk';
 import { KrayonCheckoutSDK } from './checkout/checkout-sdk';
 import { KrayonSettlementSDK } from './settlement/settlement-sdk';
+import { KrayonTriggersSDK } from './triggers/triggers-sdk';
 
 export interface KrayonSDKConfig {
   token: string;
@@ -39,6 +40,7 @@ export class KrayonSDK {
   nftTransfer: KrayonNftTransferSDK;
   organization: KrayonOrganizationSDK;
   transfer: KrayonTransferSDK;
+  triggers: KrayonTriggersSDK;
   tag: KrayonTagSDK;
   trade: KrayonTradeSDK;
   user: KrayonUserSDK;
@@ -70,7 +72,13 @@ export class KrayonSDK {
     readyStateChange: [],
   };
 
-  public constructor({ baseURL, frontendVariant = 'web' }: { baseURL: string, frontendVariant?: 'mobile' | 'web' }) {
+  public constructor({
+    baseURL,
+    frontendVariant = 'web',
+  }: {
+    baseURL: string;
+    frontendVariant?: 'mobile' | 'web';
+  }) {
     // The API client is in anonymous mode
     this.apiClient = new KrayonAPIClient({
       baseURL,
@@ -86,6 +94,7 @@ export class KrayonSDK {
     this.election = new KrayonElectionSDK({ apiClient });
     this.nftTransfer = new KrayonNftTransferSDK({ apiClient });
     this.transfer = new KrayonTransferSDK({ apiClient });
+    this.triggers = new KrayonTriggersSDK({ apiClient });
     this.util = new KrayonUtilSDK({ apiClient });
     this.user = new KrayonUserSDK({ apiClient });
     this.whitelist = new KrayonWhitelistnSDK({ apiClient });
@@ -119,15 +128,14 @@ export class KrayonSDK {
    * @throws Error if the authentication plugin cannot be found or loaded.
    */
   protected async loadAuthPlugin(
-    authProvider: KrayonSDKCreateParams['authProvider']
+    authProvider: KrayonSDKCreateParams['authProvider'],
   ): Promise<AuthPlugin> {
     try {
       // Import and return the authentication plugin
       let authPluginModule;
       if (authProvider === 'auth0') {
         authPluginModule = await import('./plugins/auth/auth0');
-      }
-      else {
+      } else {
         throw new Error(`Unknown auth plugin ${authProvider}`);
       }
       // Apparenly, this doesn't work with React Native bundler
@@ -189,7 +197,9 @@ export class KrayonSDK {
     } catch (error) {
       // this.status = SDKReadyStatus.Error;
       this.setReadyState(SDKReadyStatus.Error);
-      throw new Error('An error occurred during the Krayon SDK start process: ' + error);
+      throw new Error(
+        'An error occurred during the Krayon SDK start process: ' + error,
+      );
     }
   }
 
