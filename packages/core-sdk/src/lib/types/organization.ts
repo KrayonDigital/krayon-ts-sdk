@@ -1,7 +1,14 @@
 import { Pageable } from './pagination';
 import { KrayonAPICommonOptions, PaginationRequest } from './common';
 
-export type KYBStatus = 'Unverified' | 'Pending' | 'Verified' | 'Rejected';
+export type KYBStatus =
+  | 'not_started'
+  | 'under_review'
+  | 'incomplete'
+  | 'awaiting_ubo'
+  | 'rejected'
+  | 'approved';
+
 export interface Organization {
   id: string;
   name: string;
@@ -75,6 +82,16 @@ export type OrganizationTotalBalance = {
 
 export interface OrganizationTotalBalanceResponse {
   data: OrganizationTotalBalance;
+}
+
+export interface CompanyKYB {
+  id: string;
+  display_name: string;
+  kyb_status: KYBStatus;
+  tos_status: 'pending' | 'accepted';
+  kyc_link: string;
+  kyc_tos_link: string;
+  rejection_reasons: [];
 }
 
 export interface CompanyVerification {
