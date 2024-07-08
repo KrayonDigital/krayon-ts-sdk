@@ -20,6 +20,7 @@ import { KrayonDepositSDK } from './deposit/deposit-sdk';
 import { KrayonNotificationSDK } from './notification/notification-sdk';
 import { KrayonCheckoutSDK } from './checkout/checkout-sdk';
 import { KrayonSettlementSDK } from './settlement/settlement-sdk';
+import { KrayonAccountsSDK } from './accounts/accounts-sdk';
 
 export interface KrayonSDKConfig {
   token: string;
@@ -38,6 +39,7 @@ export class KrayonSDK {
   election: KrayonElectionSDK;
   nftTransfer: KrayonNftTransferSDK;
   organization: KrayonOrganizationSDK;
+  accounts: KrayonAccountsSDK;
   transfer: KrayonTransferSDK;
   tag: KrayonTagSDK;
   trade: KrayonTradeSDK;
@@ -70,7 +72,13 @@ export class KrayonSDK {
     readyStateChange: [],
   };
 
-  public constructor({ baseURL, frontendVariant = 'web' }: { baseURL: string, frontendVariant?: 'mobile' | 'web' }) {
+  public constructor({
+    baseURL,
+    frontendVariant = 'web',
+  }: {
+    baseURL: string;
+    frontendVariant?: 'mobile' | 'web';
+  }) {
     // The API client is in anonymous mode
     this.apiClient = new KrayonAPIClient({
       baseURL,
@@ -107,6 +115,7 @@ export class KrayonSDK {
     this.trade = new KrayonTradeSDK({ apiClient });
     this.wallet = new KrayonWalletSDK({ apiClient });
     this.walletGroup = new KrayonWalletGroupSDK({ apiClient });
+    this.accounts = new KrayonAccountsSDK({ apiClient });
 
     this.setReadyState(SDKReadyStatus.Anonymous);
   }
@@ -119,15 +128,14 @@ export class KrayonSDK {
    * @throws Error if the authentication plugin cannot be found or loaded.
    */
   protected async loadAuthPlugin(
-    authProvider: KrayonSDKCreateParams['authProvider']
+    authProvider: KrayonSDKCreateParams['authProvider'],
   ): Promise<AuthPlugin> {
     try {
       // Import and return the authentication plugin
       let authPluginModule;
       if (authProvider === 'auth0') {
         authPluginModule = await import('./plugins/auth/auth0');
-      }
-      else {
+      } else {
         throw new Error(`Unknown auth plugin ${authProvider}`);
       }
       // Apparenly, this doesn't work with React Native bundler
@@ -189,7 +197,9 @@ export class KrayonSDK {
     } catch (error) {
       // this.status = SDKReadyStatus.Error;
       this.setReadyState(SDKReadyStatus.Error);
-      throw new Error('An error occurred during the Krayon SDK start process: ' + error);
+      throw new Error(
+        'An error occurred during the Krayon SDK start process: ' + error,
+      );
     }
   }
 

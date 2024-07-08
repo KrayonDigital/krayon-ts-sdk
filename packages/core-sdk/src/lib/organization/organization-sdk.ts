@@ -131,23 +131,6 @@ export class KrayonOrganizationSDK {
     return this.apiClient.get<DataWrap<CompanyKYB>>(`/kyb`);
   }
 
-  externalAccountList(extraParams?: KrayonAPICommonOptions) {
-    const { abortSignal } = extraParams || {};
-    return this.apiClient.get(`external-accounts`, {
-      signal: abortSignal,
-    });
-  }
-
-  externalAccount(
-    organization: Organization,
-    extraParams?: KrayonAPICommonOptions,
-  ) {
-    const { abortSignal } = extraParams || {};
-    return this.apiClient.post(`external-accounts`, organization, {
-      signal: abortSignal,
-    });
-  }
-
   inviteUserToOrganization(
     userObj: InviteUser,
     extraParams?: KrayonAPICommonOptions,
