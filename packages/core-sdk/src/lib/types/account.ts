@@ -1,5 +1,5 @@
 export type BankAccount = {
-  id?: string;
+  id: string;
   active?: boolean;
   currency?: string;
   account_type?: string;
