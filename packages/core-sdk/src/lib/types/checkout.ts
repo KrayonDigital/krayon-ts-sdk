@@ -2,6 +2,7 @@ import { PaymentMethod } from './deposit';
 
 export enum CheckoutDepositStatus {
   SUCCESS = 'SUCCESS',
+  SUBMITED = 'SUBMITED',
   PENDING = 'PENDING',
   FAILED = 'FAILED',
   CANCELLED = 'CANCELLED',
