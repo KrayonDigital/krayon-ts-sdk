@@ -7,6 +7,7 @@ export enum DepositStatus {
   ERROR = 'ERROR',
   UNKNOWN = 'UNKNOWN',
   CANCELLED = 'CANCELLED',
+  SUBMITTED = 'SUBMITTED',
   FAILED = 'FAILED',
   EXPIRED = 'EXPIRED',
   PENDING = 'PENDING',
@@ -20,6 +21,7 @@ export const DepositStatusName = new Map([
   [DepositStatus.CANCELLED, 'Canceled'],
   [DepositStatus.EXPIRED, 'Expired'],
   [DepositStatus.PENDING, 'Pending'],
+  [DepositStatus.SUBMITTED, 'Submitted'],
 ]);
 
 export interface MerchantDeposit {
@@ -74,6 +76,9 @@ export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
   sum_settled_deposits: number;
+  accumulated_rolling_reserve: number;
+  available_balance: number;
+  balance: number;
   currency: string;
   symbol: string;
   payment_method: PaymentMethod;
