@@ -12,6 +12,7 @@ import {
   CreateTransaction,
   WithdrawalTransaction,
   DepositTransaction,
+  WithdrawalBridgeTransaction,
 } from '../types/transfer';
 import { KrayonSDK } from '../main';
 import { KrayonAPIClient } from '../api-client';
@@ -51,7 +52,7 @@ export class KrayonTransferSDK {
       `/transfers/${transferId}/status`,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
@@ -69,7 +70,7 @@ export class KrayonTransferSDK {
   listTransferTags(
     transferId: string,
     params?: TransferTagsFilter,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.get<DataWrap<Tag>>(`/transfers/${transferId}/tags`, {
@@ -80,7 +81,7 @@ export class KrayonTransferSDK {
 
   createTransfer(
     transferData: CreateTransaction,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(`/transfers`, transferData, {
@@ -97,7 +98,7 @@ export class KrayonTransferSDK {
 
   createTransferWithdrawal(
     transferData: WithdrawalTransaction,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(
@@ -105,13 +106,37 @@ export class KrayonTransferSDK {
       transferData,
       {
         signal: abortSignal,
-      }
+      },
     );
+  }
+
+  createBridgeTransferWithdrawal(
+    transferData: WithdrawalBridgeTransaction,
+    extraParams?: KrayonAPICommonOptions,
+  ) {
+    const { abortSignal } = extraParams || {};
+
+    const data = {
+      type: 'WITHDRAWAL',
+      amount: transferData.amount,
+      destination: {
+        payment_rail: 'wire',
+        external_account_id: transferData.account_id,
+      },
+      source: {
+        wallet: transferData.wallet,
+        symbol: transferData.symbol.toLowerCase(),
+      },
+    };
+
+    return this.apiClient.post<TransferDetail>(`/rails-transfers`, data, {
+      signal: abortSignal,
+    });
   }
 
   createTransferDeposit(
     transferData: DepositTransaction,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.post<TransferDetail>(
@@ -119,14 +144,14 @@ export class KrayonTransferSDK {
       transferData,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 
   updateTransfer(
     transferId: string,
     transferDataToUpdate: UpdateTransferDto,
-    extraParams?: KrayonAPICommonOptions
+    extraParams?: KrayonAPICommonOptions,
   ) {
     const { abortSignal } = extraParams || {};
     return this.apiClient.patch<DataWrap<Transfer>>(
@@ -134,7 +159,7 @@ export class KrayonTransferSDK {
       transferDataToUpdate,
       {
         signal: abortSignal,
-      }
+      },
     );
   }
 

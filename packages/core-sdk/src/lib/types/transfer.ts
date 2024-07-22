@@ -49,6 +49,13 @@ export interface Transaction {
   block_time_stamp: string;
 }
 
+export interface WithdrawalBridgeTransaction {
+  account_id: string;
+  amount: string;
+  wallet: string | undefined;
+  symbol: string;
+}
+
 export interface WithdrawalTransaction {
   amount: string;
   wallet: string | undefined;
