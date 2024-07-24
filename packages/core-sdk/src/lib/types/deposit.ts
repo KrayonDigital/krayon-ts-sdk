@@ -93,6 +93,7 @@ export type PaymentMethod =
   | 'UPI'
   | 'UPI_SAP'
   | 'PAYTM'
+  | 'PAYTM_UTR'
   | 'CRYPTO'
   | 'NETBANKING'
   | 'YELLOWCARD_PIN'
