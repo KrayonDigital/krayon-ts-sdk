@@ -76,7 +76,7 @@ export interface MerchantDepositBalance {
   sum_deposits: number;
   sum_withdrawals: number;
   sum_settled_deposits: number;
-  accumulated_rolling_reserve: number;
+  rolling_reserve: number;
   available_balance: number;
   balance: number;
   currency: string;
