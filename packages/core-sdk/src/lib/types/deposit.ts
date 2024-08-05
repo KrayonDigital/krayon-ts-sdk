@@ -46,6 +46,7 @@ export interface MerchantDeposit {
   return_url: string;
   status: DepositStatus;
   wallet?: Wallet;
+  crypto_balance?: string;
   webhook_url: string;
 }
 
